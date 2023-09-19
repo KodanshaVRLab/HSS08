@@ -53,12 +53,13 @@ public class OVRHand : MonoBehaviour,
     }
 
     [SerializeField]
-    private Hand HandType = Hand.None;
+    public Hand HandType = Hand.None;
 
     internal void SetHandType(Hand type)
     {
         HandType = type;
     }
+    
 
     [SerializeField]
     private Transform _pointerPoseRoot = null;

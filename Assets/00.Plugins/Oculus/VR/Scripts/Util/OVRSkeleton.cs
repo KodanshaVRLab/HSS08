@@ -318,7 +318,7 @@ public class OVRSkeleton : MonoBehaviour
         }
     }
 
-    protected virtual Transform GetBoneTransform(BoneId boneId) => null;
+    public virtual Transform GetBoneTransform(BoneId boneId) => null;
 
     protected virtual void InitializeBones()
     {
