@@ -68,7 +68,7 @@ MonoBehaviour:
   - ResizablePrefab: {fileID: 7329915652745048277, guid: 3f9d66c99f5c29445810e3ca0f403dc8, type: 3}
     ClassificationLabel: WALL_FACE
     _editorClassificationIndex: 2
-  - ResizablePrefab: {fileID: 7329915652745048277, guid: 188c20275d4afa64897d72094f38de13, type: 3}
+  - ResizablePrefab: {fileID: 7329915652745048277, guid: 9e3d47fa7d34b244db95a4f1e63c4d41, type: 3}
     ClassificationLabel: DESK
     _editorClassificationIndex: 3
   - ResizablePrefab: {fileID: 2973080384943925371, guid: 83524e9c02f299042bbc10032eec84a6, type: 3}

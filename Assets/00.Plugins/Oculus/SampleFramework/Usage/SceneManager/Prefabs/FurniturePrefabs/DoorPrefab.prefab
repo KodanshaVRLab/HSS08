@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6399885256744025970}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Pivot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -23,12 +23,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 967670178835848305}
+  serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2711516976175582105}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5856039737024118747
 GameObject:
@@ -42,7 +43,7 @@ GameObject:
   - component: {fileID: 3547350544786038103}
   - component: {fileID: 4217828072754753514}
   - component: {fileID: 818735711328189117}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: DoorPrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -56,13 +57,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5856039737024118747}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6399885256744025970}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &3547350544786038103
 MeshFilter:
@@ -83,10 +85,12 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -113,6 +117,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!114 &818735711328189117
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -131,15 +136,7 @@ MonoBehaviour:
   ScalingY: 1
   PaddingY: 0.01
   PaddingYMax: -0.13
-  UseXRatio: 0
-  XRatioMultiplier: 1
   ScalingZ: 3
   PaddingZ: 0
   PaddingZMax: 0
-  NewSize: {x: 0.5480073, y: 0.5430036, z: 0.15656723}
-  DefaultSize: {x: 0.5480073, y: 0.5430036, z: 0.15656723}
-  Mesh: {fileID: 2619086233303812490, guid: 7a109b977f513824da5b75db64b1998d, type: 3}
-  Bounds:
-    m_Center: {x: 0, y: 0, z: 0}
-    m_Extent: {x: 0.27400365, y: 0.2715018, z: 0.078283615}
   _pivotTransform: {fileID: 6399885256744025970}

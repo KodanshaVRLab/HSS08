@@ -8,6 +8,10 @@ public class FingerCollider : MonoBehaviour
     public float maxLaserDistance=3f;
     public Transform mikasa;
     LineRenderer lr;
+    public bool hasTarget;
+    public LayerMask layerMask;
+
+    RaycastHit hito;
 
     // Start is called before the first frame update
     void Start()
@@ -37,7 +41,21 @@ public class FingerCollider : MonoBehaviour
     {
         if (!lr) return;
         lr.SetPosition(0, transform.position);
-        lr.SetPosition(1, transform.position - transform.right* maxLaserDistance);
+        Ray r = new Ray(transform.position,transform.position-transform.right*maxLaserDistance);
+       
+        if(Physics.Raycast(r,out hito, maxLaserDistance, layerMask))
+        {
+            lr.SetPosition(1,hito.point );
+            lr.material.color = Color.green;
+            hasTarget = true;
+        }
+        else
+        {
+            lr.SetPosition(1, transform.position - transform.right * maxLaserDistance);
+            lr.material.color = Color.red;
+            hasTarget = false;
+        }
+        
     }
 
     public Vector3 getLaserPointingPoint() => lr ? lr.GetPosition(1) : Vector3.zero;
@@ -45,9 +63,16 @@ public class FingerCollider : MonoBehaviour
     public void setMikasaPosition()
     {
          
-        if(mikasa)
+        if(mikasa && hasTarget)
         {
-            mikasa.position = getLaserPointingPoint();
+            if(hito.transform!=null)
+            {
+                mikasa.position = hito.point;
+                mikasa.rotation = Quaternion.LookRotation( hito.normal,Vector3.up);
+
+            }
+
+
         }
     }
 }

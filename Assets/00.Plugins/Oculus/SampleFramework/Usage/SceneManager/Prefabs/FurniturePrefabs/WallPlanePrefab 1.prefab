@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2634019197476865952}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Pivot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -43,7 +43,7 @@ GameObject:
   - component: {fileID: 6103168234842890892}
   - component: {fileID: 5641942835378885263}
   - component: {fileID: 1394123805377292947}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -148,7 +148,7 @@ GameObject:
   - component: {fileID: 3735273364007878582}
   - component: {fileID: 7897046696833906586}
   - component: {fileID: 7131736235779358964}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cube (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -253,7 +253,7 @@ GameObject:
   - component: {fileID: 2328542997216608320}
   - component: {fileID: 2282183737281310509}
   - component: {fileID: 6452138423234199815}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cube (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -358,7 +358,7 @@ GameObject:
   - component: {fileID: 4251060097223836053}
   - component: {fileID: 854406862341039361}
   - component: {fileID: 7329915652745048277}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: WallPlanePrefab 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -469,7 +469,7 @@ GameObject:
   - component: {fileID: 7791811087969987043}
   - component: {fileID: 5493952804357533657}
   - component: {fileID: 6391853146448064470}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cube (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
