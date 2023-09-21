@@ -6,7 +6,7 @@ public class FingerCollider : MonoBehaviour
 {
 
     public float maxLaserDistance=3f;
-    public Transform mikasa;
+    public MikasaController mikasa;
     LineRenderer lr;
     public bool hasTarget;
     public LayerMask layerMask;
@@ -65,12 +65,12 @@ public class FingerCollider : MonoBehaviour
          
         if(mikasa && hasTarget)
         {
-            if(hito.transform!=null)
+            MikasaInteractableObject Mio;
+            if(hito.transform.TryGetComponent<MikasaInteractableObject>(out Mio))
             {
-                mikasa.position = hito.point;
-                mikasa.rotation = Quaternion.LookRotation( hito.normal,Vector3.up);
-
+                Mio.SetupMikasa(mikasa);
             }
+            
 
 
         }

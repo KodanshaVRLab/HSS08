@@ -376,6 +376,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 139dace57566b564ab140c6ae208b7c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!4 &856048518 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 400266, guid: 5a2b11625972f52488dbc4afc71c028e, type: 3}
+  m_PrefabInstance: {fileID: 1654458314}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1051031984
 GameObject:
   m_ObjectHideFlags: 0
@@ -441,6 +446,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneManager: {fileID: 1340995252}
+  wallMarker: {fileID: 6885241356606642832, guid: 9924628495b2db943bb28924c144c9c2, type: 3}
 --- !u!114 &1340995255
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -628,7 +634,7 @@ MonoBehaviour:
   OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2071696441}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: MikasaController, Assembly-CSharp
         m_MethodName: OnPlayerTouch
         m_Mode: 1
@@ -862,7 +868,7 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 100004, guid: 5a2b11625972f52488dbc4afc71c028e, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 2071696441}
+      addedObject: {fileID: 2071696442}
   m_SourcePrefab: {fileID: 100100000, guid: 5a2b11625972f52488dbc4afc71c028e, type: 3}
 --- !u!1001 &1773443301
 PrefabInstance:
@@ -1138,9 +1144,29 @@ PrefabInstance:
       propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 3852490115730414727, guid: 835e735ca71bf78459fb2cababd74112, type: 3}
+      propertyPath: m_LocalScale.x
+      value: -0.08793582
+      objectReference: {fileID: 0}
+    - target: {fileID: 3852490115730414727, guid: 835e735ca71bf78459fb2cababd74112, type: 3}
+      propertyPath: m_LocalScale.y
+      value: -0.17833385
+      objectReference: {fileID: 0}
+    - target: {fileID: 3852490115730414727, guid: 835e735ca71bf78459fb2cababd74112, type: 3}
+      propertyPath: m_LocalScale.z
+      value: -0.08793582
+      objectReference: {fileID: 0}
+    - target: {fileID: 4223158628030699421, guid: 835e735ca71bf78459fb2cababd74112, type: 3}
+      propertyPath: mikasa
+      value: 
+      objectReference: {fileID: 2053951905}
     - target: {fileID: 4223158628030699421, guid: 835e735ca71bf78459fb2cababd74112, type: 3}
       propertyPath: maxLaserDistance
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4230168997663885989, guid: 835e735ca71bf78459fb2cababd74112, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7086413624857196720, guid: 835e735ca71bf78459fb2cababd74112, type: 3}
       propertyPath: m_Enabled
@@ -1163,8 +1189,9 @@ GameObject:
   - component: {fileID: 2053951903}
   - component: {fileID: 2053951902}
   - component: {fileID: 2053951901}
+  - component: {fileID: 2053951905}
   m_Layer: 0
-  m_Name: Sphere
+  m_Name: MikasaController
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1198,7 +1225,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2053951900}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -1257,9 +1284,31 @@ Transform:
   - {fileID: 2071696440}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2053951905
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2053951900}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8fa27b079660f2847a99e4024d1efaed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  modelTransform: {fileID: 2071696440}
+  feetTransform: {fileID: 856048518}
+  anim: {fileID: 2071696439}
+  test: {x: 0, y: 0, z: 0}
+  audioSource: {fileID: 2071696442}
 --- !u!1 &2071696435 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 100004, guid: 5a2b11625972f52488dbc4afc71c028e, type: 3}
+  m_PrefabInstance: {fileID: 1654458314}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &2071696439 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 9500000, guid: 5a2b11625972f52488dbc4afc71c028e, type: 3}
   m_PrefabInstance: {fileID: 1654458314}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &2071696440 stripped
@@ -1267,21 +1316,102 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 400004, guid: 5a2b11625972f52488dbc4afc71c028e, type: 3}
   m_PrefabInstance: {fileID: 1654458314}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2071696441
-MonoBehaviour:
+--- !u!82 &2071696442
+AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2071696435}
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8fa27b079660f2847a99e4024d1efaed, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cameraTransform: {fileID: 0}
-  positionOffset: {x: 0, y: 0, z: 0}
-  anim: {fileID: 0}
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 1
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1001 &2085297826
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1300,7 +1430,7 @@ PrefabInstance:
       objectReference: {fileID: 2107458253378869099, guid: 72699aabbd4113a4fa37300ad49a9a63, type: 3}
     - target: {fileID: 747806495401477012, guid: c813208e672e3074bbe118e1a9ee94fd, type: 3}
       propertyPath: PrefabOverrides.Array.size
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 747806495401477012, guid: c813208e672e3074bbe118e1a9ee94fd, type: 3}
       propertyPath: PrefabOverrides.Array.data[0].Prefab
@@ -1449,10 +1579,22 @@ PrefabInstance:
       propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 3852490115730414727, guid: 835e735ca71bf78459fb2cababd74112, type: 3}
+      propertyPath: m_LocalScale.x
+      value: -0.08793582
+      objectReference: {fileID: 0}
+    - target: {fileID: 3852490115730414727, guid: 835e735ca71bf78459fb2cababd74112, type: 3}
+      propertyPath: m_LocalScale.y
+      value: -0.17833385
+      objectReference: {fileID: 0}
+    - target: {fileID: 3852490115730414727, guid: 835e735ca71bf78459fb2cababd74112, type: 3}
+      propertyPath: m_LocalScale.z
+      value: -0.08793582
+      objectReference: {fileID: 0}
     - target: {fileID: 4223158628030699421, guid: 835e735ca71bf78459fb2cababd74112, type: 3}
       propertyPath: mikasa
       value: 
-      objectReference: {fileID: 2053951904}
+      objectReference: {fileID: 2053951905}
     - target: {fileID: 4223158628030699421, guid: 835e735ca71bf78459fb2cababd74112, type: 3}
       propertyPath: layerMask.m_Bits
       value: 64
@@ -1460,6 +1602,10 @@ PrefabInstance:
     - target: {fileID: 4223158628030699421, guid: 835e735ca71bf78459fb2cababd74112, type: 3}
       propertyPath: maxLaserDistance
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4230168997663885989, guid: 835e735ca71bf78459fb2cababd74112, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4467590451511511559, guid: 835e735ca71bf78459fb2cababd74112, type: 3}
       propertyPath: m_IsActive
