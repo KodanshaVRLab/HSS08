@@ -26,9 +26,9 @@ public class MikasaController : MonoBehaviour
     }
     private IEnumerator Start()
     {
+       
+        anim = GetComponentInChildren<Animator>();
         yield return new WaitForSeconds(1f);
-        anim = GetComponent<Animator>();
-        
         resetPosition();
 
     }
@@ -36,7 +36,7 @@ public class MikasaController : MonoBehaviour
     
     public void OnPlayerTouch()
     {
-        anim = GetComponent<Animator>();
+        anim = GetComponentInChildren<Animator>();
         if (anim )
         {
             anim.SetTrigger("touch");
@@ -64,7 +64,7 @@ public class MikasaController : MonoBehaviour
         test = positionOffset;
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            resetPosition();
+            OnPlayerTouch();
         }
 
     }
