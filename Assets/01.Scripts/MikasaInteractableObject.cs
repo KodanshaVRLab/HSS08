@@ -16,18 +16,36 @@ public class MikasaInteractableObject : MonoBehaviour
         {
             if (animController)
             {
-                if (mikasa.GetComponentInChildren<Animator>())
-                    mikasa.GetComponentInChildren<Animator>().runtimeAnimatorController = animController;
+                StartCoroutine(switchAnimator(mikasa));
 
             }
-            mikasa.transform.parent = mikasaTransformController;            
-            mikasa.resetPosition() ;
-            if (audioClip)
+            else
             {
-                mikasa.PlayAudioClip(audioClip);
+                mikasa.transform.parent = mikasaTransformController;
+                mikasa.resetPosition();
+                if (audioClip)
+                {
+                    mikasa.PlayAudioClip(audioClip);
 
+                }
             }
            
+           
+
+        }
+    }
+
+
+    public IEnumerator switchAnimator(MikasaController mikasa)
+    {
+        if (mikasa.GetComponentInChildren<Animator>())
+            mikasa.GetComponentInChildren<Animator>().runtimeAnimatorController = animController;
+        yield return new WaitForSeconds(1f);
+        mikasa.transform.parent = mikasaTransformController;
+        mikasa.resetPosition();
+        if (audioClip)
+        {
+            mikasa.PlayAudioClip(audioClip);
 
         }
     }

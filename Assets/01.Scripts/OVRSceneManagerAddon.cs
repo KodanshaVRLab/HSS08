@@ -14,7 +14,7 @@ public class OVRSceneManagerAddon : MonoBehaviour
     {
         sceneManager.SceneModelLoadedSuccessfully += OnSceneModelLoadedSuccesfully;
       
-
+        
         //Check if the boundary is configured
         bool configured = OVRManager.boundary.GetConfigured();
  

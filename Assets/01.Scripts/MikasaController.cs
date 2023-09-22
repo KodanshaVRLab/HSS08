@@ -24,16 +24,20 @@ public class MikasaController : MonoBehaviour
            
         }
     }
-    private void Start()
+    private IEnumerator Start()
     {
+        yield return new WaitForSeconds(1f);
         anim = GetComponent<Animator>();
+        
         resetPosition();
+
     }
 
     
     public void OnPlayerTouch()
     {
-        if(anim )
+        anim = GetComponent<Animator>();
+        if (anim )
         {
             anim.SetTrigger("touch");
         }
@@ -52,6 +56,7 @@ public class MikasaController : MonoBehaviour
         transform.parent = oldParent;
         modelTransform.parent = transform;
         transform.position = oldPos;
+        
     }
     // Update is called once per frame
     void Update()
