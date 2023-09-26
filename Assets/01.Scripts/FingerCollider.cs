@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,12 +13,25 @@ public class FingerCollider : MonoBehaviour
     public LayerMask layerMask;
 
     RaycastHit hito;
+    public OVRHand controllingHand, otherHand;
+    public bool mikasaSelected, twoHandSelection,controllingHandSelection,otherHandSelection;
+    public bool controllingHandPinch, otherHandPinch;
+    VRDistanceButton currentVRDistanceBtn;
+
+    public PlayerMG playerMG;
+
+    Vector3 controllingHandInitialPos, otherHandInitialPos, otherHandInitialRot;
+
+    float handsInitialDistance;
+    public Transform rayOrigin;
+    MikasaInteractableObject currentController;
 
     // Start is called before the first frame update
     void Start()
     {
         GetComponent<Renderer>().material.color = Color.green;
         lr = GetComponent<LineRenderer>();
+        rayOrigin = rayOrigin ? rayOrigin : transform;
     }
     private void OnTriggerEnter(Collider other)
     {
@@ -40,22 +54,117 @@ public class FingerCollider : MonoBehaviour
     void Update()
     {
         if (!lr) return;
-        lr.SetPosition(0, transform.position);
-        Ray r = new Ray(transform.position,transform.position-transform.right*maxLaserDistance);
-       
-        if(Physics.Raycast(r,out hito, maxLaserDistance, layerMask))
+        lr.SetPosition(0, rayOrigin.position);
+        Ray r = new Ray(rayOrigin.position, rayOrigin.position- rayOrigin.right*maxLaserDistance);
+        controllingHandPinch = controllingHand && controllingHand.GetFingerIsPinching(OVRHand.HandFinger.Index);
+        otherHandPinch = otherHand && otherHand.GetFingerIsPinching(OVRHand.HandFinger.Index);
+        if (Physics.Raycast(r,out hito, maxLaserDistance, layerMask))
         {
-            lr.SetPosition(1,hito.point );
-            lr.material.color = Color.green;
-            hasTarget = true;
+            if (!mikasaSelected)
+            {
+
+                if (hito.transform.TryGetComponent<VRDistanceButton>(out currentVRDistanceBtn) && controllingHandPinch)
+                {
+                    hito.transform.GetComponent<VRDistanceButton>().Click();
+                    mikasaSelected = true;
+                }
+                if(!mikasa.isCharacterPlaced || (currentController&& currentController.transform!= hito.transform) )
+                {
+
+                    if(controllingHandPinch && hito.transform.TryGetComponent<MikasaInteractableObject>(out currentController))
+                    {
+                        currentController.SetupMikasa(mikasa);
+                    }                  
+                    
+                }
+                lr.SetPosition(1, hito.point);
+                lr.material.color = Color.green;
+                hasTarget = true;
+            }
+             
         }
         else
         {
-            lr.SetPosition(1, transform.position - transform.right * maxLaserDistance);
+            lr.SetPosition(1, rayOrigin.position - rayOrigin.right * maxLaserDistance);
             lr.material.color = Color.red;
             hasTarget = false;
+            if(mikasaSelected && currentVRDistanceBtn)
+            {
+                currentVRDistanceBtn.Diselect();
+                mikasaSelected = false;
+                currentVRDistanceBtn = null;
+
+            }
         }
-        
+
+
+        if(mikasa.currentState== MikasaController.State.editing)
+        {
+            UpdateTrasnform();
+        }
+    }
+
+    private void UpdateTrasnform()
+    {
+        if (controllingHandPinch && otherHandPinch)
+        {
+
+            if(playerMG)
+            {
+                if(!twoHandSelection)
+                {
+                    controllingHandInitialPos = controllingHand.transform.position;
+                    otherHandInitialPos = otherHand.transform.position;
+                    handsInitialDistance = Vector3.Distance(controllingHandInitialPos, otherHandInitialPos);
+                    twoHandSelection = true;
+                }
+                else
+                {
+                    var delta = Vector3.Distance(controllingHand.transform.position, otherHand.transform.position) - handsInitialDistance;
+                    playerMG.UpdateScale(delta);
+                }
+                
+            }
+        }
+        else //if only one hand controlling hand translation, other hand rotation
+        {
+            
+            twoHandSelection = false;
+            if(!otherHandSelection && controllingHandPinch)
+            {
+                if(!controllingHandSelection)
+                {
+                    controllingHandInitialPos = controllingHand.transform.position;
+                    controllingHandSelection = true;
+                }
+                else
+                {
+                    var delta = controllingHand.transform.position - controllingHandInitialPos;
+                    playerMG.UpdatePosition(delta);
+                }
+            }
+            else
+            {
+                controllingHandSelection = false;
+            }
+            if(!controllingHandSelection && otherHandPinch)
+            {
+                if (!otherHandSelection)
+                {
+                    otherHandInitialPos = otherHand.transform.position;
+                    otherHandSelection = true;
+                }
+                else
+                {
+                    var delta = otherHand.transform.position- otherHandInitialPos;
+                    playerMG.UpdateRotaion(delta);
+                }
+            }
+            else
+            {
+                otherHandSelection = false;
+            }
+        }
     }
 
     public Vector3 getLaserPointingPoint() => lr ? lr.GetPosition(1) : Vector3.zero;

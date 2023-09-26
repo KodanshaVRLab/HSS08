@@ -7,11 +7,18 @@ public class HandInteractor : MonoBehaviour
     public GameObject sphereCollider,vrButton;
     public OVRSkeleton skeleton;
     OVRHand hand;
+    bool setupReady = false;
+    Coroutine setupCO;
     // Start is called before the first frame update
-     
-    IEnumerator Start()
+
+    private void Start()
     {
-        yield return new WaitForSeconds(3f);
+        setupCO = StartCoroutine(Setup());
+        
+    }
+    IEnumerator Setup()
+    {
+        yield return new WaitForSeconds(1f);
         skeleton = GetComponent<OVRSkeleton>();
         hand = GetComponent<OVRHand>();
         if(!skeleton || !sphereCollider || !hand)
@@ -25,6 +32,7 @@ public class HandInteractor : MonoBehaviour
             vrButton.transform.localPosition = Vector3.zero;
             vrButton.transform.localRotation = Quaternion.identity;
             vrButton.SetActive(true);
+            
         }
         if (skeleton.Bones.Count >= 20) 
         {
@@ -35,9 +43,11 @@ public class HandInteractor : MonoBehaviour
                 sphereCollider.transform.localPosition = Vector3.zero;
                 sphereCollider.transform.localRotation = Quaternion.identity;
                 sphereCollider.SetActive(true);
+                setupReady = true;
             }
 
         }
+        setupCO = null;
         
 
        
@@ -48,7 +58,11 @@ public class HandInteractor : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.Space))
         {
-            StartCoroutine(Start());
+            StartCoroutine(Setup());
+        }
+        if(setupCO== null && !setupReady)
+        {
+            setupCO = StartCoroutine(Setup());
         }
     }
 }

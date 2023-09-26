@@ -5,7 +5,7 @@ using UnityEngine.Events;
 
 public class VRButton : MonoBehaviour
 {
-    public UnityEvent OnClick;
+    public UnityEvent OnClick, onDiselect;
     public float coolOffTime = 3f;
     public bool available = true;
     // Start is called before the first frame update
@@ -13,7 +13,7 @@ public class VRButton : MonoBehaviour
     {
         
     }
-    public void Click()
+    public virtual void Click()
     {
         if(available)
         {
@@ -21,7 +21,10 @@ public class VRButton : MonoBehaviour
             StartCoroutine(coolDown());
         }
     }
-
+    public virtual void Diselect()
+    {
+        onDiselect?.Invoke();
+    }
     IEnumerator coolDown()
     {
         available = false;

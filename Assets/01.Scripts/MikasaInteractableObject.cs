@@ -1,3 +1,4 @@
+using Sirenix.OdinInspector;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,6 +11,20 @@ public class MikasaInteractableObject : MonoBehaviour
     public AudioClip audioClip;
     public RuntimeAnimatorController animController;
     public TextMesh debugText;
+
+    [Button]
+    public void debugSetupMikasa()
+    {
+        var x = FindObjectOfType<MikasaController>();
+        if(x)
+        {
+            SetupMikasa(x);
+        }
+        else
+        {
+            Debug.LogError("Mikasa not found");
+        }
+    }
     public void SetupMikasa(MikasaController mikasa)
     {
         if(mikasa && mikasaTransformController)
@@ -21,8 +36,7 @@ public class MikasaInteractableObject : MonoBehaviour
             }
             else
             {
-                mikasa.transform.parent = mikasaTransformController;
-                mikasa.resetPosition();
+                mikasa.resetPosition(mikasaTransformController,true);
                 if (audioClip)
                 {
                     mikasa.PlayAudioClip(audioClip);
@@ -41,8 +55,8 @@ public class MikasaInteractableObject : MonoBehaviour
         if (mikasa.GetComponentInChildren<Animator>())
             mikasa.GetComponentInChildren<Animator>().runtimeAnimatorController = animController;
         yield return new WaitForSeconds(1f);
-        mikasa.transform.parent = mikasaTransformController;
-        mikasa.resetPosition();
+        
+        mikasa.resetPosition(mikasaTransformController,true);
         if (audioClip)
         {
             mikasa.PlayAudioClip(audioClip);
