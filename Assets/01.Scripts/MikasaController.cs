@@ -1,6 +1,8 @@
+using Sirenix.OdinInspector;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class MikasaController : MonoBehaviour
 {
@@ -15,7 +17,17 @@ public class MikasaController : MonoBehaviour
 
     public bool isCharacterPlaced;
     public Transform currentParent;
-   
+
+    public UnityEvent onMikasaPlaced;
+    public PlayerMG playerMG;
+
+    public GameObject blobShadow;
+
+    Vector3 originalScale;
+    Quaternion originalRotation;
+    Transform originalParent;
+    RuntimeAnimatorController originalAnimator;
+
     public enum State
     {
         animating=0,
@@ -35,9 +47,23 @@ public class MikasaController : MonoBehaviour
     {
         currentState = (State)newState;
     }
+
+
     public void toggleState()
     {
         updateState(currentState == State.editing ? 0 : 1);
+        if(currentState!= State.editing && playerMG)
+        {
+            playerMG.disableGizmos();
+            blobShadow.SetActive(false);
+        }
+        else
+        {
+            playerMG.enableGizmos();
+            blobShadow.SetActive(true);
+        }
+
+        
     }
     public void PlayAudioClip(AudioClip newClip)
     {
@@ -53,13 +79,26 @@ public class MikasaController : MonoBehaviour
     {
        
         anim = GetComponentInChildren<Animator>();
+        originalScale = transform.localScale;
+        originalRotation = transform.rotation;
+        originalAnimator = anim ? anim.runtimeAnimatorController : null;
+        originalParent = transform.parent;
+        modelTransform.localPosition = Vector3.zero;
+        modelTransform.localRotation = Quaternion.identity;
         
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(3f);
         resetPosition(transform.parent,false);
+
 
     }
 
-    
+    public void ResetScale()
+    {
+        transform.parent = originalParent;
+        transform.rotation = originalRotation;
+        if (anim) anim.runtimeAnimatorController = originalAnimator;
+        transform.localScale = originalScale;
+    }
     public void OnPlayerTouch()
     {
         anim = GetComponentInChildren<Animator>();
@@ -69,12 +108,14 @@ public class MikasaController : MonoBehaviour
         }
     }
 
+    [Button]
     public void resetPosition(Transform newParent, bool placingCharacter)
     {
         currentParent = newParent;
         transform.parent = currentParent;
         transform.localPosition = Vector3.zero;
         transform.localRotation = Quaternion.identity;
+        if(placingCharacter)
         transform.localScale = Vector3.one;
          
         
@@ -87,10 +128,15 @@ public class MikasaController : MonoBehaviour
         modelTransform.parent = transform;
         transform.position = oldPos;
         isCharacterPlaced = placingCharacter;
-        
+        if (placingCharacter)
+            onMikasaPlaced.Invoke();
+
+
     }
     // Update is called once per frame
     void Update()
+
+
     {
         test = positionOffset;
         if (Input.GetKeyDown(KeyCode.Space))

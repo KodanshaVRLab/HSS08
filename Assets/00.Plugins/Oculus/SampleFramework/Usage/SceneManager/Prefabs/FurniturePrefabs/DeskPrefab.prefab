@@ -84,7 +84,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5627105389985735266
 Transform:
   m_ObjectHideFlags: 0
@@ -686,7 +686,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mikasaTransformController: {fileID: 3256608393938010394}
   audioClip: {fileID: 8300000, guid: 8905c099c4807774187f88a31dd16ba1, type: 3}
-  animController: {fileID: 9100000, guid: a4734fd81ea91c24188abcfd303fa771, type: 2}
+  animControllerId: 1
   debugText: {fileID: 3828036019372054559}
 --- !u!1 &7624415567847564927
 GameObject:

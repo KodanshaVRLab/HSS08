@@ -26,12 +26,17 @@ public class FingerCollider : MonoBehaviour
     public Transform rayOrigin;
     MikasaInteractableObject currentController;
 
+    public bool useRot;
+    public GameObject currentSelectedObject;
+    public List<GameObject> placableObjects;
+    public TextMesh debugText;
     // Start is called before the first frame update
     void Start()
     {
         GetComponent<Renderer>().material.color = Color.green;
         lr = GetComponent<LineRenderer>();
         rayOrigin = rayOrigin ? rayOrigin : transform;
+        currentSelectedObject = mikasa.gameObject;
     }
     private void OnTriggerEnter(Collider other)
     {
@@ -45,6 +50,10 @@ public class FingerCollider : MonoBehaviour
         
         
 
+    }
+    public void updateCurrentObject(GameObject newObject)
+    {
+        currentSelectedObject = newObject;
     }
     private void OnTriggerExit(Collider other)
     {
@@ -60,20 +69,37 @@ public class FingerCollider : MonoBehaviour
         otherHandPinch = otherHand && otherHand.GetFingerIsPinching(OVRHand.HandFinger.Index);
         if (Physics.Raycast(r,out hito, maxLaserDistance, layerMask))
         {
-            if (!mikasaSelected)
+            if(debugText)
+            {
+                debugText.text = hito.normal.normalized.ToString();
+            }
+            if(currentSelectedObject && hito.normal.normalized.y>=0.91f)
+            {
+                currentSelectedObject.SetActive(true);
+                currentSelectedObject.transform.position = hito.point- new Vector3(0, mikasa.blobShadow.transform.localPosition.y,0);
+                lr.material.color = Color.green;
+            }
+            else
+            {
+                lr.material.color = Color.red;
+                currentSelectedObject.SetActive(false);
+            }
+
+            //if (!mikasaSelected)
             {
 
                 if (hito.transform.TryGetComponent<VRDistanceButton>(out currentVRDistanceBtn) && controllingHandPinch)
                 {
-                    hito.transform.GetComponent<VRDistanceButton>().Click();
+                    //hito.transform.GetComponent<VRDistanceButton>().Click();
                     mikasaSelected = true;
                 }
-                if(!mikasa.isCharacterPlaced || (currentController&& currentController.transform!= hito.transform) )
+                if(mikasa.currentState!= MikasaController.State.editing || (currentController&& currentController.transform!= hito.transform) )
                 {
 
                     if(controllingHandPinch && hito.transform.TryGetComponent<MikasaInteractableObject>(out currentController))
                     {
                         currentController.SetupMikasa(mikasa);
+                        currentSelectedObject = null;
                     }                  
                     
                 }
@@ -85,12 +111,17 @@ public class FingerCollider : MonoBehaviour
         }
         else
         {
+            
+            if (debugText)
+            {
+                debugText.text = "";
+            }
             lr.SetPosition(1, rayOrigin.position - rayOrigin.right * maxLaserDistance);
             lr.material.color = Color.red;
             hasTarget = false;
             if(mikasaSelected && currentVRDistanceBtn)
             {
-                currentVRDistanceBtn.Diselect();
+               // currentVRDistanceBtn.Diselect();
                 mikasaSelected = false;
                 currentVRDistanceBtn = null;
 
@@ -152,12 +183,16 @@ public class FingerCollider : MonoBehaviour
                 if (!otherHandSelection)
                 {
                     otherHandInitialPos = otherHand.transform.position;
+                    otherHandInitialRot = otherHand.transform.rotation.eulerAngles;
                     otherHandSelection = true;
                 }
                 else
                 {
                     var delta = otherHand.transform.position- otherHandInitialPos;
-                    playerMG.UpdateRotaion(delta);
+                    var deltarot = otherHand.transform.rotation.eulerAngles - otherHandInitialRot;
+                    delta = new Vector3(delta.y, delta.z, delta.x);
+                    
+                    playerMG.UpdateRotaion(useRot? deltarot:delta);
                 }
             }
             else

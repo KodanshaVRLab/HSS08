@@ -14,15 +14,32 @@ public class PlayerMG : MonoBehaviour
     public float movingSpeed = 0.2f;
     public float rotatingSpeed = 0.01f;
     public Transform cam;
+    public bool gizmosEnabled;
+    public Transform leftHandPos, rightHandPos;
 
+    public void disableGizmos()
+    {
+        positionGizmo.SetActive(false);
+        rotationGizmo.SetActive(false);
+        scaleGizmo.SetActive(false);
+        gizmosEnabled = false;
+    }
+    public void enableGizmos()
+    {
+        positionGizmo.SetActive(true);
+        rotationGizmo.SetActive(true);
+        scaleGizmo.SetActive(true);
+        gizmosEnabled = true;
+       
+    }
     public void UpdatePosition(Vector3 delta)
     {
         if(cam)
         {
-            positionGizmo.transform.position = cam.transform.position + new Vector3(0, 0.5f, 3f);
-            positionGizmo.SetActive(true);
+            
+         /*   positionGizmo.SetActive(true);
             rotationGizmo.SetActive(false);
-            scaleGizmo.SetActive(false);
+            scaleGizmo.SetActive(false);*/
         }
         if(controller.isCharacterPlaced && controller.currentParent)
         {
@@ -33,10 +50,9 @@ public class PlayerMG : MonoBehaviour
     {
         if (cam)
         {
-            positionGizmo.transform.position = cam.transform.position + new Vector3(0, 0.5f, 3f);
-            positionGizmo.SetActive(false);
+           /*  positionGizmo.SetActive(false);
             rotationGizmo.SetActive(true);
-            scaleGizmo.SetActive(false);
+            scaleGizmo.SetActive(false);*/
         }
         if (controller.isCharacterPlaced && controller.currentParent)
         {
@@ -47,10 +63,9 @@ public class PlayerMG : MonoBehaviour
     {
         if (cam)
         {
-            positionGizmo.transform.position = cam.transform.position + new Vector3(0, 0.5f, 3f);
-            positionGizmo.SetActive(false);
+            /* positionGizmo.SetActive(false);
             rotationGizmo.SetActive(false);
-            scaleGizmo.SetActive(true);
+            scaleGizmo.SetActive(true);*/
         }
         if (controller.isCharacterPlaced && controller.currentParent)
         {
@@ -65,6 +80,9 @@ public class PlayerMG : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if(gizmosEnabled)
+        {
+            scaleGizmo.transform.position = (leftHandPos.position + rightHandPos.position) * 0.5f;
+        }
     }
 }

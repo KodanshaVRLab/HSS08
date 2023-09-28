@@ -3,15 +3,46 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[SerializeField]
+public struct interactableData
+{
+    public string id;
+    public Vector3 position;
+    public Quaternion rotation;
+    public Vector3 scale;
+  
+    public interactableData(string id, Vector3 position, Quaternion rotation, Vector3 scale)
+    {
+        this.id = id;
+        this.position = position;
+        this.rotation = rotation;
+        this.scale = scale;
+    }
+}
 public class MikasaInteractableObject : MonoBehaviour
 {
     // Start is called before the first frame update
 
     public Transform mikasaTransformController;
     public AudioClip audioClip;
-    public RuntimeAnimatorController animController;
+    public int animControllerId;
     public TextMesh debugText;
-
+    public interactableData data;
+    
+    [Button]
+    public void saveData()
+    {
+        data = new interactableData(name, mikasaTransformController.position, mikasaTransformController.rotation, mikasaTransformController.localScale);
+        var dataString= JsonUtility.ToJson(data);
+        PlayerPrefs.SetString(name+"_Data", dataString);
+    }
+    [Button]
+    public void LoadData()
+    {
+        data = JsonUtility.FromJson<interactableData>(PlayerPrefs.GetString(name + "_Data"));
+        Debug.Log("loaded " + data.id);
+    }
+    
     [Button]
     public void debugSetupMikasa()
     {
@@ -29,7 +60,7 @@ public class MikasaInteractableObject : MonoBehaviour
     {
         if(mikasa && mikasaTransformController)
         {
-            if (animController)
+            if (animControllerId>=0)
             {
                 StartCoroutine(switchAnimator(mikasa));
 
@@ -53,7 +84,7 @@ public class MikasaInteractableObject : MonoBehaviour
     public IEnumerator switchAnimator(MikasaController mikasa)
     {
         if (mikasa.GetComponentInChildren<Animator>())
-            mikasa.GetComponentInChildren<Animator>().runtimeAnimatorController = animController;
+            mikasa.GetComponentInChildren<Animator>().SetInteger("State",animControllerId);
         yield return new WaitForSeconds(1f);
         
         mikasa.resetPosition(mikasaTransformController,true);

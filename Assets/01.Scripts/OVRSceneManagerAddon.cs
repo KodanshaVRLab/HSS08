@@ -45,7 +45,9 @@ public class OVRSceneManagerAddon : MonoBehaviour
         {
             if (obj.GetComponent<Collider>() == null)
             {
-                obj.gameObject.AddComponent<BoxCollider>();
+               var col= obj.gameObject.AddComponent<BoxCollider>();
+                col.size = new Vector3(col.size.x, col.size.y * 1f, col.size.z);
+
             }
 
         }
