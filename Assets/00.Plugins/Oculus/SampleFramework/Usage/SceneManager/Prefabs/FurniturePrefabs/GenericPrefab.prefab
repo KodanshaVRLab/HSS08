@@ -154,7 +154,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mikasaTransformController: {fileID: 8712976845072305075}
   audioClip: {fileID: 8300000, guid: c90c96b3ccb12d747b1ef5ebe4680168, type: 3}
-  animControllerId: 0
+  animControllerId: 2
   debugText: {fileID: 0}
 --- !u!1 &8722361452120693593
 GameObject:

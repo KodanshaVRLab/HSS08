@@ -75,7 +75,7 @@ public class MikasaController : MonoBehaviour
            
         }
     }
-    private IEnumerator Start()
+    private void Start()
     {
        
         anim = GetComponentInChildren<Animator>();
@@ -86,7 +86,7 @@ public class MikasaController : MonoBehaviour
         modelTransform.localPosition = Vector3.zero;
         modelTransform.localRotation = Quaternion.identity;
         
-        yield return new WaitForSeconds(3f);
+        
         resetPosition(transform.parent,false);
 
 
@@ -96,7 +96,7 @@ public class MikasaController : MonoBehaviour
     {
         transform.parent = originalParent;
         transform.rotation = originalRotation;
-        if (anim) anim.runtimeAnimatorController = originalAnimator;
+        if (anim) anim.SetInteger("State",0);
         transform.localScale = originalScale;
     }
     public void OnPlayerTouch()

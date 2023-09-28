@@ -85,7 +85,7 @@ public class MikasaInteractableObject : MonoBehaviour
     {
         if (mikasa.GetComponentInChildren<Animator>())
             mikasa.GetComponentInChildren<Animator>().SetInteger("State",animControllerId);
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForEndOfFrame();
         
         mikasa.resetPosition(mikasaTransformController,true);
         if (audioClip)

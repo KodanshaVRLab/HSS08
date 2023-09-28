@@ -30,6 +30,7 @@ public class FingerCollider : MonoBehaviour
     public GameObject currentSelectedObject;
     public List<GameObject> placableObjects;
     public TextMesh debugText;
+    public VRButton handButton;
     // Start is called before the first frame update
     void Start()
     {
@@ -43,7 +44,7 @@ public class FingerCollider : MonoBehaviour
         GetComponent<Renderer>().material.color = Color.red;
         VRButton button;
         
-        if (other.TryGetComponent<VRButton>(out button))
+        if (other.TryGetComponent<VRButton>(out button) && button!=handButton)
         {
             button.Click();
         }
@@ -62,61 +63,72 @@ public class FingerCollider : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (debugText)
+        {
+            debugText.text = "has object " + (currentSelectedObject != null) + " left pinch" + controllingHandPinch.ToString();
+        }
         if (!lr) return;
         lr.SetPosition(0, rayOrigin.position);
         Ray r = new Ray(rayOrigin.position, rayOrigin.position- rayOrigin.right*maxLaserDistance);
         controllingHandPinch = controllingHand && controllingHand.GetFingerIsPinching(OVRHand.HandFinger.Index);
         otherHandPinch = otherHand && otherHand.GetFingerIsPinching(OVRHand.HandFinger.Index);
-        if (Physics.Raycast(r,out hito, maxLaserDistance, layerMask))
+        
+        if (currentSelectedObject)
         {
-            if(debugText)
+            lr.enabled = true;
+
+            if ( Physics.Raycast(r,out hito, maxLaserDistance, layerMask))
             {
-                debugText.text = hito.normal.normalized.ToString();
-            }
-            if(currentSelectedObject && hito.normal.normalized.y>=0.91f)
-            {
-                currentSelectedObject.SetActive(true);
-                currentSelectedObject.transform.position = hito.point- new Vector3(0, mikasa.blobShadow.transform.localPosition.y,0);
-                lr.material.color = Color.green;
+                
+                if(currentSelectedObject && hito.normal.normalized.y>=0.91f)
+                {
+                    currentSelectedObject.SetActive(true);
+                    currentSelectedObject.transform.position = hito.point;
+                    lr.material.color = Color.green;
+                }
+                else
+                {
+                    lr.material.color = Color.red;
+                    currentSelectedObject.SetActive(false);
+                }
+
+                //if (!mikasaSelected)
+                {
+
+                    if (hito.transform.TryGetComponent<VRDistanceButton>(out currentVRDistanceBtn) && controllingHandPinch)
+                    {
+                        //hito.transform.GetComponent<VRDistanceButton>().Click();
+                        mikasaSelected = true;
+                    }
+                    if(mikasa.currentState!= MikasaController.State.editing || (currentController&& currentController.transform!= hito.transform) )
+                    {
+
+                        if(controllingHandPinch && hito.transform.TryGetComponent<MikasaInteractableObject>(out currentController))
+                        {
+                            currentController.SetupMikasa(mikasa);
+                            currentSelectedObject = null;
+                        }                  
+                    
+                    }
+                    lr.SetPosition(1, hito.point);
+                    lr.material.color = Color.green;
+                    hasTarget = true;
+                }
             }
             else
             {
+                lr.SetPosition(1, rayOrigin.position - rayOrigin.right * maxLaserDistance);
                 lr.material.color = Color.red;
-                currentSelectedObject.SetActive(false);
             }
+               
 
-            //if (!mikasaSelected)
-            {
-
-                if (hito.transform.TryGetComponent<VRDistanceButton>(out currentVRDistanceBtn) && controllingHandPinch)
-                {
-                    //hito.transform.GetComponent<VRDistanceButton>().Click();
-                    mikasaSelected = true;
-                }
-                if(mikasa.currentState!= MikasaController.State.editing || (currentController&& currentController.transform!= hito.transform) )
-                {
-
-                    if(controllingHandPinch && hito.transform.TryGetComponent<MikasaInteractableObject>(out currentController))
-                    {
-                        currentController.SetupMikasa(mikasa);
-                        currentSelectedObject = null;
-                    }                  
-                    
-                }
-                lr.SetPosition(1, hito.point);
-                lr.material.color = Color.green;
-                hasTarget = true;
-            }
-             
         }
         else
         {
-            
-            if (debugText)
-            {
-                debugText.text = "";
-            }
-            lr.SetPosition(1, rayOrigin.position - rayOrigin.right * maxLaserDistance);
+            lr.enabled = false;
+
+             
+           /* lr.SetPosition(1, rayOrigin.position - rayOrigin.right * maxLaserDistance);
             lr.material.color = Color.red;
             hasTarget = false;
             if(mikasaSelected && currentVRDistanceBtn)
@@ -125,7 +137,7 @@ public class FingerCollider : MonoBehaviour
                 mikasaSelected = false;
                 currentVRDistanceBtn = null;
 
-            }
+            }*/
         }
 
 
