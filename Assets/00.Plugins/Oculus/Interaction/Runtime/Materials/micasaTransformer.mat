@@ -94,7 +94,7 @@ Material:
     - _Fresnel: 1
     - _FresnelOpacity: 0
     - _FresnelOpacityPower: 3.66
-    - _FresnelPower: 0.16
+    - _FresnelPower: 0
     - _GenerateGlow: 0
     - _GlobalOpacity: 0.714
     - _GlossMapScale: 1
@@ -106,16 +106,16 @@ Material:
     - _Mode: 0
     - _OcclusionEnabled: 0
     - _OcclusionStrength: 1
-    - _Opacity: 0
+    - _Opacity: 0.09
     - _OutlineFresnelOpacity: 0
     - _OutlineFresnelPower: 2.462451
     - _OutlineGlowIntensity: 1
     - _OutlineGradient: 0
     - _OutlineIntensity: 1
-    - _OutlineOpacity: 1
+    - _OutlineOpacity: 0
     - _OutlinePinchRange: 0.15
     - _OutlineSphereHardness: 0.15
-    - _OutlineWidth: 0.00075
+    - _OutlineWidth: 0
     - _Parallax: 0.02
     - _PinchIntensity: 0
     - _PinchRange: 0.03
@@ -134,7 +134,7 @@ Material:
     - __dirty: 0
     m_Colors:
     - _Color: {r: 1, g: 0.44811308, b: 0.44811308, a: 1}
-    - _ColorBottom: {r: 0.735849, g: 0.735849, b: 0.735849, a: 1}
+    - _ColorBottom: {r: 1, g: 0.9761414, b: 0.06132078, a: 1}
     - _ColorPrimary: {r: 1, g: 0.4481132, b: 0.4481132, a: 1}
     - _ColorSecondary: {r: 1, g: 0.8443396, b: 0.8443396, a: 1}
     - _ColorTop: {r: 1, g: 1, b: 1, a: 1}
