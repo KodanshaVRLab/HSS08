@@ -28,13 +28,13 @@ public class MikasaInteractableObject : MonoBehaviour
     public int animControllerId;
     public TextMesh debugText;
     public interactableData data;
-    
+
     [Button]
     public void saveData()
     {
         data = new interactableData(name, mikasaTransformController.position, mikasaTransformController.rotation, mikasaTransformController.localScale);
-        var dataString= JsonUtility.ToJson(data);
-        PlayerPrefs.SetString(name+"_Data", dataString);
+        var dataString = JsonUtility.ToJson(data);
+        PlayerPrefs.SetString(name + "_Data", dataString);
     }
     [Button]
     public void LoadData()
@@ -42,12 +42,12 @@ public class MikasaInteractableObject : MonoBehaviour
         data = JsonUtility.FromJson<interactableData>(PlayerPrefs.GetString(name + "_Data"));
         Debug.Log("loaded " + data.id);
     }
-    
+
     [Button]
     public void debugSetupMikasa()
     {
         var x = FindObjectOfType<MikasaController>();
-        if(x)
+        if (x)
         {
             SetupMikasa(x);
         }
@@ -58,28 +58,32 @@ public class MikasaInteractableObject : MonoBehaviour
     }
     public void SetupMikasa(MikasaController mikasa)
     {
-        if(mikasa && mikasaTransformController)
+        if (mikasa && mikasaTransformController)
         {
-            if (animControllerId>=0)
+            if (animControllerId >= 0)
             {
                 StartCoroutine(switchAnimator(mikasa));
 
             }
             else
             {
-                mikasa.resetPosition(mikasaTransformController,true);
+                mikasa.resetPosition(mikasaTransformController, true);
                 if (audioClip)
                 {
                     mikasa.PlayAudioClip(audioClip);
 
                 }
             }
-           
-           
+
+
 
         }
     }
 
+    public void SetupMikasa(MikasaController mikasa,Vector3 position)
+    {
+        mikasa.setPosition(position);
+    }
 
     public IEnumerator switchAnimator(MikasaController mikasa)
     {

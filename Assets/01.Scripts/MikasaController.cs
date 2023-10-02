@@ -8,7 +8,7 @@ public class MikasaController : MonoBehaviour
 {
     // Start is called before the first frame update
     public Transform modelTransform, feetTransform;
-    public Vector3 positionOffset { get { return feetTransform? -transform.InverseTransformPoint(feetTransform.position):Vector3.zero; } set { } }
+    public Vector3 positionOffset { get { return feetTransform ? -transform.InverseTransformPoint(feetTransform.position) : Vector3.zero; } set { } }
     public Animator anim;
 
     public Vector3 test;
@@ -30,8 +30,8 @@ public class MikasaController : MonoBehaviour
 
     public enum State
     {
-        animating=0,
-        editing=1
+        animating = 0,
+        editing = 1
     }
     public State currentState = State.animating;
 
@@ -52,7 +52,7 @@ public class MikasaController : MonoBehaviour
     public void toggleState()
     {
         updateState(currentState == State.editing ? 0 : 1);
-        if(currentState!= State.editing && playerMG)
+        if (currentState != State.editing && playerMG)
         {
             playerMG.disableGizmos();
             blobShadow.SetActive(false);
@@ -63,21 +63,21 @@ public class MikasaController : MonoBehaviour
             blobShadow.SetActive(true);
         }
 
-        
+
     }
     public void PlayAudioClip(AudioClip newClip)
     {
-        if(audioSource)
+        if (audioSource)
         {
             audioSource.Stop();
             audioSource.clip = newClip;
             audioSource.Play();
-           
+
         }
     }
     private void Start()
     {
-       
+
         anim = GetComponentInChildren<Animator>();
         originalScale = transform.localScale;
         originalRotation = transform.rotation;
@@ -85,9 +85,9 @@ public class MikasaController : MonoBehaviour
         originalParent = transform.parent;
         modelTransform.localPosition = Vector3.zero;
         modelTransform.localRotation = Quaternion.identity;
-        
-        
-        resetPosition(transform.parent,false);
+
+
+        resetPosition(transform.parent, false);
 
 
     }
@@ -96,13 +96,13 @@ public class MikasaController : MonoBehaviour
     {
         transform.parent = originalParent;
         transform.rotation = originalRotation;
-        if (anim) anim.SetInteger("State",0);
+        if (anim) anim.SetInteger("State", 0);
         transform.localScale = originalScale;
     }
     public void OnPlayerTouch()
     {
         anim = GetComponentInChildren<Animator>();
-        if (anim )
+        if (anim)
         {
             anim.SetTrigger("touch");
         }
@@ -115,13 +115,13 @@ public class MikasaController : MonoBehaviour
         transform.parent = currentParent;
         transform.localPosition = Vector3.zero;
         transform.localRotation = Quaternion.identity;
-        if(placingCharacter)
-        transform.localScale = Vector3.one;
-         
-        
-        
+        if (placingCharacter)
+            transform.localScale = Vector3.one;
+
+
+
         Vector3 oldPos = transform.position;
-        modelTransform.parent= null;
+        modelTransform.parent = null;
         transform.parent = feetTransform;
         transform.localPosition = Vector3.zero;
         transform.parent = newParent;
@@ -132,6 +132,10 @@ public class MikasaController : MonoBehaviour
             onMikasaPlaced.Invoke();
 
 
+    }
+    public void setPosition(Vector3 position)
+    {
+        transform.position = position;
     }
     // Update is called once per frame
     void Update()

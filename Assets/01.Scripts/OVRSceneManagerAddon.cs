@@ -9,6 +9,7 @@ public class OVRSceneManagerAddon : MonoBehaviour
     public OVRSceneManager sceneManager;
 
     public GameObject wallMarker;
+    public TextMesh debugText;
     // Start is called before the first frame update
     void Start()
     {
@@ -45,17 +46,64 @@ public class OVRSceneManagerAddon : MonoBehaviour
         {
             if (obj.GetComponent<Collider>() == null)
             {
-               var col= obj.gameObject.AddComponent<BoxCollider>();
+                var col = obj.gameObject.AddComponent<BoxCollider>();
                 col.size = new Vector3(col.size.x, col.size.y * 1f, col.size.z);
+
+                if (obj.name.Contains("Desk"))
+                {
+                    if(debugText)
+                    debugText.text += "adjusting Desk " + obj.name;
+                    obj.transform.position = obj.transform.position - (Vector3.up * obj.transform.GetComponent<MeshRenderer>().bounds.extents.y*2);
+                }
 
             }
 
         }
-        OVRSemanticClassification[] allClassifications = FindObjectsOfType<OVRSemanticClassification>().Where(c => c.Contains(OVRSceneManager.Classification.Desk)).ToArray();
+        OVRSemanticClassification[] allClassifications = FindObjectsOfType<OVRSemanticClassification>().Where(c => c.Contains(OVRSceneManager.Classification.Table)).ToArray();
 
         foreach (var classification in allClassifications)
         {
-            transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y-1, transform.localScale.z );  
+            classification.transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y * -1, transform.localScale.z);
+            if (classification.transform.GetComponent<MeshRenderer>())
+            {
+                classification.transform.position = transform.position - (Vector3.up * classification.transform.GetComponent<MeshRenderer>().bounds.extents.y);
+                if (debugText)
+                {
+
+                    debugText.text += "is table  offseting " + classification.transform.GetComponent<MeshRenderer>().bounds.extents.y;
+                }
+            }
+            else
+            {
+                if (debugText)
+                {
+
+                    debugText.text += "table no mesh renderer" + classification.transform.name;
+                }
+            }
+        }
+        allClassifications = FindObjectsOfType<OVRSemanticClassification>().Where(c => c.Contains(OVRSceneManager.Classification.Desk)).ToArray();
+
+        foreach (var classification in allClassifications)
+        {
+            classification.transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y * -1, transform.localScale.z);
+            if (classification.transform.GetComponent<MeshRenderer>())
+            {
+                classification.transform.position = transform.position - (Vector3.up * classification.transform.GetComponent<MeshRenderer>().bounds.extents.y);
+                if (debugText)
+                {
+
+                    debugText.text+= "is desk  offseting " + classification.transform.GetComponent<MeshRenderer>().bounds.extents.y;
+                }
+            }
+            else
+            {
+                if (debugText)
+                {
+
+                    debugText.text += " desk no mesh renderer in " + classification.transform.name;
+                }
+            }
         }
 
     }

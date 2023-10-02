@@ -47,13 +47,21 @@ public class FingerCollider : MonoBehaviour
     {
         GetComponent<Renderer>().material.color = Color.red;
         VRButton button;
-        
+        MikasaInteractableObject mikasaObj;
+        if (debugText)
+            debugText.text = "touched "+ other.name;
         if (other.TryGetComponent<VRButton>(out button) && button!=handButton)
         {
             button.Click();
         }
-        
-        
+        else if (other.TryGetComponent<MikasaInteractableObject>(out mikasaObj))
+        {
+            if (debugText)
+                debugText.text = "touched mikasa place object";
+            mikasaObj.SetupMikasa(mikasa, transform.position);
+        }
+
+
 
     }
     public void updateCurrentObject(GameObject newObject)
