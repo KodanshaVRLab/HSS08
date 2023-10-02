@@ -9,6 +9,7 @@ public class HandInteractor : MonoBehaviour
     OVRHand hand;
     bool setupReady = false;
     Coroutine setupCO;
+    public Transform indexTransform, wristTransform;
     // Start is called before the first frame update
 
     private void Start()
@@ -28,6 +29,7 @@ public class HandInteractor : MonoBehaviour
 
         if (skeleton.Bones.Count > 0 && vrButton)
         {
+            wristTransform = skeleton.Bones[0].Transform;
             vrButton.transform.parent = skeleton.Bones[0].Transform;
             vrButton.transform.localPosition = Vector3.zero;
             vrButton.transform.localRotation = Quaternion.identity;

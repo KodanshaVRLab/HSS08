@@ -31,6 +31,10 @@ public class FingerCollider : MonoBehaviour
     public List<GameObject> placableObjects;
     public TextMesh debugText;
     public VRButton handButton;
+    public RotationSystem rotSystem;
+    public FingerCollider otherFinger;
+
+    public HandInteractor handInteractor, otherhandInteractor;
     // Start is called before the first frame update
     void Start()
     {
@@ -143,7 +147,9 @@ public class FingerCollider : MonoBehaviour
 
         if(mikasa.currentState== MikasaController.State.editing)
         {
-            UpdateTrasnform();
+            if(rotSystem)
+            rotSystem.UpdateTransform(controllingHandPinch && otherHandPinch, handInteractor.wristTransform,otherhandInteractor.wristTransform);
+            //UpdateTrasnform();
         }
     }
 
