@@ -29,16 +29,45 @@ public class MikasaController : MonoBehaviour
     Transform originalParent;
     RuntimeAnimatorController originalAnimator;
 
+    public float minDistance=0.3f;
+    public float walkSpeed=0.1f;
+    Vector3 nextTarget;
+
+    public GameObject grabbableCollider;
+
+
+    int lastAnimationState = 0;
     public enum State
     {
         animating = 0,
-        editing = 1
+        editing = 1,
+        walking =2
     }
     public State currentState = State.animating;
+
+    public void ToggleGrabbaleObject(bool isOn= false)
+    {
+        if(grabbableCollider)
+        {
+            grabbableCollider.SetActive(isOn);
+        }
+    }
 
     public void updateState(State newState)
     {
         currentState = newState;
+        switch (currentState)
+        {
+            case State.animating:
+                updateAnimationState(lastAnimationState);
+                break;
+            case State.editing:
+                updateAnimationState(0);
+                break;
+            case State.walking:
+                updateAnimationState(3);
+                break;
+        }
     }
     /// <summary>
     /// update the current state of mikasa
@@ -47,6 +76,18 @@ public class MikasaController : MonoBehaviour
     public void updateState(int newState)
     {
         currentState = (State)newState;
+        switch (currentState)
+        {
+            case State.animating:
+                updateAnimationState(lastAnimationState);
+                break;
+            case State.editing:
+                updateAnimationState(0);
+                break;
+            case State.walking:
+                updateAnimationState(3);
+                break;
+        }
     }
 
 
@@ -55,13 +96,13 @@ public class MikasaController : MonoBehaviour
         updateState(currentState == State.editing ? 0 : 1);
         if (currentState != State.editing && playerMG)
         {
-            playerMG.disableGizmos();
-            blobShadow.SetActive(false);
+            ToggleGrabbaleObject(false);
+            
+
         }
         else
         {
-            playerMG.enableGizmos();
-            blobShadow.SetActive(true);
+            ToggleGrabbaleObject(true);
         }
 
 
@@ -94,9 +135,10 @@ public class MikasaController : MonoBehaviour
     }
 
     
-    public  void WalkToPosition( Vector3 destination)
+    public  void WalkToPosition( Vector3 newDestination)
     {
-        Vector3 direction = destination - transform.position;
+        nextTarget = newDestination;
+        Vector3 direction = newDestination - transform.position;
         direction.y = 0; // Ignore the Y component
 
         if (direction != Vector3.zero)
@@ -104,11 +146,13 @@ public class MikasaController : MonoBehaviour
             Quaternion lookRotation = Quaternion.LookRotation(direction);
             transform.rotation = Quaternion.Euler(0, lookRotation.eulerAngles.y, 0);
         }
+        updateState(State.walking);
     }
 
     [Button]
     public  void WalkToPosition(Transform destinationTransform)
     {
+
         WalkToPosition(destinationTransform.position);
     }
 
@@ -129,7 +173,12 @@ public class MikasaController : MonoBehaviour
     }
     public void updateAnimationState(int newState)
     {
-        if (anim) anim.SetInteger("State", newState);
+        
+        if (anim)
+        {
+            lastAnimationState = anim.GetInteger("State");
+            anim.SetInteger("State", newState);
+        }
     }
     [Button]
     public void resetPosition(Transform newParent, bool placingCharacter)
@@ -169,6 +218,18 @@ public class MikasaController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
         {
             OnPlayerTouch();
+        
+        }
+        if(currentState== State.walking)
+        {
+            if(Vector3.Distance(transform.position,nextTarget )>minDistance)
+            {
+                transform.position += transform.forward * walkSpeed;
+            }
+            else
+            {
+                updateState(State.animating);
+            }
         }
 
     }

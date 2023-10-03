@@ -40,6 +40,7 @@ namespace Oculus.Interaction
 
         private Pose _previousGrabPointA;
         private Pose _previousGrabPointB;
+        public bool ignoreRotation;
 
         [Serializable]
         public class TwoGrabFreeConstraints
@@ -158,6 +159,7 @@ namespace Oculus.Interaction
             Quaternion rotationInTargetSpace = Quaternion.Inverse(initialRotation) * targetTransform.rotation;
 
             targetTransform.position = (targetRotation * (_activeScale * offsetInTargetSpace)) + targetCenter;
+            if(!ignoreRotation)
             targetTransform.rotation = targetRotation * rotationInTargetSpace;
             targetTransform.localScale = _activeScale * _initialLocalScale;
 
