@@ -37,6 +37,8 @@ public class MikasaController : MonoBehaviour
 
 
     int lastAnimationState = 0;
+
+    public Transform DistanceChecker;
     public enum State
     {
         animating = 0,
@@ -131,6 +133,10 @@ public class MikasaController : MonoBehaviour
 
         resetPosition(transform.parent, false);
 
+        if(!DistanceChecker)
+        {
+            DistanceChecker = transform;
+        }
 
     }
 
@@ -222,7 +228,8 @@ public class MikasaController : MonoBehaviour
         }
         if(currentState== State.walking)
         {
-            if(Vector3.Distance(transform.position,nextTarget )>minDistance)
+
+            if(Vector3.Distance(DistanceChecker.position,nextTarget )>minDistance)
             {
                 transform.position += transform.forward * walkSpeed;
             }

@@ -2188,6 +2188,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4869577802921675287, guid: ea16c3c8c1688234fa81a4f39339bf1b, type: 3}
   m_PrefabInstance: {fileID: 3597954126071732531}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &1204700113 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1698451835679512156, guid: e02b725435e4f4a4c88f82a06aa2c60a, type: 3}
+  m_PrefabInstance: {fileID: 1811364444}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1225910387
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3713,6 +3718,7 @@ MonoBehaviour:
   minDistance: 0.3
   walkSpeed: 0.01
   grabbableCollider: {fileID: 105896242}
+  DistanceChecker: {fileID: 1204700113}
   currentState: 0
 --- !u!1001 &2085297826
 PrefabInstance:
