@@ -10,7 +10,7 @@ public struct interactableData
     public Vector3 position;
     public Quaternion rotation;
     public Vector3 scale;
-  
+    
     public interactableData(string id, Vector3 position, Quaternion rotation, Vector3 scale)
     {
         this.id = id;
@@ -28,6 +28,11 @@ public class MikasaInteractableObject : MonoBehaviour
     public int animControllerId;
     public TextMesh debugText;
     public interactableData data;
+
+   
+
+ 
+
 
     [Button]
     public void saveData()
@@ -82,7 +87,16 @@ public class MikasaInteractableObject : MonoBehaviour
 
     public void SetupMikasa(MikasaController mikasa,Vector3 position)
     {
-        mikasa.setPosition(position);
+        if(MikasaInteractableObjectsMG.Instance.isThisCurrentObj(this))
+        {
+            mikasa.WalkToPosition(position);
+        }
+        else
+        {
+            MikasaInteractableObjectsMG.Instance.updateCurrent(this);
+            mikasa.setPosition(position);
+        }
+        
     }
 
     public IEnumerator switchAnimator(MikasaController mikasa)

@@ -4,9 +4,36 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using System;
+
 public class MikasaInteractableObjectsMG : MonoBehaviour
 {
     bool setupReady = false;
+    MikasaInteractableObject currentObject;
+    private static MikasaInteractableObjectsMG instance;
+
+    // Property to access the instance
+    public static MikasaInteractableObjectsMG Instance
+    {
+        get
+        {
+            if (instance == null)
+            {
+                instance = FindObjectOfType<MikasaInteractableObjectsMG>();
+
+                if (instance == null)
+                {
+                    GameObject singletonObject = new GameObject("MikasaInteractableObject");
+                    instance = singletonObject.AddComponent<MikasaInteractableObjectsMG>();
+                }
+            }
+            return instance;
+        }
+    }
+    public void updateCurrent(MikasaInteractableObject newObject)
+    {
+        currentObject = newObject;
+    }
     [Button]
     public void setup()
     {
@@ -28,5 +55,10 @@ public class MikasaInteractableObjectsMG : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public bool isThisCurrentObj(MikasaInteractableObject mikasaInteractableObject)
+    {
+        return currentObject == mikasaInteractableObject;
     }
 }

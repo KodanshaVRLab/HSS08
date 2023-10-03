@@ -1,4 +1,5 @@
 using Sirenix.OdinInspector;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -92,6 +93,25 @@ public class MikasaController : MonoBehaviour
 
     }
 
+    
+    public  void WalkToPosition( Vector3 destination)
+    {
+        Vector3 direction = destination - transform.position;
+        direction.y = 0; // Ignore the Y component
+
+        if (direction != Vector3.zero)
+        {
+            Quaternion lookRotation = Quaternion.LookRotation(direction);
+            transform.rotation = Quaternion.Euler(0, lookRotation.eulerAngles.y, 0);
+        }
+    }
+
+    [Button]
+    public  void WalkToPosition(Transform destinationTransform)
+    {
+        WalkToPosition(destinationTransform.position);
+    }
+
     public void ResetScale()
     {
         transform.parent = originalParent;
@@ -107,7 +127,10 @@ public class MikasaController : MonoBehaviour
             anim.SetTrigger("touch");
         }
     }
-
+    public void updateAnimationState(int newState)
+    {
+        if (anim) anim.SetInteger("State", newState);
+    }
     [Button]
     public void resetPosition(Transform newParent, bool placingCharacter)
     {

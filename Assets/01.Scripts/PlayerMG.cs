@@ -9,6 +9,7 @@ public class PlayerMG : MonoBehaviour
 
 
     public GameObject  positionGizmo,rotationGizmo,scaleGizmo;
+    
 
     public float scaleSpeed = 0.1f;
     public float movingSpeed = 0.2f;
