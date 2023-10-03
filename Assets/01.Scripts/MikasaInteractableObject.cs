@@ -93,6 +93,7 @@ public class MikasaInteractableObject : MonoBehaviour
         }
         else
         {
+            mikasa.updateAnimationState(0);
             MikasaInteractableObjectsMG.Instance.updateCurrent(this);
             mikasa.setPosition(position);
         }

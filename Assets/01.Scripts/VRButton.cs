@@ -1,3 +1,4 @@
+using Sirenix.OdinInspector;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,6 +14,7 @@ public class VRButton : MonoBehaviour
     {
         
     }
+    [Button]
     public virtual void Click()
     {
         if(available)
@@ -21,6 +23,7 @@ public class VRButton : MonoBehaviour
             StartCoroutine(coolDown());
         }
     }
+    [Button]
     public virtual void Diselect()
     {
         onDiselect?.Invoke();
