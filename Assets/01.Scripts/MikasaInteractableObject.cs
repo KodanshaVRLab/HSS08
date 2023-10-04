@@ -87,9 +87,10 @@ public class MikasaInteractableObject : MonoBehaviour
 
     public void SetupMikasa(MikasaController mikasa,Vector3 position)
     {
-        if(MikasaInteractableObjectsMG.Instance.isThisCurrentObj(this))
+        if(!MikasaInteractableObjectsMG.Instance.isFirstObject)
         {
             mikasa.WalkToPosition(position);
+            MikasaInteractableObjectsMG.Instance.updateCurrent(this);
         }
         else
         {
@@ -98,6 +99,7 @@ public class MikasaInteractableObject : MonoBehaviour
             mikasa.setPosition(position);
         }
         
+
     }
 
     public IEnumerator switchAnimator(MikasaController mikasa)

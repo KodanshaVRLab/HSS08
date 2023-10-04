@@ -39,6 +39,10 @@ public class MikasaController : MonoBehaviour
     int lastAnimationState = 0;
 
     public Transform DistanceChecker;
+    RaycastBasedController floorFinder;
+
+    public TextMesh debugText;
+    public LineRenderer debugLineRenderer;
     public enum State
     {
         animating = 0,
@@ -70,6 +74,17 @@ public class MikasaController : MonoBehaviour
                 updateAnimationState(3);
                 break;
         }
+        if (currentState == State.walking)
+        {
+            if (debugLineRenderer)
+                debugLineRenderer.enabled = true;
+        }
+        else
+        {
+            if (debugLineRenderer)
+                debugLineRenderer.enabled = false;
+
+        }
     }
     /// <summary>
     /// update the current state of mikasa
@@ -89,6 +104,17 @@ public class MikasaController : MonoBehaviour
             case State.walking:
                 updateAnimationState(3);
                 break;
+        }
+        if (currentState == State.walking)
+        {
+            if (debugLineRenderer)
+                debugLineRenderer.enabled = true;
+        }
+        else
+        {
+            if (debugLineRenderer)
+                debugLineRenderer.enabled = false;
+
         }
     }
 
@@ -137,6 +163,8 @@ public class MikasaController : MonoBehaviour
         {
             DistanceChecker = transform;
         }
+
+        floorFinder = GetComponent<RaycastBasedController>();
 
     }
 
@@ -213,7 +241,10 @@ public class MikasaController : MonoBehaviour
     }
     public void setPosition(Vector3 position)
     {
+
         transform.position = position;
+        if (floorFinder)
+            floorFinder.goToFloorPosition();
     }
     // Update is called once per frame
     void Update()
@@ -228,14 +259,41 @@ public class MikasaController : MonoBehaviour
         }
         if(currentState== State.walking)
         {
+            
 
             if(Vector3.Distance(DistanceChecker.position,nextTarget )>minDistance)
             {
+                if (floorFinder)
+                    floorFinder.goToFloorPosition();
                 transform.position += transform.forward * walkSpeed;
+                if(debugText)
+                {
+                    debugText.text = Vector3.Distance(DistanceChecker.position, nextTarget) + ">"+minDistance;
+
+                }
+                if(debugLineRenderer)
+                {
+                    debugLineRenderer.SetPosition(0, DistanceChecker.position);
+                    debugLineRenderer.SetPosition(1,nextTarget );
+                }
             }
             else
             {
                 updateState(State.animating);
+                if (debugText)
+                {
+                    debugText.text ="in destination";
+
+                }
+            }
+            
+        }
+        else
+        {
+            if (debugText)
+            {
+                debugText.text = "";
+
             }
         }
 

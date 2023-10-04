@@ -61,4 +61,5 @@ public class MikasaInteractableObjectsMG : MonoBehaviour
     {
         return currentObject == mikasaInteractableObject;
     }
+     public bool isFirstObject => currentObject == null;
 }
