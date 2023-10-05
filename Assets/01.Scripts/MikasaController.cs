@@ -1,3 +1,4 @@
+using Oculus.Interaction;
 using Sirenix.OdinInspector;
 using System;
 using System.Collections;
@@ -39,15 +40,24 @@ public class MikasaController : MonoBehaviour
     int lastAnimationState = 0;
 
     public Transform DistanceChecker;
-    RaycastBasedController floorFinder;
+    public RaycastBasedController floorFinder, jumpCalculator;
 
     public TextMesh debugText;
     public LineRenderer debugLineRenderer;
+
+    public bool shouldJump;
+    public JumpController jumpController;
+
+    public OneGrabFreeTransformer oneHandGrabController;
+    public TwoGrabFreeTransformer twoHandGrabController;
+
     public enum State
     {
         animating = 0,
         editing = 1,
-        walking =2
+        walking =2,
+        prepareJump=3,
+        jump=4
     }
     public State currentState = State.animating;
 
@@ -73,6 +83,15 @@ public class MikasaController : MonoBehaviour
             case State.walking:
                 updateAnimationState(3);
                 break;
+            case State.prepareJump:
+                if (jumpController && jumpCalculator && jumpCalculator.hasHit)
+                {
+                    jumpController.landingPosition = jumpCalculator.getCurrentYPos();
+                }
+                updateAnimationState(4);
+                break;
+            case State.jump:
+                break;
         }
         if (currentState == State.walking)
         {
@@ -85,6 +104,12 @@ public class MikasaController : MonoBehaviour
                 debugLineRenderer.enabled = false;
 
         }
+        if (oneHandGrabController && twoHandGrabController)
+        {
+            oneHandGrabController.IgnoreTransformer = currentState != State.animating;
+            twoHandGrabController.ignoreTransformer= currentState != State.animating;
+        }
+        
     }
     /// <summary>
     /// update the current state of mikasa
@@ -96,7 +121,7 @@ public class MikasaController : MonoBehaviour
         switch (currentState)
         {
             case State.animating:
-                updateAnimationState(lastAnimationState);
+                updateAnimationState(0);
                 break;
             case State.editing:
                 updateAnimationState(0);
@@ -159,13 +184,13 @@ public class MikasaController : MonoBehaviour
 
         resetPosition(transform.parent, false);
 
-        if(!DistanceChecker)
+        if (!DistanceChecker)
         {
             DistanceChecker = transform;
         }
 
         floorFinder = GetComponent<RaycastBasedController>();
-
+         
     }
 
     
@@ -244,13 +269,31 @@ public class MikasaController : MonoBehaviour
 
         transform.position = position;
         if (floorFinder)
-            floorFinder.goToFloorPosition();
+            floorFinder.goToHitPosition();
     }
     // Update is called once per frame
     void Update()
-
-
     {
+        if (floorFinder)
+            floorFinder.goToHitPosition();
+        if (anim && currentState == State.animating && anim.GetInteger("State") != 0)
+            anim.SetInteger("State", 0);
+
+
+        if (currentState== State.walking && floorFinder && jumpCalculator && floorFinder.hasHit && jumpCalculator.hasHit)
+        {
+            
+            float floorDelta = floorFinder.getCurrentYPos()-jumpCalculator.getCurrentYPos();
+            
+            if(floorDelta>0.25f)
+            {
+                updateState(State.prepareJump);
+            }
+            else
+            {
+                
+            }
+        }
         test = positionOffset;
         if (Input.GetKeyDown(KeyCode.Space))
         {
@@ -259,22 +302,26 @@ public class MikasaController : MonoBehaviour
         }
         if(currentState== State.walking)
         {
-            
 
-            if(Vector3.Distance(DistanceChecker.position,nextTarget )>minDistance)
+            var distCheckpos = DistanceChecker.position;
+            distCheckpos.y = nextTarget.y;
+
+            if(Vector3.Distance(distCheckpos,nextTarget )>minDistance)
             {
                 if (floorFinder)
-                    floorFinder.goToFloorPosition();
+                    floorFinder.goToHitPosition();
+
+                UpdateRotation();
                 transform.position += transform.forward * walkSpeed;
-                if(debugText)
+                if (debugText)
                 {
-                    debugText.text = Vector3.Distance(DistanceChecker.position, nextTarget) + ">"+minDistance;
+                    debugText.text = Vector3.Distance(DistanceChecker.position, nextTarget) + ">" + minDistance + "State " + currentState.ToString();
 
                 }
-                if(debugLineRenderer)
+                if (debugLineRenderer)
                 {
-                    debugLineRenderer.SetPosition(0, DistanceChecker.position);
-                    debugLineRenderer.SetPosition(1,nextTarget );
+                    debugLineRenderer.SetPosition(0, distCheckpos);
+                    debugLineRenderer.SetPosition(1, nextTarget);
                 }
             }
             else
@@ -284,7 +331,7 @@ public class MikasaController : MonoBehaviour
                 {
                     debugText.text ="in destination";
 
-                }
+                } 
             }
             
         }
@@ -292,10 +339,22 @@ public class MikasaController : MonoBehaviour
         {
             if (debugText)
             {
-                debugText.text = "";
+                debugText.text = "State " + currentState.ToString();
 
             }
         }
 
+    }
+
+    private void UpdateRotation()
+    {
+        Vector3 direction = nextTarget - transform.position;
+        direction.y = 0;
+
+        if (direction != Vector3.zero)
+        {
+            Quaternion lookRotation = Quaternion.LookRotation(direction);
+            transform.rotation = Quaternion.Euler(0, lookRotation.eulerAngles.y, 0);
+        }
     }
 }

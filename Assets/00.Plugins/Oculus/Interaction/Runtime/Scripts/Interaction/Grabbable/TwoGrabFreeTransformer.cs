@@ -42,6 +42,8 @@ namespace Oculus.Interaction
         private Pose _previousGrabPointB;
         public bool ignoreRotationXZ;
 
+        public bool ignoreTransformer;
+
         [Serializable]
         public class TwoGrabFreeConstraints
         {
@@ -97,6 +99,7 @@ namespace Oculus.Interaction
 
         public void UpdateTransform()
         {
+            if (ignoreTransformer) return;
             var grabA = _grabbable.GrabPoints[0];
             var grabB = _grabbable.GrabPoints[1];
             var targetTransform = _grabbable.Transform;
@@ -161,7 +164,7 @@ namespace Oculus.Interaction
             var noXZRotation= Quaternion.Euler( transform.rotation.eulerAngles.x, finalRotation.eulerAngles.y, transform.rotation.eulerAngles.z);
 
             targetTransform.position = (targetRotation * (_activeScale * offsetInTargetSpace)) + targetCenter;
-            targetTransform.rotation = ignoreRotationXZ ? finalRotation : noXZRotation ;
+            targetTransform.rotation = ignoreRotationXZ ? noXZRotation :finalRotation;
             targetTransform.localScale = _activeScale * _initialLocalScale;
 
             _previousGrabPointA = new Pose(grabA.position, grabA.rotation);
