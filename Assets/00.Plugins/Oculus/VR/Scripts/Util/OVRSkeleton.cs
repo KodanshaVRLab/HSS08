@@ -318,7 +318,7 @@ public class OVRSkeleton : MonoBehaviour
         }
     }
 
-    public virtual Transform GetBoneTransform(BoneId boneId) => null;
+    protected virtual Transform GetBoneTransform(BoneId boneId) => null;
 
     protected virtual void InitializeBones()
     {
@@ -357,6 +357,12 @@ public class OVRSkeleton : MonoBehaviour
                 {
                     bone.Transform = new GameObject(BoneLabelFromBoneId(_skeletonType, bone.Id)).transform;
                 }
+            }
+
+            // if allocated bone here before, make sure the name is correct.
+            if (GetBoneTransform(bone.Id) == null)
+            {
+                bone.Transform.name = BoneLabelFromBoneId(_skeletonType, bone.Id);
             }
 
             var pose = _skeleton.Bones[i].Pose;

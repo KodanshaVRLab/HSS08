@@ -106,8 +106,8 @@ public class MikasaController : MonoBehaviour
         }
         if (oneHandGrabController && twoHandGrabController)
         {
-            oneHandGrabController.IgnoreTransformer = currentState != State.animating;
-            twoHandGrabController.ignoreTransformer= currentState != State.animating;
+          //  oneHandGrabController.IgnoreTransformer = currentState != State.animating;
+           // twoHandGrabController.ignoreTransformer= currentState != State.animating;
         }
         
     }

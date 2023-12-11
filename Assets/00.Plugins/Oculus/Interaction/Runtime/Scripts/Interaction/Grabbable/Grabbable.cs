@@ -20,7 +20,6 @@
 
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
 
 namespace Oculus.Interaction
 {
@@ -41,8 +40,6 @@ namespace Oculus.Interaction
 
         [SerializeField]
         private int _maxGrabPoints = -1;
-
-        public UnityEvent onGrab, onRelease;
 
         public int MaxGrabPoints
         {
@@ -164,12 +161,9 @@ namespace Oculus.Interaction
 
             if (_activeTransformer == null)
             {
-                onRelease?.Invoke();
                 return;
-
             }
 
-            onGrab.Invoke();
             _activeTransformer.BeginTransform();
         }
 

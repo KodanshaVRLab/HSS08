@@ -21,6 +21,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[HelpURL("https://developer.oculus.com/reference/unity/latest/class_o_v_r_custom_skeleton")]
 public class OVRCustomSkeleton : OVRSkeleton, ISerializationCallbackReceiver
 {
     [HideInInspector][SerializeField] private List<Transform> _customBones_V2;
@@ -38,7 +39,7 @@ public class OVRCustomSkeleton : OVRSkeleton, ISerializationCallbackReceiver
     [SerializeField, HideInInspector]
     internal RetargetingType retargetingType = RetargetingType.OculusSkeleton;
 
-    public override Transform GetBoneTransform(BoneId boneId) => _customBones_V2[(int)boneId];
+    protected override Transform GetBoneTransform(BoneId boneId) => _customBones_V2[(int)boneId];
 
 #if UNITY_EDITOR
     private bool _shouldSetDirty;

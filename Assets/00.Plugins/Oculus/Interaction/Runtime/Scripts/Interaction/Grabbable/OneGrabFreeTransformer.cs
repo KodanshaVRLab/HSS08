@@ -32,8 +32,7 @@ namespace Oculus.Interaction
 
         private IGrabbable _grabbable;
         private Pose _grabDeltaInLocalSpace;
-        public bool ignoreXZRotation;
-        public bool IgnoreTransformer;
+
         public void Initialize(IGrabbable grabbable)
         {
             _grabbable = grabbable;
@@ -49,12 +48,9 @@ namespace Oculus.Interaction
 
         public void UpdateTransform()
         {
-            if (IgnoreTransformer) return;
             Pose grabPoint = _grabbable.GrabPoints[0];
             var targetTransform = _grabbable.Transform;
-            var finalRotation= grabPoint.rotation * _grabDeltaInLocalSpace.rotation;
-            var noXZRotation = Quaternion.Euler(targetTransform.rotation.eulerAngles.x, finalRotation.eulerAngles.y, targetTransform.rotation.eulerAngles.z);
-            targetTransform.rotation = ignoreXZRotation? noXZRotation:finalRotation;
+            targetTransform.rotation = grabPoint.rotation * _grabDeltaInLocalSpace.rotation;
             targetTransform.position = grabPoint.position - targetTransform.TransformVector(_grabDeltaInLocalSpace.position);
         }
 
