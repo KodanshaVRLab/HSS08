@@ -396,9 +396,9 @@ MonoBehaviour:
   _preloadAncestors: 1
   _preloadSiblings: 1
   _forbidHoles: 0
-  _maximumSimultaneousTileLoads: 20
-  _maximumCachedBytes: 536870912
-  _loadingDescendantLimit: 20
+  _maximumSimultaneousTileLoads: 2
+  _maximumCachedBytes: 2097150
+  _loadingDescendantLimit: 2
   _enableFrustumCulling: 1
   _enableFogCulling: 1
   _enforceCulledScreenSpaceError: 1
@@ -411,10 +411,10 @@ MonoBehaviour:
     _maximumAttenuation: 0
     _baseResolution: 0
   _suspendUpdate: 0
-  _showTilesInHierarchy: 0
+  _showTilesInHierarchy: 1
   _updateInEditor: 1
   _logSelectionStats: 0
-  _createPhysicsMeshes: 1
+  _createPhysicsMeshes: 0
 --- !u!1 &1910173825 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 766414534127956988, guid: 383a04dd5096c154b9526884eccc9ddb, type: 3}
@@ -432,7 +432,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a50750f855f6c6440bee0252d0e899c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: {x: 0, y: -2, z: 0}
+  speed: {x: 0, y: -5, z: 0}
 --- !u!1001 &1963076320
 PrefabInstance:
   m_ObjectHideFlags: 0
