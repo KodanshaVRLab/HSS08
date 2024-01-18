@@ -7,6 +7,36 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: 01_Concrete_HighRiseOffice_0021
+    second: {fileID: 2100000, guid: ea0b8e75d286e49a3b1ea9f3aa07eea4, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 01_Facades04
+    second: {fileID: 2100000, guid: c7701cb4e99434b2aa684f4d93097be1, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 02_Concrete_OldOfficeBuilding_0025
+    second: {fileID: 2100000, guid: 4c5cb5d64df9e4183b2684b11e4e5bf1, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 03_Glass_HighRise_Facade014
+    second: {fileID: 2100000, guid: 6a12e9e3901194dc08dc039a237b5fff, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 05_Facades05
+    second: {fileID: 2100000, guid: cb009b0ca6ddb43c7bf011607ba224c1, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 06_Facades06
+    second: {fileID: 2100000, guid: 7ca1e6262621a48468fb18b12af2783f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: Bldg_Sides_01
     second: {fileID: 2100000, guid: 55f1f06f10e1042919296ee9d68d8f15, type: 2}
   - first:
@@ -49,6 +79,11 @@ ModelImporter:
       assembly: UnityEngine.CoreModule
       name: Roof
     second: {fileID: 2100000, guid: 9b8f18d749399496ca3edf61d79cc688, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: TilesConcrete_HighRiseOffice_Facade017
+    second: {fileID: 2100000, guid: 7c52d150e019e480ca6884f37a274da5, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
