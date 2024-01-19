@@ -56,12 +56,12 @@ MonoBehaviour:
   m_Name: SkyProfile-Tokyo_Nighttime
   m_EditorClassIdentifier: 
   skyColor: {r: 0.07384617, g: 0.049230773, b: 0.16, a: 1}
-  horizonColor: {r: 0.29518074, g: 0.37349394, b: 0.5, a: 1}
-  groundColor: {r: 0.0033465356, g: 0.004024717, b: 0.00699541, a: 1}
+  horizonColor: {r: 0.24960938, g: 0.31617185, b: 0.426, a: 1}
+  groundColor: {r: 0.15892859, g: 0.17800003, b: 0.26700002, a: 1}
   horizonThickness: 1
   horizonExponent: 5
   horizonStep: 1000
-  fogSyncOption: 2
+  fogSyncOption: 0
   fogColor: {r: 0, g: 0, b: 0, a: 0}
   enableStars: 1
   starsStartPosition: -0.01
@@ -108,7 +108,7 @@ MonoBehaviour:
   moonLightIntensity: 0.1
   customCloudTexture: {fileID: 0}
   enableHorizonCloud: 1
-  horizonCloudColor: {r: 1, g: 1, b: 1, a: 1}
+  horizonCloudColor: {r: 0.34083697, g: 0.39857087, b: 0.511, a: 1}
   horizonCloudStartPosition: -0.01
   horizonCloudEndPosition: 0.35
   horizonCloudSize: 4.47
@@ -237,9 +237,9 @@ Material:
     m_Colors:
     - _DetailOverlayTintColor: {r: 0, g: 0, b: 0, a: 0}
     - _FogColor: {r: 0, g: 0, b: 0, a: 0}
-    - _GroundColor: {r: 0.0033465356, g: 0.004024717, b: 0.00699541, a: 1}
-    - _HorizonCloudColor: {r: 1, g: 1, b: 1, a: 1}
-    - _HorizonColor: {r: 0.29518074, g: 0.37349394, b: 0.5, a: 1}
+    - _GroundColor: {r: 0.15892859, g: 0.17800003, b: 0.26700002, a: 1}
+    - _HorizonCloudColor: {r: 0.34083697, g: 0.39857087, b: 0.511, a: 1}
+    - _HorizonColor: {r: 0.24960938, g: 0.31617185, b: 0.426, a: 1}
     - _MoonColor: {r: 1, g: 1, b: 1, a: 1}
     - _MoonDirection: {r: 0.26605526, g: -0.390731, b: -0.88121724, a: 0}
     - _MoonLightColor: {r: 0.8443396, g: 0.9841163, b: 1, a: 1}
