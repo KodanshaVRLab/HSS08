@@ -16,6 +16,26 @@ namespace AmplifyShaderEditor
 		{
 			AmplifyShaderEditorWindow.CreateConfirmationTemplateShader( "32120270d1b3a8746af2aca8bc749736" );
 		}
+		[MenuItem( "Assets/Create/Amplify Shader/Impostors/Baking/Bake", false, 85 )]
+		public static void ApplyTemplateImpostorsBakingBake()
+		{
+			AmplifyShaderEditorWindow.CreateConfirmationTemplateShader( "f53051a8190f7044fa936bd7fbe116c1" );
+		}
+		[MenuItem( "Assets/Create/Amplify Shader/Impostors/Baking/Bake URP", false, 85 )]
+		public static void ApplyTemplateImpostorsBakingBakeURP()
+		{
+			AmplifyShaderEditorWindow.CreateConfirmationTemplateShader( "6ee191abcace33c46a5dd52068b074e0" );
+		}
+		[MenuItem( "Assets/Create/Amplify Shader/Impostors/Lit", false, 85 )]
+		public static void ApplyTemplateImpostorsLit()
+		{
+			AmplifyShaderEditorWindow.CreateConfirmationTemplateShader( "30a8e337ed84177439ca24b6a5c97cd1" );
+		}
+		[MenuItem( "Assets/Create/Amplify Shader/Impostors/Lit URP", false, 85 )]
+		public static void ApplyTemplateImpostorsLitURP()
+		{
+			AmplifyShaderEditorWindow.CreateConfirmationTemplateShader( "ad3e6cbf440fc8843823405e7e862e1a" );
+		}
 		[MenuItem( "Assets/Create/Amplify Shader/Legacy/Default Sprites", false, 85 )]
 		public static void ApplyTemplateLegacyDefaultSprites()
 		{
