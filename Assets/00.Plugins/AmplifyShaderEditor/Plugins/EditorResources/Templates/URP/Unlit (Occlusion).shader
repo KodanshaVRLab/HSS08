@@ -11,6 +11,8 @@ Shader /*ase_name*/ "Hidden/Universal/Unlit (Occlusion)" /*end*/
 		//_TessEdgeLength ( "Tess Edge length", Range( 2, 50 ) ) = 16
 		//_TessMaxDisp( "Tess Max Displacement", Float ) = 25
 
+		_MetaDepthOcclusionBias("Occlusion Depth Bias", Float) = 0
+
 		[HideInInspector] _QueueOffset("_QueueOffset", Float) = 0
         [HideInInspector] _QueueControl("_QueueControl", Float) = -1
 
@@ -656,6 +658,7 @@ Shader /*ase_name*/ "Hidden/Universal/Unlit (Occlusion)" /*end*/
 				float _TessEdgeLength;
 				float _TessMaxDisp;
 			#endif
+				float _MetaDepthOcclusionBias;
 			CBUFFER_END
 
 			/*ase_globals*/
@@ -847,7 +850,7 @@ Shader /*ase_name*/ "Hidden/Universal/Unlit (Occlusion)" /*end*/
 				
 				// Meta Quest 3 Depth Occlusion
 				half4 finalFrag = half4(Color, Alpha);
-				META_DEPTH_OCCLUDE_OUTPUT_PREMULTIPLY_WORLDPOS(IN.positionWS, finalFrag, 0.0);
+				META_DEPTH_OCCLUDE_OUTPUT_PREMULTIPLY_WORLDPOS(IN.positionWS, finalFrag, _MetaDepthOcclusionBias);
 				return finalFrag;
 			}
 			ENDHLSL

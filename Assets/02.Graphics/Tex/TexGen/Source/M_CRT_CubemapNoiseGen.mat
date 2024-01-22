@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: M_CRT_CubemapNoiseGen
+  m_Shader: {fileID: 4800000, guid: 221c0c18f366dbc42ac729ca66e72a9d, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs: []
+    m_Ints: []
+    m_Floats:
+    - _BaseAmplitude: 0.66
+    - _BaseFrequency: 3.5
+    - _BaseNoiseScale: 3.54
+    - _Gain: 1.02
+    - _Lacunarity: 2.68
+    - _WarpStrength: 0.5
+    m_Colors:
+    - _SeedOffset: {r: 34.24393, g: -0.3453, b: 2.7472, a: 0}
+  m_BuildTextureStacks: []

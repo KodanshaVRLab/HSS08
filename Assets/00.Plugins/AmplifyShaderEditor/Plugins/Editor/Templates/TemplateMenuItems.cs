@@ -81,6 +81,11 @@ namespace AmplifyShaderEditor
 		{
 			AmplifyShaderEditorWindow.CreateConfirmationTemplateShader( "c2a467ab6d5391a4ea692226d82ffefd" );
 		}
+		[MenuItem( "Assets/Create/Amplify Shader/Universal/Decal Plus", false, 85 )]
+		public static void ApplyTemplateUniversalDecalPlus()
+		{
+			AmplifyShaderEditorWindow.CreateConfirmationTemplateShader( "7f1ca7c501025c34a87e6fcb23bc2050" );
+		}
 		[MenuItem( "Assets/Create/Amplify Shader/Universal/Lit", false, 85 )]
 		public static void ApplyTemplateUniversalLit()
 		{
@@ -90,6 +95,11 @@ namespace AmplifyShaderEditor
 		public static void ApplyTemplateUniversalUnlit()
 		{
 			AmplifyShaderEditorWindow.CreateConfirmationTemplateShader( "2992e84f91cbeb14eab234972e07ea9d" );
+		}
+		[MenuItem( "Assets/Create/Amplify Shader/Universal/Unlit (Manual Decal)", false, 85 )]
+		public static void ApplyTemplateUniversalUnlitManualDecal()
+		{
+			AmplifyShaderEditorWindow.CreateConfirmationTemplateShader( "721504d1963c94d448bc4ae4aab3d190" );
 		}
 		[MenuItem( "Assets/Create/Amplify Shader/Universal/Unlit (Occlusion)", false, 85 )]
 		public static void ApplyTemplateUniversalUnlitOcclusion()
