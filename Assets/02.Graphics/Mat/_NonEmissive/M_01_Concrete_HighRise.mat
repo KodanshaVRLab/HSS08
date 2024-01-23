@@ -12,6 +12,7 @@ Material:
   m_Parent: {fileID: 2100000, guid: ea0b8e75d286e49a3b1ea9f3aa07eea4, type: 2}
   m_ModifiedSerializedProperties: 2
   m_ValidKeywords:
+  - _METALLICSPECGLOSSMAP
   - _NORMALMAP
   - _OCCLUSIONMAP
   - _PARALLAXMAP
@@ -28,7 +29,8 @@ Material:
     serializedVersion: 3
     m_TexEnvs: []
     m_Ints: []
-    m_Floats: []
+    m_Floats:
+    - _Smoothness: 1
     m_Colors: []
   m_BuildTextureStacks: []
 --- !u!114 &6289983410951687168

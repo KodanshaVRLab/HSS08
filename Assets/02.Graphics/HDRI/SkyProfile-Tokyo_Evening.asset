@@ -95,7 +95,7 @@ Material:
     - _StarsTwinkle1: 0
     - _StarsTwinkle2: 0
     - _SunGlow: 0.29
-    - _SunLightIntensity: 1
+    - _SunLightIntensity: 5
     - _SunSize: 0.1
     - _SunSoftEdge: 0.99
     m_Colors:
@@ -113,7 +113,7 @@ Material:
     - _StarsColor1: {r: 0, g: 0, b: 0, a: 0}
     - _StarsColor2: {r: 0, g: 0, b: 0, a: 0}
     - _SunColor: {r: 1.6418585, g: 1.1355159, b: 0.52375287, a: 0.36078432}
-    - _SunDirection: {r: 0.28054056, g: -0.15258712, b: -0.94763637, a: 0}
+    - _SunDirection: {r: 0.16264422, g: 0.07469157, b: -0.98385364, a: 0}
     - _SunLightColor: {r: 1, g: 0.83523077, b: 0.643, a: 1}
   m_BuildTextureStacks: []
 --- !u!114 &11400000
@@ -134,7 +134,7 @@ MonoBehaviour:
   horizonThickness: 0.5
   horizonExponent: 3
   horizonStep: 500
-  fogSyncOption: 2
+  fogSyncOption: 3
   fogColor: {r: 0, g: 0, b: 0, a: 0}
   enableStars: 0
   starsStartPosition: -0.01
@@ -168,7 +168,7 @@ MonoBehaviour:
   useBakedSun: 0
   sunCubemap: {fileID: 0}
   sunLightColor: {r: 1, g: 0.83523077, b: 0.643, a: 1}
-  sunLightIntensity: 1
+  sunLightIntensity: 5
   enableMoon: 0
   moonTexture: {fileID: 0}
   moonColor: {r: 0, g: 0, b: 0, a: 0}
