@@ -321,7 +321,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5426050299713996021, guid: e2f81e01f8afbc143b5fde520aa7ed15, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 628
+      value: 930
       objectReference: {fileID: 0}
     - target: {fileID: 5426050299713996021, guid: e2f81e01f8afbc143b5fde520aa7ed15, type: 3}
       propertyPath: m_LocalPosition.y
@@ -329,7 +329,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5426050299713996021, guid: e2f81e01f8afbc143b5fde520aa7ed15, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -570
+      value: -674
       objectReference: {fileID: 0}
     - target: {fileID: 5426050299713996021, guid: e2f81e01f8afbc143b5fde520aa7ed15, type: 3}
       propertyPath: m_LocalRotation.w
@@ -368,6 +368,10 @@ PrefabInstance:
       value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 6125597618871277129, guid: e2f81e01f8afbc143b5fde520aa7ed15, type: 3}
+      propertyPath: m_PropertySheet.m_Float.m_Array.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6125597618871277129, guid: e2f81e01f8afbc143b5fde520aa7ed15, type: 3}
       propertyPath: m_PropertySheet.m_Vector2f.m_Array.Array.size
       value: 2
       objectReference: {fileID: 0}
@@ -380,12 +384,20 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6125597618871277129, guid: e2f81e01f8afbc143b5fde520aa7ed15, type: 3}
+      propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[2].m_Name
+      value: Fog Soft Distance
+      objectReference: {fileID: 0}
+    - target: {fileID: 6125597618871277129, guid: e2f81e01f8afbc143b5fde520aa7ed15, type: 3}
       propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[0].m_Value
       value: 0.01
       objectReference: {fileID: 0}
     - target: {fileID: 6125597618871277129, guid: e2f81e01f8afbc143b5fde520aa7ed15, type: 3}
       propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[1].m_Value
       value: 0.06
+      objectReference: {fileID: 0}
+    - target: {fileID: 6125597618871277129, guid: e2f81e01f8afbc143b5fde520aa7ed15, type: 3}
+      propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[2].m_Value
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 6125597618871277129, guid: e2f81e01f8afbc143b5fde520aa7ed15, type: 3}
       propertyPath: m_PropertySheet.m_Vector2f.m_Array.Array.data[1].m_Name
@@ -396,12 +408,16 @@ PrefabInstance:
       value: Fog Volume_center
       objectReference: {fileID: 0}
     - target: {fileID: 6125597618871277129, guid: e2f81e01f8afbc143b5fde520aa7ed15, type: 3}
+      propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[2].m_Overridden
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6125597618871277129, guid: e2f81e01f8afbc143b5fde520aa7ed15, type: 3}
       propertyPath: m_PropertySheet.m_NamedObject.m_Array.Array.data[0].m_Name
       value: Fog Flipbook
       objectReference: {fileID: 0}
     - target: {fileID: 6125597618871277129, guid: e2f81e01f8afbc143b5fde520aa7ed15, type: 3}
       propertyPath: m_PropertySheet.m_Vector2f.m_Array.Array.data[0].m_Value.x
-      value: 5
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 6125597618871277129, guid: e2f81e01f8afbc143b5fde520aa7ed15, type: 3}
       propertyPath: m_PropertySheet.m_Vector2f.m_Array.Array.data[0].m_Value.y
@@ -461,6 +477,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7261468591809258128, guid: e2f81e01f8afbc143b5fde520aa7ed15, type: 3}
       propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7261468591809258128, guid: e2f81e01f8afbc143b5fde520aa7ed15, type: 3}
+      propertyPath: m_SortingOrder
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7922476430753766637, guid: e2f81e01f8afbc143b5fde520aa7ed15, type: 3}
@@ -585,7 +605,7 @@ Light:
   m_Type: 1
   m_Shape: 0
   m_Color: {r: 1, g: 0.83523077, b: 0.643, a: 1}
-  m_Intensity: 5
+  m_Intensity: 8
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -643,13 +663,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1788053173}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.0045431037, y: -0.99594486, z: -0.037124604, w: -0.081822574}
+  m_LocalRotation: {x: 0.0031410123, y: -0.9964346, z: -0.020060996, w: -0.08188839}
   m_LocalPosition: {x: -90, y: 350, z: -181}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1294357569}
-  m_LocalEulerAnglesHint: {x: -4.284, y: -189.387, z: -0.171}
+  m_LocalEulerAnglesHint: {x: -2.321, y: -189.393, z: -0.171}
 --- !u!114 &1788053176
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -733,6 +753,10 @@ PrefabInstance:
       propertyPath: m_CastShadows
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7806827854488790181, guid: c2d403cbad20649b39d182cc72b51be5, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 0dc63566ce9a68c4c8f131ac2b8debcf, type: 2}
     - target: {fileID: -7690734293553131210, guid: c2d403cbad20649b39d182cc72b51be5, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 1
