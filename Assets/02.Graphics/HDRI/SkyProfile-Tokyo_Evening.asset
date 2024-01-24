@@ -66,7 +66,7 @@ Material:
     - _HorizonCloudStep: 25
     - _HorizonExponent: 3
     - _HorizonStep: 500
-    - _HorizonThickness: 0.5
+    - _HorizonThickness: 0.518
     - _MoonGlow: 0
     - _MoonLightIntensity: 0
     - _MoonSize: 0
@@ -94,16 +94,16 @@ Material:
     - _StarsTwinkle0: 0
     - _StarsTwinkle1: 0
     - _StarsTwinkle2: 0
-    - _SunGlow: 0.29
+    - _SunGlow: 0.305
     - _SunLightIntensity: 5
-    - _SunSize: 0.1
+    - _SunSize: 0.151
     - _SunSoftEdge: 0.99
     m_Colors:
     - _DetailOverlayTintColor: {r: 0, g: 0, b: 0, a: 0}
     - _FogColor: {r: 0, g: 0, b: 0, a: 0}
-    - _GroundColor: {r: 0.822786, g: 0.68668544, b: 0.5583406, a: 1}
+    - _GroundColor: {r: 0.26, g: 0.17333333, b: 0.17333333, a: 1}
     - _HorizonCloudColor: {r: 1, g: 1, b: 1, a: 1}
-    - _HorizonColor: {r: 0.872, g: 0.74991995, b: 0.63655996, a: 1}
+    - _HorizonColor: {r: 0.553, g: 0.42099887, b: 0.297514, a: 1}
     - _MoonColor: {r: 0, g: 0, b: 0, a: 0}
     - _MoonDirection: {r: 1, g: 1, b: 1, a: 0}
     - _MoonLightColor: {r: 0, g: 0, b: 0, a: 0}
@@ -129,9 +129,9 @@ MonoBehaviour:
   m_Name: SkyProfile-Tokyo_Evening
   m_EditorClassIdentifier: 
   skyColor: {r: 0.34905, g: 0.49523336, b: 0.71599996, a: 1}
-  horizonColor: {r: 0.872, g: 0.74991995, b: 0.63655996, a: 1}
-  groundColor: {r: 0.822786, g: 0.68668544, b: 0.5583406, a: 1}
-  horizonThickness: 0.5
+  horizonColor: {r: 0.553, g: 0.42099887, b: 0.297514, a: 1}
+  groundColor: {r: 0.26, g: 0.17333333, b: 0.17333333, a: 1}
+  horizonThickness: 0.518
   horizonExponent: 3
   horizonStep: 500
   fogSyncOption: 3
@@ -162,9 +162,9 @@ MonoBehaviour:
   enableSun: 1
   sunTexture: {fileID: 0}
   sunColor: {r: 1.6418585, g: 1.1355159, b: 0.52375287, a: 0.36078432}
-  sunSize: 0.1
+  sunSize: 0.151
   sunSoftEdge: 0.99
-  sunGlow: 0.29
+  sunGlow: 0.305
   useBakedSun: 0
   sunCubemap: {fileID: 0}
   sunLightColor: {r: 1, g: 0.83523077, b: 0.643, a: 1}
