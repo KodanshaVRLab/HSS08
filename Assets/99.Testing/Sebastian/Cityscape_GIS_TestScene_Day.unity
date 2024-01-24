@@ -321,11 +321,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7261468591809258128, guid: e2f81e01f8afbc143b5fde520aa7ed15, type: 3}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7922476430753766637, guid: e2f81e01f8afbc143b5fde520aa7ed15, type: 3}
       propertyPath: m_Name
       value: PF_FX_Mist
+      objectReference: {fileID: 0}
+    - target: {fileID: 7922476430753766637, guid: e2f81e01f8afbc143b5fde520aa7ed15, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7922476430753766637, guid: e2f81e01f8afbc143b5fde520aa7ed15, type: 3}
       propertyPath: m_StaticEditorFlags
