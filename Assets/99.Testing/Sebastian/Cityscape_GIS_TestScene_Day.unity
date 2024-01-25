@@ -3071,6 +3071,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 100004, guid: 126d619cf4daa52469682f85c1378b4a, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1990283301}
+    - targetCorrespondingSourceObject: {fileID: 100004, guid: 126d619cf4daa52469682f85c1378b4a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1990283303}
     - targetCorrespondingSourceObject: {fileID: 100006, guid: 126d619cf4daa52469682f85c1378b4a, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1632451158}
@@ -4450,6 +4453,20 @@ MonoBehaviour:
   gizmosEnabled: 0
   leftHandPos: {fileID: 0}
   rightHandPos: {fileID: 0}
+--- !u!114 &1990283303
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1632451146}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6b7313f70c49ad44acf3f30d26fde63, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  loadDelay: 60
+  sceneToLoad: 0
 --- !u!1001 &1994434661
 PrefabInstance:
   m_ObjectHideFlags: 0
