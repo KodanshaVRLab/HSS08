@@ -1,1 +1,74 @@
-{}
+{
+    "name": "PlayerActions",
+    "maps": [
+        {
+            "name": "Debug",
+            "id": "8cc3fc4c-ca63-4ca4-83ac-c860352794b1",
+            "actions": [
+                {
+                    "name": "LeftStick",
+                    "type": "Value",
+                    "id": "6edb095b-e988-4973-b9f9-6bea434cff07",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "RightAxis",
+                    "type": "Value",
+                    "id": "a8d9782b-b6e2-4221-bfe9-221705ec748d",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "LeftTrigger",
+                    "type": "Button",
+                    "id": "8090c0c1-1c6b-4f42-9f64-cd808b110ea8",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "b2ec0092-0ba1-4fde-9853-66ec4e7a6e47",
+                    "path": "<XRController>{LeftHand}/{Primary2DAxis}",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "LeftStick",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "21485190-e0f6-4bcd-a514-1aff1ad4b3dd",
+                    "path": "<XRController>{RightHand}/{Primary2DAxis}",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "RightAxis",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "2d34418c-327c-4fe3-879d-c8f3420e244f",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "LeftTrigger",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
