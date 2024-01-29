@@ -7,8 +7,13 @@ namespace KVRL.HSS08.Testing
 {
     public class DecalCallbackRuntimeBinder : MonoBehaviour
     {
+        [SerializeField] bool enableDecals = true;
+        [SerializeField] bool enableEnvSwap = true;
+
         DecalManagerTest decalSystem;
+        TestEnvironmentSwapper swapSystem;
         PointableUnityEventWrapper callbackWrapper;
+
         [SerializeField] bool verbose = false;
 
         private void Awake()
@@ -18,6 +23,62 @@ namespace KVRL.HSS08.Testing
 
         private void OnEnable()
         {
+            if (enableDecals)
+            {
+                BindDecalCallbacks();
+            }
+
+            if (enableEnvSwap)
+            {
+                BindEnvSwapCallbacks();
+            }
+        }
+
+        private void OnDisable()
+        {
+            if (enableDecals)
+            {
+                UnbindDecalCallbacks();
+            }
+
+            if (enableEnvSwap)
+            {
+                UnbindEnvSwapCallbacks();
+            }
+        }
+
+        void FetchReferences(bool log = false)
+        {
+            // keeping log option if needed eventually for static scene refs
+            if (decalSystem == null)
+            {
+                decalSystem = FindObjectOfType<DecalManagerTest>();
+                if (decalSystem != null && log)
+                {
+                    Debug.Log($"Auto-assigned Decal Manager {decalSystem.name} to {name}'s Decal Callback Runtime Binder.");
+                }
+            }
+
+            if (swapSystem == null)
+            {
+                swapSystem = FindObjectOfType<TestEnvironmentSwapper>();
+                if (swapSystem != null && log)
+                {
+                    Debug.Log($"Auto-assigned Test Env Swapper {swapSystem.name} to {name}'s Decal Callback Runtime Binder.");
+                }
+            }
+
+            if (callbackWrapper == null)
+            {
+                if (TryGetComponent(out callbackWrapper) && log)
+                {
+                    Debug.Log($"Auto-assigned Pointable Unity Event Wrapper found on {name} to its Decal Callback Runtime Binder.");
+                }
+            }
+        }
+
+        void BindDecalCallbacks()
+        {
             if (decalSystem != null && callbackWrapper != null)
             {
                 callbackWrapper.WhenSelect.AddListener(decalSystem.PlaceDecal);
@@ -26,13 +87,31 @@ namespace KVRL.HSS08.Testing
                 {
                     Debug.Log($"Added {decalSystem.name}'s listener to {callbackWrapper.name}'s Event");
                 }
-            } else if (verbose)
+            }
+            else if (verbose)
             {
                 Debug.Log($"Binding failed. Staus:\nDecalSystem: {decalSystem}\nWrapper: {callbackWrapper}");
             }
         }
 
-        private void OnDisable()
+        void BindEnvSwapCallbacks()
+        {
+            if (swapSystem != null && callbackWrapper != null)
+            {
+                callbackWrapper.WhenSelect.AddListener(swapSystem.TriggerSwap);
+
+                if (verbose)
+                {
+                    Debug.Log($"Added {swapSystem.name}'s listener to {callbackWrapper.name}'s Event");
+                }
+            }
+            else if (verbose)
+            {
+                Debug.Log($"Binding failed. Staus:\nEnvSwapSystem: {swapSystem}\nWrapper: {callbackWrapper}");
+            }
+        }
+
+        void UnbindDecalCallbacks()
         {
             if (decalSystem != null && callbackWrapper != null)
             {
@@ -49,24 +128,20 @@ namespace KVRL.HSS08.Testing
             }
         }
 
-        void FetchReferences(bool log = false)
+        void UnbindEnvSwapCallbacks()
         {
-            // keeping log option if needed eventually for static scene refs
-            if (decalSystem == null)
+            if (swapSystem != null && callbackWrapper != null)
             {
-                decalSystem = FindObjectOfType<DecalManagerTest>();
-                if (decalSystem != null && log)
+                callbackWrapper.WhenSelect.RemoveListener(swapSystem.TriggerSwap);
+
+                if (verbose)
                 {
-                    Debug.Log($"Auto-assigned Decal Manager {decalSystem.name} to {name}'s Decal Callback Runtime Binder.");
+                    Debug.Log($"Removed {swapSystem.name}'s listener from {callbackWrapper.name}'s Event");
                 }
             }
-
-            if (callbackWrapper == null)
+            else if (verbose)
             {
-                if (TryGetComponent(out callbackWrapper) && log)
-                {
-                    Debug.Log($"Auto-assigned Pointable Unity Event Wrapper found on {name} to its Decal Callback Runtime Binder.");
-                }
+                Debug.Log($"Binding failed. Staus:\nEnvSwapSystem: {swapSystem}\nWrapper: {callbackWrapper}");
             }
         }
     }
