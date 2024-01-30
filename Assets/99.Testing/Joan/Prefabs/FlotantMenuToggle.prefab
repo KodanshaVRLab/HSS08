@@ -1,0 +1,512 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1974966761928879646
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7457290595424412376}
+  - component: {fileID: 7457027495194371472}
+  - component: {fileID: 8711635562693339973}
+  - component: {fileID: 6122217302659505688}
+  m_Layer: 5
+  m_Name: FlotantMenuToggle
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &7457290595424412376
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1974966761928879646}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 3827716331619822300}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -684, y: -0}
+  m_SizeDelta: {x: 200, y: 200}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &7457027495194371472
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1974966761928879646}
+  m_CullTransparentMesh: 1
+--- !u!114 &8711635562693339973
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1974966761928879646}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.8254717, g: 0.83413625, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: 5653a06ce8b6a244abc4b400665f93c5, type: 3}
+  m_Type: 1
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!114 &6122217302659505688
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1974966761928879646}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db34462a458be2d41ac6f5d39b6aca56, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  activeOnAwake: 1
+  clickBehaviour: 2
+  holdTime: 1
+  allowRepeatedClicks: 0
+  clickTimeout: 0.25
+  onClick:
+    m_PersistentCalls:
+      m_Calls: []
+  onHoldStarted:
+    m_PersistentCalls:
+      m_Calls: []
+  onHold:
+    m_PersistentCalls:
+      m_Calls: []
+  onHoldCancelled:
+    m_PersistentCalls:
+      m_Calls: []
+  deactivated:
+    modifiers: []
+    OnStateApplied:
+      m_PersistentCalls:
+        m_Calls: []
+    OnStateRemoved:
+      m_PersistentCalls:
+        m_Calls: []
+  idle:
+    modifiers:
+    - rid: 1974400159792234515
+    - rid: 1974400159792234516
+    OnStateApplied:
+      m_PersistentCalls:
+        m_Calls: []
+    OnStateRemoved:
+      m_PersistentCalls:
+        m_Calls: []
+  focused:
+    modifiers:
+    - rid: 1974400159792234521
+    - rid: 1974400159792234522
+    OnStateApplied:
+      m_PersistentCalls:
+        m_Calls: []
+    OnStateRemoved:
+      m_PersistentCalls:
+        m_Calls: []
+  selected:
+    modifiers: []
+    OnStateApplied:
+      m_PersistentCalls:
+        m_Calls: []
+    OnStateRemoved:
+      m_PersistentCalls:
+        m_Calls: []
+  defaultState: 0
+  on:
+    m_PersistentCalls:
+      m_Calls: []
+  off:
+    m_PersistentCalls:
+      m_Calls: []
+  onStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  onStateChangedWithReference:
+    m_PersistentCalls:
+      m_Calls: []
+  offState:
+    modifiers:
+    - rid: 1974400159792234511
+    OnStateApplied:
+      m_PersistentCalls:
+        m_Calls: []
+    OnStateRemoved:
+      m_PersistentCalls:
+        m_Calls: []
+  onState:
+    modifiers: []
+    OnStateApplied:
+      m_PersistentCalls:
+        m_Calls: []
+    OnStateRemoved:
+      m_PersistentCalls:
+        m_Calls: []
+  references:
+    version: 2
+    RefIds:
+    - rid: 1974400159792234511
+      type: {class: ImageColorModifier, ns: KVRL.KVRLENGINE.UI, asm: UIAssambleyDefinition}
+      data:
+        apply: 1
+        isAnimated: 1
+        animateModule:
+          ignoreTimeScale: 1
+          duration: 1
+          loop: 0
+          pingPong: 0
+          useCustomEase: 0
+          ease: 1
+          customEase:
+            serializedVersion: 2
+            m_Curve:
+            - serializedVersion: 3
+              time: 0
+              value: 0
+              inSlope: 0
+              outSlope: 0
+              tangentMode: 0
+              weightedMode: 0
+              inWeight: 0
+              outWeight: 0
+            - serializedVersion: 3
+              time: 1
+              value: 1
+              inSlope: 0
+              outSlope: 0
+              tangentMode: 0
+              weightedMode: 0
+              inWeight: 0
+              outWeight: 0
+            m_PreInfinity: 2
+            m_PostInfinity: 2
+            m_RotationOrder: 4
+          OnStarted:
+            m_PersistentCalls:
+              m_Calls: []
+          OnProgress:
+            m_PersistentCalls:
+              m_Calls: []
+          OnFinished:
+            m_PersistentCalls:
+              m_Calls: []
+          OnLoopCycle:
+            m_PersistentCalls:
+              m_Calls: []
+        image: {fileID: 1042064805696347315}
+        color: {r: 0.7830189, g: 0.7830189, b: 0.7830189, a: 1}
+        forceStartValue: 0
+        startColor: {r: 1, g: 1, b: 1, a: 1}
+    - rid: 1974400159792234515
+      type: {class: ImageColorModifier, ns: KVRL.KVRLENGINE.UI, asm: UIAssambleyDefinition}
+      data:
+        apply: 1
+        isAnimated: 1
+        animateModule:
+          ignoreTimeScale: 1
+          duration: 0.25
+          loop: 0
+          pingPong: 0
+          useCustomEase: 0
+          ease: 1
+          customEase:
+            serializedVersion: 2
+            m_Curve:
+            - serializedVersion: 3
+              time: 0
+              value: 0
+              inSlope: 0
+              outSlope: 0
+              tangentMode: 0
+              weightedMode: 0
+              inWeight: 0
+              outWeight: 0
+            - serializedVersion: 3
+              time: 1
+              value: 1
+              inSlope: 0
+              outSlope: 0
+              tangentMode: 0
+              weightedMode: 0
+              inWeight: 0
+              outWeight: 0
+            m_PreInfinity: 2
+            m_PostInfinity: 2
+            m_RotationOrder: 4
+          OnStarted:
+            m_PersistentCalls:
+              m_Calls: []
+          OnProgress:
+            m_PersistentCalls:
+              m_Calls: []
+          OnFinished:
+            m_PersistentCalls:
+              m_Calls: []
+          OnLoopCycle:
+            m_PersistentCalls:
+              m_Calls: []
+        image: {fileID: 8711635562693339973}
+        color: {r: 0.8235295, g: 0.8352942, b: 0.9960785, a: 1}
+        forceStartValue: 0
+        startColor: {r: 1, g: 1, b: 1, a: 1}
+    - rid: 1974400159792234516
+      type: {class: ScaleModifier, ns: KVRL.KVRLENGINE.UI, asm: UIAssambleyDefinition}
+      data:
+        apply: 1
+        isAnimated: 1
+        animateModule:
+          ignoreTimeScale: 1
+          duration: 0.25
+          loop: 0
+          pingPong: 0
+          useCustomEase: 0
+          ease: 1
+          customEase:
+            serializedVersion: 2
+            m_Curve:
+            - serializedVersion: 3
+              time: 0
+              value: 0
+              inSlope: 0
+              outSlope: 0
+              tangentMode: 0
+              weightedMode: 0
+              inWeight: 0
+              outWeight: 0
+            - serializedVersion: 3
+              time: 1
+              value: 1
+              inSlope: 0
+              outSlope: 0
+              tangentMode: 0
+              weightedMode: 0
+              inWeight: 0
+              outWeight: 0
+            m_PreInfinity: 2
+            m_PostInfinity: 2
+            m_RotationOrder: 4
+          OnStarted:
+            m_PersistentCalls:
+              m_Calls: []
+          OnProgress:
+            m_PersistentCalls:
+              m_Calls: []
+          OnFinished:
+            m_PersistentCalls:
+              m_Calls: []
+          OnLoopCycle:
+            m_PersistentCalls:
+              m_Calls: []
+        rectTransform: {fileID: 7457290595424412376}
+        scale: {x: 1, y: 1, z: 1}
+        forceStartValue: 0
+        startScale: {x: 1, y: 1, z: 1}
+    - rid: 1974400159792234521
+      type: {class: ImageColorModifier, ns: KVRL.KVRLENGINE.UI, asm: UIAssambleyDefinition}
+      data:
+        apply: 1
+        isAnimated: 1
+        animateModule:
+          ignoreTimeScale: 1
+          duration: 0.15
+          loop: 0
+          pingPong: 0
+          useCustomEase: 0
+          ease: 1
+          customEase:
+            serializedVersion: 2
+            m_Curve:
+            - serializedVersion: 3
+              time: 0
+              value: 0
+              inSlope: 0
+              outSlope: 0
+              tangentMode: 0
+              weightedMode: 0
+              inWeight: 0
+              outWeight: 0
+            - serializedVersion: 3
+              time: 1
+              value: 1
+              inSlope: 0
+              outSlope: 0
+              tangentMode: 0
+              weightedMode: 0
+              inWeight: 0
+              outWeight: 0
+            m_PreInfinity: 2
+            m_PostInfinity: 2
+            m_RotationOrder: 4
+          OnStarted:
+            m_PersistentCalls:
+              m_Calls: []
+          OnProgress:
+            m_PersistentCalls:
+              m_Calls: []
+          OnFinished:
+            m_PersistentCalls:
+              m_Calls: []
+          OnLoopCycle:
+            m_PersistentCalls:
+              m_Calls: []
+        image: {fileID: 8711635562693339973}
+        color: {r: 0.9481132, g: 0.9516509, b: 1, a: 1}
+        forceStartValue: 0
+        startColor: {r: 1, g: 1, b: 1, a: 1}
+    - rid: 1974400159792234522
+      type: {class: ScaleModifier, ns: KVRL.KVRLENGINE.UI, asm: UIAssambleyDefinition}
+      data:
+        apply: 1
+        isAnimated: 1
+        animateModule:
+          ignoreTimeScale: 1
+          duration: 0.15
+          loop: 0
+          pingPong: 0
+          useCustomEase: 0
+          ease: 1
+          customEase:
+            serializedVersion: 2
+            m_Curve:
+            - serializedVersion: 3
+              time: 0
+              value: 0
+              inSlope: 0
+              outSlope: 0
+              tangentMode: 0
+              weightedMode: 0
+              inWeight: 0
+              outWeight: 0
+            - serializedVersion: 3
+              time: 1
+              value: 1
+              inSlope: 0
+              outSlope: 0
+              tangentMode: 0
+              weightedMode: 0
+              inWeight: 0
+              outWeight: 0
+            m_PreInfinity: 2
+            m_PostInfinity: 2
+            m_RotationOrder: 4
+          OnStarted:
+            m_PersistentCalls:
+              m_Calls: []
+          OnProgress:
+            m_PersistentCalls:
+              m_Calls: []
+          OnFinished:
+            m_PersistentCalls:
+              m_Calls: []
+          OnLoopCycle:
+            m_PersistentCalls:
+              m_Calls: []
+        rectTransform: {fileID: 7457290595424412376}
+        scale: {x: 1.2, y: 1.2, z: 1}
+        forceStartValue: 0
+        startScale: {x: 1, y: 1, z: 1}
+--- !u!1 &9071524850328022579
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3827716331619822300}
+  - component: {fileID: 7974249036407774575}
+  - component: {fileID: 1042064805696347315}
+  m_Layer: 5
+  m_Name: Icon
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &3827716331619822300
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9071524850328022579}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7457290595424412376}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: -30, y: -30}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &7974249036407774575
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9071524850328022579}
+  m_CullTransparentMesh: 1
+--- !u!114 &1042064805696347315
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9071524850328022579}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.20392159, g: 0.16078432, b: 0.6784314, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: c2ece493a839f0d49bd0a9ffd989e634, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 1
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1

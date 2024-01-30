@@ -1,0 +1,760 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1727040726815183920
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5027054106044782332}
+  - component: {fileID: 2006875045399175015}
+  - component: {fileID: 6196534108281208453}
+  m_Layer: 5
+  m_Name: Icon
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &5027054106044782332
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1727040726815183920}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4868020051274428030}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: -30, y: -30}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &2006875045399175015
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1727040726815183920}
+  m_CullTransparentMesh: 1
+--- !u!114 &6196534108281208453
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1727040726815183920}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.20392159, g: 0.16078432, b: 0.6784314, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: 81e25c264961320438fd1fd35951c151, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 1
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!1 &6045222151991808567
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4868020051274428030}
+  - component: {fileID: 3399175784705948005}
+  - component: {fileID: 7983256108503787931}
+  - component: {fileID: 9175526963002708342}
+  m_Layer: 5
+  m_Name: FlotantMenuButton
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &4868020051274428030
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6045222151991808567}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 5027054106044782332}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 322, y: 0}
+  m_SizeDelta: {x: 200, y: 200}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &3399175784705948005
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6045222151991808567}
+  m_CullTransparentMesh: 1
+--- !u!114 &7983256108503787931
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6045222151991808567}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.8254717, g: 0.83413625, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: 5653a06ce8b6a244abc4b400665f93c5, type: 3}
+  m_Type: 1
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!114 &9175526963002708342
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6045222151991808567}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe20eedb0ad82ab4bbb7313e920b15ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  activeOnAwake: 1
+  clickBehaviour: 2
+  holdTime: 1
+  allowRepeatedClicks: 0
+  clickTimeout: 0.25
+  onClick:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: JoanMusicShuffler, Assembly-CSharp
+        m_MethodName: AddVolume
+        m_Mode: 4
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0.2
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onHoldStarted:
+    m_PersistentCalls:
+      m_Calls: []
+  onHold:
+    m_PersistentCalls:
+      m_Calls: []
+  onHoldCancelled:
+    m_PersistentCalls:
+      m_Calls: []
+  deactivated:
+    modifiers:
+    - rid: 1974400186710228992
+    - rid: 1974400186710228993
+    - rid: 1974400186710228994
+    OnStateApplied:
+      m_PersistentCalls:
+        m_Calls: []
+    OnStateRemoved:
+      m_PersistentCalls:
+        m_Calls: []
+  idle:
+    modifiers:
+    - rid: 1974400159792234502
+    - rid: 1974400159792234503
+    - rid: 1974400186710228995
+    OnStateApplied:
+      m_PersistentCalls:
+        m_Calls: []
+    OnStateRemoved:
+      m_PersistentCalls:
+        m_Calls: []
+  focused:
+    modifiers:
+    - rid: 1974400159792234504
+    - rid: 1974400159792234505
+    OnStateApplied:
+      m_PersistentCalls:
+        m_Calls: []
+    OnStateRemoved:
+      m_PersistentCalls:
+        m_Calls: []
+  selected:
+    modifiers:
+    - rid: 1974400159792234506
+    - rid: 1974400159792234507
+    OnStateApplied:
+      m_PersistentCalls:
+        m_Calls: []
+    OnStateRemoved:
+      m_PersistentCalls:
+        m_Calls: []
+  references:
+    version: 2
+    RefIds:
+    - rid: 1974400159792234502
+      type: {class: ImageColorModifier, ns: KVRL.KVRLENGINE.UI, asm: UIAssambleyDefinition}
+      data:
+        apply: 1
+        isAnimated: 1
+        animateModule:
+          ignoreTimeScale: 1
+          duration: 0.2
+          loop: 0
+          pingPong: 0
+          useCustomEase: 0
+          ease: 1
+          customEase:
+            serializedVersion: 2
+            m_Curve:
+            - serializedVersion: 3
+              time: 0
+              value: 0
+              inSlope: 0
+              outSlope: 0
+              tangentMode: 0
+              weightedMode: 0
+              inWeight: 0
+              outWeight: 0
+            - serializedVersion: 3
+              time: 1
+              value: 1
+              inSlope: 0
+              outSlope: 0
+              tangentMode: 0
+              weightedMode: 0
+              inWeight: 0
+              outWeight: 0
+            m_PreInfinity: 2
+            m_PostInfinity: 2
+            m_RotationOrder: 4
+          OnStarted:
+            m_PersistentCalls:
+              m_Calls: []
+          OnProgress:
+            m_PersistentCalls:
+              m_Calls: []
+          OnFinished:
+            m_PersistentCalls:
+              m_Calls: []
+          OnLoopCycle:
+            m_PersistentCalls:
+              m_Calls: []
+        image: {fileID: 7983256108503787931}
+        color: {r: 0.8235295, g: 0.8352942, b: 0.9960785, a: 1}
+        forceStartValue: 0
+        startColor: {r: 1, g: 1, b: 1, a: 1}
+    - rid: 1974400159792234503
+      type: {class: ScaleModifier, ns: KVRL.KVRLENGINE.UI, asm: UIAssambleyDefinition}
+      data:
+        apply: 1
+        isAnimated: 1
+        animateModule:
+          ignoreTimeScale: 1
+          duration: 0.2
+          loop: 0
+          pingPong: 0
+          useCustomEase: 0
+          ease: 1
+          customEase:
+            serializedVersion: 2
+            m_Curve:
+            - serializedVersion: 3
+              time: 0
+              value: 0
+              inSlope: 0
+              outSlope: 0
+              tangentMode: 0
+              weightedMode: 0
+              inWeight: 0
+              outWeight: 0
+            - serializedVersion: 3
+              time: 1
+              value: 1
+              inSlope: 0
+              outSlope: 0
+              tangentMode: 0
+              weightedMode: 0
+              inWeight: 0
+              outWeight: 0
+            m_PreInfinity: 2
+            m_PostInfinity: 2
+            m_RotationOrder: 4
+          OnStarted:
+            m_PersistentCalls:
+              m_Calls: []
+          OnProgress:
+            m_PersistentCalls:
+              m_Calls: []
+          OnFinished:
+            m_PersistentCalls:
+              m_Calls: []
+          OnLoopCycle:
+            m_PersistentCalls:
+              m_Calls: []
+        rectTransform: {fileID: 4868020051274428030}
+        scale: {x: 1, y: 1, z: 1}
+        forceStartValue: 0
+        startScale: {x: 1, y: 1, z: 1}
+    - rid: 1974400159792234504
+      type: {class: ImageColorModifier, ns: KVRL.KVRLENGINE.UI, asm: UIAssambleyDefinition}
+      data:
+        apply: 1
+        isAnimated: 1
+        animateModule:
+          ignoreTimeScale: 1
+          duration: 0.15
+          loop: 0
+          pingPong: 0
+          useCustomEase: 0
+          ease: 1
+          customEase:
+            serializedVersion: 2
+            m_Curve:
+            - serializedVersion: 3
+              time: 0
+              value: 0
+              inSlope: 0
+              outSlope: 0
+              tangentMode: 0
+              weightedMode: 0
+              inWeight: 0
+              outWeight: 0
+            - serializedVersion: 3
+              time: 1
+              value: 1
+              inSlope: 0
+              outSlope: 0
+              tangentMode: 0
+              weightedMode: 0
+              inWeight: 0
+              outWeight: 0
+            m_PreInfinity: 2
+            m_PostInfinity: 2
+            m_RotationOrder: 4
+          OnStarted:
+            m_PersistentCalls:
+              m_Calls: []
+          OnProgress:
+            m_PersistentCalls:
+              m_Calls: []
+          OnFinished:
+            m_PersistentCalls:
+              m_Calls: []
+          OnLoopCycle:
+            m_PersistentCalls:
+              m_Calls: []
+        image: {fileID: 7983256108503787931}
+        color: {r: 1, g: 1, b: 1, a: 1}
+        forceStartValue: 0
+        startColor: {r: 1, g: 1, b: 1, a: 1}
+    - rid: 1974400159792234505
+      type: {class: ScaleModifier, ns: KVRL.KVRLENGINE.UI, asm: UIAssambleyDefinition}
+      data:
+        apply: 1
+        isAnimated: 1
+        animateModule:
+          ignoreTimeScale: 1
+          duration: 0.15
+          loop: 0
+          pingPong: 0
+          useCustomEase: 0
+          ease: 1
+          customEase:
+            serializedVersion: 2
+            m_Curve:
+            - serializedVersion: 3
+              time: 0
+              value: 0
+              inSlope: 0
+              outSlope: 0
+              tangentMode: 0
+              weightedMode: 0
+              inWeight: 0
+              outWeight: 0
+            - serializedVersion: 3
+              time: 1
+              value: 1
+              inSlope: 0
+              outSlope: 0
+              tangentMode: 0
+              weightedMode: 0
+              inWeight: 0
+              outWeight: 0
+            m_PreInfinity: 2
+            m_PostInfinity: 2
+            m_RotationOrder: 4
+          OnStarted:
+            m_PersistentCalls:
+              m_Calls: []
+          OnProgress:
+            m_PersistentCalls:
+              m_Calls: []
+          OnFinished:
+            m_PersistentCalls:
+              m_Calls: []
+          OnLoopCycle:
+            m_PersistentCalls:
+              m_Calls: []
+        rectTransform: {fileID: 4868020051274428030}
+        scale: {x: 1.15, y: 1.15, z: 1}
+        forceStartValue: 0
+        startScale: {x: 1, y: 1, z: 1}
+    - rid: 1974400159792234506
+      type: {class: ImageColorModifier, ns: KVRL.KVRLENGINE.UI, asm: UIAssambleyDefinition}
+      data:
+        apply: 1
+        isAnimated: 1
+        animateModule:
+          ignoreTimeScale: 1
+          duration: 0.15
+          loop: 0
+          pingPong: 0
+          useCustomEase: 0
+          ease: 1
+          customEase:
+            serializedVersion: 2
+            m_Curve:
+            - serializedVersion: 3
+              time: 0
+              value: 0
+              inSlope: 0
+              outSlope: 0
+              tangentMode: 0
+              weightedMode: 0
+              inWeight: 0
+              outWeight: 0
+            - serializedVersion: 3
+              time: 1
+              value: 1
+              inSlope: 0
+              outSlope: 0
+              tangentMode: 0
+              weightedMode: 0
+              inWeight: 0
+              outWeight: 0
+            m_PreInfinity: 2
+            m_PostInfinity: 2
+            m_RotationOrder: 4
+          OnStarted:
+            m_PersistentCalls:
+              m_Calls: []
+          OnProgress:
+            m_PersistentCalls:
+              m_Calls: []
+          OnFinished:
+            m_PersistentCalls:
+              m_Calls: []
+          OnLoopCycle:
+            m_PersistentCalls:
+              m_Calls: []
+        image: {fileID: 7983256108503787931}
+        color: {r: 1, g: 1, b: 1, a: 1}
+        forceStartValue: 0
+        startColor: {r: 1, g: 1, b: 1, a: 1}
+    - rid: 1974400159792234507
+      type: {class: ScaleModifier, ns: KVRL.KVRLENGINE.UI, asm: UIAssambleyDefinition}
+      data:
+        apply: 1
+        isAnimated: 1
+        animateModule:
+          ignoreTimeScale: 1
+          duration: 0.15
+          loop: 0
+          pingPong: 0
+          useCustomEase: 0
+          ease: 1
+          customEase:
+            serializedVersion: 2
+            m_Curve:
+            - serializedVersion: 3
+              time: 0
+              value: 0
+              inSlope: 0
+              outSlope: 0
+              tangentMode: 0
+              weightedMode: 0
+              inWeight: 0
+              outWeight: 0
+            - serializedVersion: 3
+              time: 1
+              value: 1
+              inSlope: 0
+              outSlope: 0
+              tangentMode: 0
+              weightedMode: 0
+              inWeight: 0
+              outWeight: 0
+            m_PreInfinity: 2
+            m_PostInfinity: 2
+            m_RotationOrder: 4
+          OnStarted:
+            m_PersistentCalls:
+              m_Calls: []
+          OnProgress:
+            m_PersistentCalls:
+              m_Calls: []
+          OnFinished:
+            m_PersistentCalls:
+              m_Calls: []
+          OnLoopCycle:
+            m_PersistentCalls:
+              m_Calls: []
+        rectTransform: {fileID: 4868020051274428030}
+        scale: {x: 1.4, y: 1.4, z: 1}
+        forceStartValue: 0
+        startScale: {x: 1, y: 1, z: 1}
+    - rid: 1974400186710228992
+      type: {class: ImageColorModifier, ns: KVRL.KVRLENGINE.UI, asm: UIAssambleyDefinition}
+      data:
+        apply: 1
+        isAnimated: 1
+        animateModule:
+          ignoreTimeScale: 1
+          duration: 0.2
+          loop: 0
+          pingPong: 0
+          useCustomEase: 0
+          ease: 1
+          customEase:
+            serializedVersion: 2
+            m_Curve:
+            - serializedVersion: 3
+              time: 0
+              value: 0
+              inSlope: 0
+              outSlope: 0
+              tangentMode: 0
+              weightedMode: 0
+              inWeight: 0
+              outWeight: 0
+            - serializedVersion: 3
+              time: 1
+              value: 1
+              inSlope: 0
+              outSlope: 0
+              tangentMode: 0
+              weightedMode: 0
+              inWeight: 0
+              outWeight: 0
+            m_PreInfinity: 2
+            m_PostInfinity: 2
+            m_RotationOrder: 4
+          OnStarted:
+            m_PersistentCalls:
+              m_Calls: []
+          OnProgress:
+            m_PersistentCalls:
+              m_Calls: []
+          OnFinished:
+            m_PersistentCalls:
+              m_Calls: []
+          OnLoopCycle:
+            m_PersistentCalls:
+              m_Calls: []
+        image: {fileID: 7983256108503787931}
+        color: {r: 0.8235295, g: 0.8352942, b: 0.9960785, a: 1}
+        forceStartValue: 0
+        startColor: {r: 1, g: 1, b: 1, a: 1}
+    - rid: 1974400186710228993
+      type: {class: ScaleModifier, ns: KVRL.KVRLENGINE.UI, asm: UIAssambleyDefinition}
+      data:
+        apply: 1
+        isAnimated: 1
+        animateModule:
+          ignoreTimeScale: 1
+          duration: 0.2
+          loop: 0
+          pingPong: 0
+          useCustomEase: 0
+          ease: 1
+          customEase:
+            serializedVersion: 2
+            m_Curve:
+            - serializedVersion: 3
+              time: 0
+              value: 0
+              inSlope: 0
+              outSlope: 0
+              tangentMode: 0
+              weightedMode: 0
+              inWeight: 0
+              outWeight: 0
+            - serializedVersion: 3
+              time: 1
+              value: 1
+              inSlope: 0
+              outSlope: 0
+              tangentMode: 0
+              weightedMode: 0
+              inWeight: 0
+              outWeight: 0
+            m_PreInfinity: 2
+            m_PostInfinity: 2
+            m_RotationOrder: 4
+          OnStarted:
+            m_PersistentCalls:
+              m_Calls: []
+          OnProgress:
+            m_PersistentCalls:
+              m_Calls: []
+          OnFinished:
+            m_PersistentCalls:
+              m_Calls: []
+          OnLoopCycle:
+            m_PersistentCalls:
+              m_Calls: []
+        rectTransform: {fileID: 4868020051274428030}
+        scale: {x: 1, y: 1, z: 1}
+        forceStartValue: 0
+        startScale: {x: 1, y: 1, z: 1}
+    - rid: 1974400186710228994
+      type: {class: ImageColorModifier, ns: KVRL.KVRLENGINE.UI, asm: UIAssambleyDefinition}
+      data:
+        apply: 1
+        isAnimated: 1
+        animateModule:
+          ignoreTimeScale: 1
+          duration: 0.2
+          loop: 0
+          pingPong: 0
+          useCustomEase: 0
+          ease: 1
+          customEase:
+            serializedVersion: 2
+            m_Curve:
+            - serializedVersion: 3
+              time: 0
+              value: 0
+              inSlope: 0
+              outSlope: 0
+              tangentMode: 0
+              weightedMode: 0
+              inWeight: 0
+              outWeight: 0
+            - serializedVersion: 3
+              time: 1
+              value: 1
+              inSlope: 0
+              outSlope: 0
+              tangentMode: 0
+              weightedMode: 0
+              inWeight: 0
+              outWeight: 0
+            m_PreInfinity: 2
+            m_PostInfinity: 2
+            m_RotationOrder: 4
+          OnStarted:
+            m_PersistentCalls:
+              m_Calls: []
+          OnProgress:
+            m_PersistentCalls:
+              m_Calls: []
+          OnFinished:
+            m_PersistentCalls:
+              m_Calls: []
+          OnLoopCycle:
+            m_PersistentCalls:
+              m_Calls: []
+        image: {fileID: 6196534108281208453}
+        color: {r: 0.59607846, g: 0.59607846, b: 0.59607846, a: 1}
+        forceStartValue: 0
+        startColor: {r: 1, g: 1, b: 1, a: 1}
+    - rid: 1974400186710228995
+      type: {class: ImageColorModifier, ns: KVRL.KVRLENGINE.UI, asm: UIAssambleyDefinition}
+      data:
+        apply: 1
+        isAnimated: 1
+        animateModule:
+          ignoreTimeScale: 1
+          duration: 1
+          loop: 0
+          pingPong: 0
+          useCustomEase: 0
+          ease: 1
+          customEase:
+            serializedVersion: 2
+            m_Curve:
+            - serializedVersion: 3
+              time: 0
+              value: 0
+              inSlope: 0
+              outSlope: 0
+              tangentMode: 0
+              weightedMode: 0
+              inWeight: 0
+              outWeight: 0
+            - serializedVersion: 3
+              time: 1
+              value: 1
+              inSlope: 0
+              outSlope: 0
+              tangentMode: 0
+              weightedMode: 0
+              inWeight: 0
+              outWeight: 0
+            m_PreInfinity: 2
+            m_PostInfinity: 2
+            m_RotationOrder: 4
+          OnStarted:
+            m_PersistentCalls:
+              m_Calls: []
+          OnProgress:
+            m_PersistentCalls:
+              m_Calls: []
+          OnFinished:
+            m_PersistentCalls:
+              m_Calls: []
+          OnLoopCycle:
+            m_PersistentCalls:
+              m_Calls: []
+        image: {fileID: 6196534108281208453}
+        color: {r: 0.20392159, g: 0.16078432, b: 0.6784314, a: 1}
+        forceStartValue: 0
+        startColor: {r: 1, g: 1, b: 1, a: 1}
