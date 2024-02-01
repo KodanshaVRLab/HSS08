@@ -19,6 +19,8 @@ namespace KVRL.HSS08.Testing
             if (swapper != null )
             {
                 BindCallbacks();
+
+                SetCurrent();
             }
         }
 
@@ -46,6 +48,22 @@ namespace KVRL.HSS08.Testing
         {
             swapper.onPassthrough.RemoveListener(PassthroughCallback);
             swapper.onVirtual.RemoveListener(VirtualCallback);
+        }
+
+        void SetCurrent()
+        {
+            if (swapper == null)
+            {
+                return;
+            }
+
+            if (swapper.IsPassthrough)
+            {
+                PassthroughCallback(EnvironmentSwapData.Empty);
+            } else
+            {
+                VirtualCallback(EnvironmentSwapData.Empty);
+            }
         }
 
         void PassthroughCallback(EnvironmentSwapData data)

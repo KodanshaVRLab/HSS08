@@ -27,11 +27,26 @@ namespace KVRL.HSS08.Testing
 
         public void PlaceDecal(PointerEvent evt)
         {
+            if (!FilterEvent(evt.Data))
+            {
+                return;
+            }
+
             var decal = GetNext();
             Vector3 norm = evt.Pose.forward;
             Vector3 pos = evt.Pose.position + norm * surfaceBias;
 
             AdjustDecal(decal, pos, norm);
+        }
+
+        bool FilterEvent(object data)
+        {
+            if (data is InteractionData iData)
+            {
+                return (iData.interactions & ValidInteractions.PortalDecal) != 0;
+            }
+
+            return true;
         }
 
         void AdjustDecal(DecalProjector decal, Vector3 pos, Vector3 norm)

@@ -11,12 +11,14 @@ namespace KVRL.HSS08.Testing
     public class TestEnvironmentSwapper : MonoBehaviour
     {
         [SerializeField] OVRManager ovr;
+        [SerializeField] ObjectPoolPlacer pool;
 
         public EnvironmentSwapEvent onSwap = new EnvironmentSwapEvent();
         public EnvironmentSwapEvent onPassthrough = new EnvironmentSwapEvent();
         public EnvironmentSwapEvent onVirtual = new EnvironmentSwapEvent();
 
         private bool isPassthrough = true;
+        public bool IsPassthrough { get { return isPassthrough; } }
 
         private static TestEnvironmentSwapper _instance;
         public static TestEnvironmentSwapper Instance
@@ -55,7 +57,7 @@ namespace KVRL.HSS08.Testing
 
             if (FilterEvent(evt.Data))
             {
-                TriggerFX();
+                TriggerFX(evt);
                 SwapPassthroughState();
                 SwapEnvironments();
             }
@@ -66,13 +68,25 @@ namespace KVRL.HSS08.Testing
             /// TODO:
             /// Implement filter based on PointerEvent data (possibly Scriptable Object)
             /// 
+
+            if (data is InteractionData iData)
+            {
+                return (iData.interactions & ValidInteractions.EnvSwap) != 0;
+            }
+
             return true;
         }
 
-        void TriggerFX()
+        void TriggerFX(PointerEvent evt)
         {
             /// TODO:
             /// Implement positioning and animation of distorsion effect
+            /// 
+
+            if (pool != null)
+            {
+                pool.PlaceObject(evt);
+            }
         }
 
         void SwapPassthroughState()
@@ -88,9 +102,23 @@ namespace KVRL.HSS08.Testing
 
             onSwap.Invoke(data);
 
-            if (isPassthrough) {
+            SetEnvironment(isPassthrough, data);
+
+            //if (isPassthrough) {
+            //    onPassthrough.Invoke(data);
+            //} else
+            //{
+            //    onVirtual.Invoke(data);
+            //}
+        }
+
+        void SetEnvironment(bool pthru, EnvironmentSwapData data)
+        {
+            if (pthru)
+            {
                 onPassthrough.Invoke(data);
-            } else
+            }
+            else
             {
                 onVirtual.Invoke(data);
             }
@@ -106,7 +134,7 @@ namespace KVRL.HSS08.Testing
     [System.Serializable]
     public struct EnvironmentSwapData
     {
-
+        public static EnvironmentSwapData Empty => new EnvironmentSwapData();
     }
 
     public class EnvironmentSwapManager
