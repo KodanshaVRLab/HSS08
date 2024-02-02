@@ -1900,7 +1900,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ovr: {fileID: 1723076136}
+  passthrough: {fileID: 636530309}
   pool: {fileID: 281920253}
+  swapDuration: 1
   onSwap:
     m_PersistentCalls:
       m_Calls: []
@@ -3072,8 +3074,8 @@ MonoBehaviour:
   _flipLutY: 1
   serializedSurfaceGeometry: []
   textureOpacity_: 1
-  edgeRenderingEnabled_: 0
-  edgeColor_: {r: 1, g: 1, b: 1, a: 1}
+  edgeRenderingEnabled_: 1
+  edgeColor_: {r: 0, g: 0, b: 0, a: 1}
   colorMapType: 0
 --- !u!4 &636530310 stripped
 Transform:

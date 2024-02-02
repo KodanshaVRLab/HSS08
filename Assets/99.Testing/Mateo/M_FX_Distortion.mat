@@ -43,7 +43,7 @@ Material:
     - _DistorsionStrength: 0.1
     - _EffectFade: 0.661
     - _FadeAlpha: 1
-    - _MetaDepthOcclusionBias: 0
+    - _MetaDepthOcclusionBias: 0.1
     - _QueueControl: 0
     - _QueueOffset: 0
     - _ReceiveShadows: 1

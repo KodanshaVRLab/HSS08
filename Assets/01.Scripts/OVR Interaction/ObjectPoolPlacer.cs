@@ -52,9 +52,14 @@ namespace KVRL.HSS08.Testing
                 return null;
             }
 
+            return PlaceObject(evt.Pose.position, -evt.Pose.forward);
+        }
+
+        public GameObject PlaceObject(Vector3 positionWR, Vector3 normalWR)
+        {
             var go = GetNext();
-            Vector3 norm = evt.Pose.forward;
-            Vector3 pos = evt.Pose.position + norm * surfaceBias;
+            Vector3 norm = normalWR;
+            Vector3 pos = positionWR + norm * surfaceBias;
 
             PositionObject(go, pos, norm);
 
