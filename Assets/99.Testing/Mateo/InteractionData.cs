@@ -13,8 +13,9 @@ namespace KVRL.HSS08.Testing
     [System.Flags]
     public enum ValidInteractions
     {
-        None = 0b00000000,
+        None        = 0b00000000,
         PortalDecal = 0b00000001,
-        EnvSwap = 0b00000010
+        EnvSwap     = 0b00000010,
+        MikaMark    = 0b00000100
     }
 }

@@ -7,7 +7,7 @@ using UnityEngine.Rendering.Universal;
 
 namespace KVRL.HSS08.Testing
 {
-    public class ObjectPoolPlacer : MonoBehaviour
+    public class ObjectPoolPlacer : PointerInteractionSystem
     {
         public GameObject templatePrefab;
         [SerializeField] float surfaceBias = 0.1f;
@@ -18,8 +18,7 @@ namespace KVRL.HSS08.Testing
         [SerializeField] bool oneAtATime = false;
         private int poolIndex = 0;
 
-        public ValidInteractions interactionFilter = ValidInteractions.None;
-        [SerializeField] bool defaultInteractionFilter = true;
+
 
         [Button]
         protected GameObject GetNext()
@@ -36,6 +35,11 @@ namespace KVRL.HSS08.Testing
             poolIndex %= poolCapacity;
             next.SetActive(true);
             return next;
+        }
+
+        public override void TriggerInteraction(PointerEvent evt)
+        {
+            PlaceObject(evt);
         }
 
         protected (GameObject, T) GetNextComponent<T>() where T : Component {
@@ -66,7 +70,7 @@ namespace KVRL.HSS08.Testing
             return go;
         }
 
-        bool FilterEvent(object data)
+        protected override bool FilterEvent(object data)
         {
             if (data is InteractionData iData)
             {

@@ -9,9 +9,13 @@ namespace KVRL.HSS08.Testing
     {
         [SerializeField] bool enableDecals = true;
         [SerializeField] bool enableEnvSwap = true;
+        [SerializeField] bool enableGenerics = true;
 
         DecalManagerTest decalSystem;
         TestEnvironmentSwapper swapSystem;
+
+        PointerInteractionSystem[] genericSystems = null;
+
         PointableUnityEventWrapper callbackWrapper;
 
         [SerializeField] bool verbose = false;
@@ -32,6 +36,11 @@ namespace KVRL.HSS08.Testing
             {
                 BindEnvSwapCallbacks();
             }
+
+            if (enableGenerics)
+            {
+                BindGenericCallbacks();
+            }
         }
 
         private void OnDisable()
@@ -44,6 +53,11 @@ namespace KVRL.HSS08.Testing
             if (enableEnvSwap)
             {
                 UnbindEnvSwapCallbacks();
+            }
+
+            if (enableGenerics)
+            {
+                UnbindGenericCallbacks();
             }
         }
 
@@ -74,6 +88,20 @@ namespace KVRL.HSS08.Testing
                 {
                     Debug.Log($"Auto-assigned Pointable Unity Event Wrapper found on {name} to its Decal Callback Runtime Binder.");
                 }
+            }
+
+            if (genericSystems == null)
+            {
+                UpdateGenericSystems(log);
+            }
+        }
+
+        void UpdateGenericSystems(bool log = false)
+        {
+            genericSystems = FindObjectsOfType<PointerInteractionSystem>(true);
+            if (log && genericSystems != null && genericSystems.Length > 0)
+            {
+                Debug.Log($"Found a total of {genericSystems.Length} Pointer Interaction Systems");
             }
         }
 
@@ -111,6 +139,23 @@ namespace KVRL.HSS08.Testing
             }
         }
 
+        void BindGenericCallbacks()
+        {
+            if (genericSystems != null && callbackWrapper != null)
+            {
+                foreach (var sys in genericSystems)
+                {
+                    if (sys != null && sys.IsMainSystem)
+                    {
+                        callbackWrapper.WhenSelect.AddListener(sys.TriggerInteraction);
+                    } else if (verbose)
+                    {
+                        Debug.LogWarning($"Skipped binding Pointer Interaction System {sys.name} because it's not a Main System");
+                    }
+                }
+            }
+        }
+
         void UnbindDecalCallbacks()
         {
             if (decalSystem != null && callbackWrapper != null)
@@ -142,6 +187,24 @@ namespace KVRL.HSS08.Testing
             else if (verbose)
             {
                 Debug.Log($"Binding failed. Staus:\nEnvSwapSystem: {swapSystem}\nWrapper: {callbackWrapper}");
+            }
+        }
+
+        void UnbindGenericCallbacks()
+        {
+            if (genericSystems != null && callbackWrapper != null)
+            {
+                foreach (var sys in genericSystems)
+                {
+                    if (sys != null && sys.IsMainSystem)
+                    {
+                        callbackWrapper.WhenSelect.RemoveListener(sys.TriggerInteraction);
+                    }
+                    else if (verbose)
+                    {
+                        Debug.LogWarning($"Skipped unbinding Pointer Interaction System {sys.name} because it's not a Main System");
+                    }
+                }
             }
         }
     }
