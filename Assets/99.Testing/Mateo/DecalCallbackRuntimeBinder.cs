@@ -1,4 +1,5 @@
 using Oculus.Interaction;
+using Sirenix.OdinInspector;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,7 +15,7 @@ namespace KVRL.HSS08.Testing
         DecalManagerTest decalSystem;
         TestEnvironmentSwapper swapSystem;
 
-        PointerInteractionSystem[] genericSystems = null;
+        [SerializeField, ReadOnly] PointerInteractionSystem[] genericSystems = null;
 
         PointableUnityEventWrapper callbackWrapper;
 
@@ -22,7 +23,7 @@ namespace KVRL.HSS08.Testing
 
         private void Awake()
         {
-            FetchReferences();
+            FetchReferences(verbose);
         }
 
         private void OnEnable()
@@ -90,7 +91,7 @@ namespace KVRL.HSS08.Testing
                 }
             }
 
-            if (genericSystems == null)
+            if (genericSystems == null || genericSystems.Length == 0)
             {
                 UpdateGenericSystems(log);
             }
@@ -99,9 +100,12 @@ namespace KVRL.HSS08.Testing
         void UpdateGenericSystems(bool log = false)
         {
             genericSystems = FindObjectsOfType<PointerInteractionSystem>(true);
-            if (log && genericSystems != null && genericSystems.Length > 0)
+            if (log && genericSystems != null)
             {
                 Debug.Log($"Found a total of {genericSystems.Length} Pointer Interaction Systems");
+            } else if (log)
+            {
+                Debug.LogWarning($"Pointer Interaction System array returned null!", gameObject);
             }
         }
 
