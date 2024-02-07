@@ -5,6 +5,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
+
 namespace KVRL.HSS08.Testing
 {
     public class ObjectPoolPlacer : PointerInteractionSystem
@@ -56,7 +60,7 @@ namespace KVRL.HSS08.Testing
                 return null;
             }
 
-            return PlaceObject(evt.Pose.position, -evt.Pose.forward);
+            return PlaceObject(evt.Pose.position, evt.Pose.forward);
         }
 
         public GameObject PlaceObject(Vector3 positionWR, Vector3 normalWR)
@@ -111,6 +115,7 @@ namespace KVRL.HSS08.Testing
         [Button]
         void PopulatePool()
         {
+#if UNITY_EDITOR
             if (Application.isPlaying)
             {
                 return;
@@ -124,7 +129,8 @@ namespace KVRL.HSS08.Testing
 
             for (int i = 0; i < poolCapacity; i++)
             {
-                GameObject g = Instantiate(templatePrefab, transform, false);
+                GameObject g = PrefabUtility.InstantiatePrefab(templatePrefab, transform) as GameObject; //Instantiate(templatePrefab, transform, false);
+                
                 g.name = $"Pool Instance [{templatePrefab.name}]";
                 g.SetActive(false);
 
@@ -132,7 +138,7 @@ namespace KVRL.HSS08.Testing
 
                 pool.Add(g);
             }
-
+#endif
         }
 
         protected virtual void PopulatePoolAdditional(GameObject instance)
