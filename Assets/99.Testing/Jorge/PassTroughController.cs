@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using static UnityEngine.InputSystem.InputAction;
 using UnityEngine.UI;
+using Sirenix.OdinInspector;
+
 public class PassTroughController : MonoBehaviour
 {
     public OVRPassthroughLayer passtrough;
@@ -18,7 +20,7 @@ public class PassTroughController : MonoBehaviour
     public Slider GrayScale2Color_Contrast, Grayscale2Color_Brightness, Grayscale2Color_Posterize;
     public Slider ColorLut_Blend;
     public Slider BlendedLut_Blend;
-
+    public TMPro.TextMeshProUGUI CurrentModelabel;
     public void updateGraysCaleController()
     {
 
@@ -26,18 +28,70 @@ public class PassTroughController : MonoBehaviour
     // Start is called before the first frame update
     void Start() 
     {
+        currentColorType = 6;
+        updateColorСontrol();
         passtrough = GetComponent<OVRPassthroughLayer>();
         if (!passtrough)
             Destroy(this);
     }
     public GameObject test;
+    float currentContrast, currentSaturation, currentBrightness;
+    [Button]
     public void updateColorСontrol()
     {
-        currentColorType++;
-        if (currentColorType > 6) currentColorType = 0;
+
+        /*
+             public enum ColorMapEditorType
+    {
+        None = 0,
+        GrayscaleToColor = 1,
+        Controls = 1,
+        Custom = 2,
+        Grayscale = 3,
+        ColorAdjustment = 4,
+        ColorLut = 5,
+        InterpolatedColorLut = 6
+    }*/
+
+        switch (currentColorType)
+        {
+            case 1:
+                currentColorType = 5;
+                break;
+            
+            case 3:
+                currentColorType = 1;
+                break;
+            case 4:
+                currentColorType = 3;
+                break;
+            case 5:
+                currentColorType = 6;
+                break;
+            case 6:
+                currentColorType = 4;
+                break;
+            default:
+                currentColorType = 3;
+                break;
+        }
+
+        for (int i = 0; i < controllers.Length; i++)
+        {
+            if(controllers[i])
+            controllers[i].SetActive(false);
+        }
+         
         passtrough.colorMapEditorType = (OVRPassthroughLayer.ColorMapEditorType)currentColorType;
         if (currentColorType<controllers.Length)
         controllers[currentColorType].SetActive(true);
+        if (CurrentModelabel)
+            CurrentModelabel.text = ((OVRPassthroughLayer.ColorMapEditorType)currentColorType).ToString();
+    }
+
+    public void updateColorAdjustment()
+    {
+
     }
     
     public void RightStick(CallbackContext context)
@@ -62,11 +116,31 @@ public class PassTroughController : MonoBehaviour
             changeColor();
         }
     }
+    public void OnBButton(CallbackContext context)
+    {
+        updateColorСontrol();
+    }
     public void OnAButton(CallbackContext context)
     {
-         
+
         if (test) test.SetActive(!test.activeInHierarchy);
         toggleEdgeRendering(!edgeOn);
+    }
+
+    public void updateContrast(float c)
+    {
+        currentContrast = c;
+        passtrough.SetBrightnessContrastSaturation(currentBrightness, currentContrast, currentSaturation);
+    }
+    public void updateBrightness(float c)
+    {
+        currentBrightness= c;
+        passtrough.SetBrightnessContrastSaturation(currentBrightness, currentContrast, currentSaturation);
+    }
+    public void updateSaturation(float c)
+    {
+        currentSaturation= c;
+        passtrough.SetBrightnessContrastSaturation(currentBrightness, currentContrast, currentSaturation);
     }
     public void updatePasstrough(float passtroughAmount)
     {
