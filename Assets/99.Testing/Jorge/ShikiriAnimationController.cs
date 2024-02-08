@@ -44,9 +44,8 @@ public class ShikiriAnimationController : MonoBehaviour
             
             wallIsDetected = true;
             Debug.Log(hito.normal);
-            // Vector3 forward = transform.forward - hito.normal* Vector3.Dot(transform.forward, hito.normal);
-            targetRotation = Quaternion.Euler(270f, 0, 0);
-                ///Quaternion.LookRotation(forward, hito.normal);
+            Vector3 forward = transform.up - hito.normal* Vector3.Dot(transform.up, hito.normal);
+            targetRotation= Quaternion.LookRotation(forward, hito.normal);
              
         }
         else if(wallIsDetected)
