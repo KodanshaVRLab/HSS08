@@ -61,7 +61,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _LitColorMap:
-        m_Texture: {fileID: 2800000, guid: 1a03f1652998d784d86ef28d2dac625b, type: 3}
+        m_Texture: {fileID: 2800000, guid: c7ca98623931c1043bf7443c83f7a10f, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
@@ -89,11 +89,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _ShadowColorMap:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 1a03f1652998d784d86ef28d2dac625b, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SmoothnessMetallicMap:
-        m_Texture: {fileID: 2800000, guid: ed462cfa8b2ae7740be8fdeba9a91c39, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SpecGlossMap:
@@ -101,7 +101,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _TerminatorColorMap:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 1a03f1652998d784d86ef28d2dac625b, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _texcoord:
@@ -150,9 +150,9 @@ Material:
     - _QueueControl: 0
     - _QueueOffset: 0
     - _ReceiveShadows: 1
-    - _RoundNormals: 0
-    - _ShadowSoftness: 0.5
-    - _ShadowThreshold: 0
+    - _RoundNormals: 0.364
+    - _ShadowSoftness: 0.421
+    - _ShadowThreshold: -0.716
     - _Smoothness: 0.5
     - _SmoothnessStrength: 0.06127519
     - _SmoothnessTextureChannel: 1
@@ -160,9 +160,9 @@ Material:
     - _SrcBlend: 1
     - _SrcBlendAlpha: 1
     - _Surface: 0
-    - _TerminatorSoftness: 0
-    - _TerminatorStrength: 0.5
-    - _TerminatorWidth: 0
+    - _TerminatorSoftness: 1
+    - _TerminatorStrength: 0.76
+    - _TerminatorWidth: 1
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
@@ -172,7 +172,7 @@ Material:
     - _LitTint: {r: 1, g: 1, b: 1, a: 0}
     - _RoundnormalBias: {r: 0, g: 0, b: 1, a: 0}
     - _ScatteringTint: {r: 0, g: 0, b: 0, a: 0}
-    - _ShadowTint: {r: 1, g: 1, b: 1, a: 0}
+    - _ShadowTint: {r: 0.6886792, g: 0.6886792, b: 0.6886792, a: 0}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
-    - _TerminatorColorTint: {r: 0, g: 0, b: 0, a: 0}
+    - _TerminatorColorTint: {r: 0.9882353, g: 0.94505703, b: 0.9180706, a: 1}
   m_BuildTextureStacks: []

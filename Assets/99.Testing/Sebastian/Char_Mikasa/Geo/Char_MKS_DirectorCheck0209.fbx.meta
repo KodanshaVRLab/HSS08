@@ -22,6 +22,11 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: LensesTransparent
+    second: {fileID: 2100000, guid: 5ea8546bbae04cf40a0e43fa079e2b1c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: MKS Eyebrow
     second: {fileID: 2100000, guid: f3a31bc55c14b874883cb3576a4ab5c5, type: 2}
   - first:
@@ -43,7 +48,7 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Std_Skin_Body.001
-    second: {fileID: 2100000, guid: fa8592d5e1b850847b1acb1c41835810, type: 2}
+    second: {fileID: 2100000, guid: 34834bf7f7ce69048b8cfccbaa2777c0, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
@@ -53,7 +58,7 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Std_Skin_Leg.001
-    second: {fileID: 2100000, guid: 9a630edaeda5f2345897c8ab361aa032, type: 2}
+    second: {fileID: 2100000, guid: 5a03e41e19791ac49ba4c08db4750edd, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule

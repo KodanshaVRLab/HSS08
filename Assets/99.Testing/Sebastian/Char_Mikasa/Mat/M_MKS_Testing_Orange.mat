@@ -125,7 +125,7 @@ Material:
     - _AlphaClip: 0
     - _AlphaCutoff: 0.5
     - _AlphaToMask: 0
-    - _Aniso: 0
+    - _Aniso: -0.6
     - _Blend: 0
     - _BlendModePreserveSpecular: 1
     - _BumpScale: 1
@@ -151,18 +151,18 @@ Material:
     - _QueueOffset: 0
     - _ReceiveShadows: 1
     - _RoundNormals: 0
-    - _ShadowSoftness: 0.5
+    - _ShadowSoftness: 0.422
     - _ShadowThreshold: 0
     - _Smoothness: 0.791
-    - _SmoothnessStrength: 0.06127519
+    - _SmoothnessStrength: 0.146
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _SrcBlendAlpha: 1
     - _Surface: 0
-    - _TerminatorSoftness: 0
+    - _TerminatorSoftness: 0.914
     - _TerminatorStrength: 0.5
-    - _TerminatorWidth: 0
+    - _TerminatorWidth: 0.637
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
