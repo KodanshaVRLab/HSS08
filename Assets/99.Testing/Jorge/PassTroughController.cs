@@ -21,10 +21,9 @@ public class PassTroughController : MonoBehaviour
     public Slider ColorLut_Blend;
     public Slider BlendedLut_Blend;
     public TMPro.TextMeshProUGUI CurrentModelabel;
-    public void updateGraysCaleController()
-    {
 
-    }
+    public Texture2D originLUT, targetLUT;
+    
     // Start is called before the first frame update
     void Start() 
     {
@@ -35,7 +34,8 @@ public class PassTroughController : MonoBehaviour
             Destroy(this);
     }
     public GameObject test;
-    float currentContrast, currentSaturation, currentBrightness;
+    float currentContrast, currentSaturation, currentBrightness, currentGSContrast,currentGSBrightness,currentGSPosterize;
+    float currentLutBlend, currentBlendedLutBlend;
     [Button]
     public void updateColorСontrol()
     {
@@ -141,7 +141,35 @@ public class PassTroughController : MonoBehaviour
     {
         currentSaturation= c;
         passtrough.SetBrightnessContrastSaturation(currentBrightness, currentContrast, currentSaturation);
+     }
+    public void updateLutBlend(float c)
+    {
+        currentLutBlend = c;
+        passtrough.SetColorLut(new OVRPassthroughColorLut(originLUT), currentLutBlend);
     }
+    public void updateBlendedLutBlend(float c)
+    {
+        currentBlendedLutBlend = c;
+        passtrough.SetColorLut(new OVRPassthroughColorLut(originLUT), currentBlendedLutBlend);
+    }
+
+    //Grayscale
+    public void updateGSContrast(float c)
+    {
+        currentGSContrast = c;
+        passtrough.SetColorMapControls(currentGSContrast, currentGSBrightness, currentGSPosterize, null, (OVRPassthroughLayer.ColorMapEditorType)currentColorType);
+    }
+    public void updateGSBrightness(float c)
+    {
+        currentGSBrightness = c;
+        passtrough.SetColorMapControls(currentGSContrast,currentGSBrightness,currentGSPosterize,null, (OVRPassthroughLayer.ColorMapEditorType)currentColorType);
+    }
+    public void updatePosterize(float c)
+    {
+        currentGSPosterize = c;
+        passtrough.SetColorMapControls(currentGSContrast, currentGSBrightness, currentGSPosterize, null, (OVRPassthroughLayer.ColorMapEditorType)currentColorType);
+    }
+
     public void updatePasstrough(float passtroughAmount)
     {
         passTAmount += passtroughAmount;
