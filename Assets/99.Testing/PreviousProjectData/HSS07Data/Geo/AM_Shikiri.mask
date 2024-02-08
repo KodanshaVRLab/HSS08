@@ -1,0 +1,585 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!319 &31900000
+AvatarMask:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: AM_Shikiri
+  m_Mask: 01000000000000000000000001000000010000000000000000000000000000000000000001000000010000000000000000000000
+  m_Elements:
+  - m_Path: 
+    m_Weight: 1
+  - m_Path: geo_GP
+    m_Weight: 1
+  - m_Path: geo_GP/face
+    m_Weight: 1
+  - m_Path: geo_GP/Shikiri_Body
+    m_Weight: 1
+  - m_Path: geo_GP/Shikiri_Eye
+    m_Weight: 1
+  - m_Path: geo_GP/Shikiri_Eye/Shikiri_Eye_L
+    m_Weight: 1
+  - m_Path: geo_GP/Shikiri_Eye/Shikiri_Eye_R
+    m_Weight: 1
+  - m_Path: geo_GP/Shikiri_Eye/Shikiri_EyeHL_L
+    m_Weight: 1
+  - m_Path: geo_GP/Shikiri_Eye/Shikiri_EyeHL_R
+    m_Weight: 1
+  - m_Path: geo_GP/Shikiri_Hair
+    m_Weight: 1
+  - m_Path: geo_GP/Shikiri_Hair/Hair_hat
+    m_Weight: 1
+  - m_Path: geo_GP/Shikiri_Hair/Hair_hat/Shikiri_HairF_hat
+    m_Weight: 1
+  - m_Path: geo_GP/Shikiri_Hair/Hair_hat/Shikiri_HairFL_hat
+    m_Weight: 1
+  - m_Path: geo_GP/Shikiri_Hair/Hair_hat/Shikiri_HairFR_hat
+    m_Weight: 1
+  - m_Path: geo_GP/Shikiri_Hair/hair_noHat
+    m_Weight: 1
+  - m_Path: geo_GP/Shikiri_Hair/hair_noHat/Shikiri_HairF
+    m_Weight: 1
+  - m_Path: geo_GP/Shikiri_Hair/hair_noHat/Shikiri_HairFL
+    m_Weight: 1
+  - m_Path: geo_GP/Shikiri_Hair/hair_noHat/Shikiri_HairFR
+    m_Weight: 1
+  - m_Path: geo_GP/Shikiri_Hair/Shikiri_HairBase
+    m_Weight: 1
+  - m_Path: geo_GP/Shikiri_Hair/Shikiri_HairBL
+    m_Weight: 1
+  - m_Path: geo_GP/Shikiri_Hair/Shikiri_HairBR
+    m_Weight: 1
+  - m_Path: ROOT
+    m_Weight: 1
+  - m_Path: ROOT/References
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/LeftUpLeg
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/LeftUpLeg/LeftLeg
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/LeftUpLeg/LeftLeg/LeftFoot
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/LeftUpLeg/LeftLeg/LeftFoot/LeftToeBase
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/RightUpLeg
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/RightUpLeg/RightLeg
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/RightUpLeg/RightLeg/RightFoot
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/RightUpLeg/RightLeg/RightFoot/RightToeBase
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Skirt_Root
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Skirt_Root/Skirt_LA_01
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Skirt_Root/Skirt_LA_01/Skirt_LA_02
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Skirt_Root/Skirt_LA_01/Skirt_LA_02/Skirt_LA_03
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Skirt_Root/Skirt_LA_01/Skirt_LA_02/Skirt_LA_03/Skirt_LA_04
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Skirt_Root/Skirt_LA_01/Skirt_LA_02/Skirt_LA_03/Skirt_LA_04/Skirt_LA_05
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Skirt_Root/Skirt_LB_01
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Skirt_Root/Skirt_LB_01/Skirt_LB_02
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Skirt_Root/Skirt_LB_01/Skirt_LB_02/Skirt_LB_03
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Skirt_Root/Skirt_LB_01/Skirt_LB_02/Skirt_LB_03/Skirt_LB_04
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Skirt_Root/Skirt_LB_01/Skirt_LB_02/Skirt_LB_03/Skirt_LB_04/Skirt_LB_05
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Skirt_Root/Skirt_LC_01
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Skirt_Root/Skirt_LC_01/Skirt_LC_02
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Skirt_Root/Skirt_LC_01/Skirt_LC_02/Skirt_LC_03
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Skirt_Root/Skirt_LC_01/Skirt_LC_02/Skirt_LC_03/Skirt_LC_04
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Skirt_Root/Skirt_LC_01/Skirt_LC_02/Skirt_LC_03/Skirt_LC_04/Skirt_LC_05
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Skirt_Root/Skirt_LD_01
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Skirt_Root/Skirt_LD_01/Skirt_LD_02
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Skirt_Root/Skirt_LD_01/Skirt_LD_02/Skirt_LD_03
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Skirt_Root/Skirt_LD_01/Skirt_LD_02/Skirt_LD_03/Skirt_LD_04
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Skirt_Root/Skirt_LD_01/Skirt_LD_02/Skirt_LD_03/Skirt_LD_04/Skirt_LD_05
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Skirt_Root/Skirt_LE_01
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Skirt_Root/Skirt_LE_01/Skirt_LE_02
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Skirt_Root/Skirt_LE_01/Skirt_LE_02/Skirt_LE_03
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Skirt_Root/Skirt_LE_01/Skirt_LE_02/Skirt_LE_03/Skirt_LE_04
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Skirt_Root/Skirt_LE_01/Skirt_LE_02/Skirt_LE_03/Skirt_LE_04/Skirt_LE_05
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Skirt_Root/Skirt_RA_01
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Skirt_Root/Skirt_RA_01/Skirt_RA_02
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Skirt_Root/Skirt_RA_01/Skirt_RA_02/Skirt_RA_03
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Skirt_Root/Skirt_RA_01/Skirt_RA_02/Skirt_RA_03/Skirt_RA_04
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Skirt_Root/Skirt_RA_01/Skirt_RA_02/Skirt_RA_03/Skirt_RA_04/Skirt_RA_05
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Skirt_Root/Skirt_RB_01
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Skirt_Root/Skirt_RB_01/Skirt_RB_02
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Skirt_Root/Skirt_RB_01/Skirt_RB_02/Skirt_RB_03
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Skirt_Root/Skirt_RB_01/Skirt_RB_02/Skirt_RB_03/Skirt_RB_04
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Skirt_Root/Skirt_RB_01/Skirt_RB_02/Skirt_RB_03/Skirt_RB_04/Skirt_RB_05
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Skirt_Root/Skirt_RC_01
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Skirt_Root/Skirt_RC_01/Skirt_RC_02
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Skirt_Root/Skirt_RC_01/Skirt_RC_02/Skirt_RC_03
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Skirt_Root/Skirt_RC_01/Skirt_RC_02/Skirt_RC_03/Skirt_RC_04
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Skirt_Root/Skirt_RC_01/Skirt_RC_02/Skirt_RC_03/Skirt_RC_04/Skirt_RC_05
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Skirt_Root/Skirt_RD_01
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Skirt_Root/Skirt_RD_01/Skirt_RD_02
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Skirt_Root/Skirt_RD_01/Skirt_RD_02/Skirt_RD_03
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Skirt_Root/Skirt_RD_01/Skirt_RD_02/Skirt_RD_03/Skirt_RD_04
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Skirt_Root/Skirt_RD_01/Skirt_RD_02/Skirt_RD_03/Skirt_RD_04/Skirt_RD_05
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Skirt_Root/Skirt_RE_01
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Skirt_Root/Skirt_RE_01/Skirt_RE_02
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Skirt_Root/Skirt_RE_01/Skirt_RE_02/Skirt_RE_03
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Skirt_Root/Skirt_RE_01/Skirt_RE_02/Skirt_RE_03/Skirt_RE_04
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Skirt_Root/Skirt_RE_01/Skirt_RE_02/Skirt_RE_03/Skirt_RE_04/Skirt_RE_05
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/LeftBreast
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/LeftBreast/LeftBreast_end
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/LeftShoulder
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/LeftShoulder/LeftArm
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/LeftShoulder/LeftArm/LeftForeArm
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/LeftShoulder/LeftArm/LeftForeArm/LeftHand1
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/LeftShoulder/LeftArm/LeftForeArm/LeftHand1/LeftHand
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/LeftShoulder/LeftArm/LeftForeArm/LeftHand1/LeftHand/LeftHandThumb0
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/LeftShoulder/LeftArm/LeftForeArm/LeftHand1/LeftHand/LeftHandThumb0/LeftHandThumb1
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/LeftShoulder/LeftArm/LeftForeArm/LeftHand1/LeftHand/LeftHandThumb0/LeftHandThumb1/LeftHandThumb2
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/LeftShoulder/LeftArm/LeftForeArm/LeftHand1/LeftHand/LeftHandThumb0/LeftHandThumb1/LeftHandThumb2/LeftHandThumb3
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/LeftShoulder/LeftArm/LeftForeArm/LeftHand1/LeftHand/LeftHandThumb0/LeftHandThumb1/LeftHandThumb2/LeftHandThumb3/LeftHandThumb4
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/LeftShoulder/LeftArm/LeftForeArm/LeftHand1/LeftHand/LeftInHandIndex0
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/LeftShoulder/LeftArm/LeftForeArm/LeftHand1/LeftHand/LeftInHandIndex0/LeftInHandIndex1
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/LeftShoulder/LeftArm/LeftForeArm/LeftHand1/LeftHand/LeftInHandIndex0/LeftInHandIndex1/LeftInHandIndex2
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/LeftShoulder/LeftArm/LeftForeArm/LeftHand1/LeftHand/LeftInHandIndex0/LeftInHandIndex1/LeftInHandIndex2/LeftInHandIndex3
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/LeftShoulder/LeftArm/LeftForeArm/LeftHand1/LeftHand/LeftInHandIndex0/LeftInHandIndex1/LeftInHandIndex2/LeftInHandIndex3/LeftInHandIndex4
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/LeftShoulder/LeftArm/LeftForeArm/LeftHand1/LeftHand/LeftInHandMiddle0
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/LeftShoulder/LeftArm/LeftForeArm/LeftHand1/LeftHand/LeftInHandMiddle0/LeftInHandMiddle1
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/LeftShoulder/LeftArm/LeftForeArm/LeftHand1/LeftHand/LeftInHandMiddle0/LeftInHandMiddle1/LeftInHandMiddle2
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/LeftShoulder/LeftArm/LeftForeArm/LeftHand1/LeftHand/LeftInHandMiddle0/LeftInHandMiddle1/LeftInHandMiddle2/LeftInHandMiddle3
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/LeftShoulder/LeftArm/LeftForeArm/LeftHand1/LeftHand/LeftInHandMiddle0/LeftInHandMiddle1/LeftInHandMiddle2/LeftInHandMiddle3/LeftInHandMiddle4
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/LeftShoulder/LeftArm/LeftForeArm/LeftHand1/LeftHand/LeftInHandPinky0
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/LeftShoulder/LeftArm/LeftForeArm/LeftHand1/LeftHand/LeftInHandPinky0/LeftInHandPinky1
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/LeftShoulder/LeftArm/LeftForeArm/LeftHand1/LeftHand/LeftInHandPinky0/LeftInHandPinky1/LeftInHandPinky2
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/LeftShoulder/LeftArm/LeftForeArm/LeftHand1/LeftHand/LeftInHandPinky0/LeftInHandPinky1/LeftInHandPinky2/LeftInHandPinky3
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/LeftShoulder/LeftArm/LeftForeArm/LeftHand1/LeftHand/LeftInHandPinky0/LeftInHandPinky1/LeftInHandPinky2/LeftInHandPinky3/LeftInHandPinky4
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/LeftShoulder/LeftArm/LeftForeArm/LeftHand1/LeftHand/LeftInHandRing0
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/LeftShoulder/LeftArm/LeftForeArm/LeftHand1/LeftHand/LeftInHandRing0/LeftInHandRing1
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/LeftShoulder/LeftArm/LeftForeArm/LeftHand1/LeftHand/LeftInHandRing0/LeftInHandRing1/LeftInHandRing2
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/LeftShoulder/LeftArm/LeftForeArm/LeftHand1/LeftHand/LeftInHandRing0/LeftInHandRing1/LeftInHandRing2/LeftInHandRing3
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/LeftShoulder/LeftArm/LeftForeArm/LeftHand1/LeftHand/LeftInHandRing0/LeftInHandRing1/LeftInHandRing2/LeftInHandRing3/LeftInHandRing4
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/LeftShoulder/ShoulderRibbon_LA_01
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/LeftShoulder/ShoulderRibbon_LA_01/ShoulderRibbon_LA_02
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/LeftShoulder/ShoulderRibbon_LA_01/ShoulderRibbon_LA_02/ShoulderRibbon_LA_03
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/LeftShoulder/ShoulderRibbon_LB_01
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/LeftShoulder/ShoulderRibbon_LB_01/ShoulderRibbon_LB_02
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/LeftShoulder/ShoulderRibbon_LB_01/ShoulderRibbon_LB_02/ShoulderRibbon_LB_03
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/LeftShoulder/ShoulderRibbon_LC_01
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/LeftShoulder/ShoulderRibbon_LC_01/ShoulderRibbon_LC_02
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/LeftShoulder/ShoulderRibbon_LC_01/ShoulderRibbon_LC_02/ShoulderRibbon_LC_03
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/Neck
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/Neck/Head
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/Neck/Head/EarRing_L_01
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/Neck/Head/EarRing_L_01/EarRing_L_02
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/Neck/Head/EarRing_R_01
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/Neck/Head/EarRing_R_01/EarRing_R_02
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/Neck/Head/Hair_base
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/Neck/Head/Hair_base/Hair_B
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/Neck/Head/Hair_base/Hair_B/Hair_BL_01
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/Neck/Head/Hair_base/Hair_B/Hair_BL_01/Hair_BL_02
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/Neck/Head/Hair_base/Hair_B/Hair_BL_01/Hair_BL_02/Hair_BL_03
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/Neck/Head/Hair_base/Hair_B/Hair_BL_01/Hair_BL_02/Hair_BL_03/Hair_BL_04
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/Neck/Head/Hair_base/Hair_B/Hair_BL_01/Hair_BL_02/Hair_BL_03/Hair_BL_04/Hair_BL_05
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/Neck/Head/Hair_base/Hair_B/Hair_BR_01
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/Neck/Head/Hair_base/Hair_B/Hair_BR_01/Hair_BR_02
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/Neck/Head/Hair_base/Hair_B/Hair_BR_01/Hair_BR_02/Hair_BR_03
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/Neck/Head/Hair_base/Hair_B/Hair_BR_01/Hair_BR_02/Hair_BR_03/Hair_BR_04
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/Neck/Head/Hair_base/Hair_B/Hair_BR_01/Hair_BR_02/Hair_BR_03/Hair_BR_04/Hair_BR_05
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/Neck/Head/Hair_base/Hair_F_A01
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/Neck/Head/Hair_base/Hair_F_A01/Hair_F_A02
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/Neck/Head/Hair_base/Hair_F_A01/Hair_F_A02/Hair_F_A03
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/Neck/Head/Hair_base/Hair_F_A01/Hair_F_A02/Hair_F_A03/Hair_F_A04
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/Neck/Head/Hair_base/Hair_F_A01/Hair_F_B01
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/Neck/Head/Hair_base/Hair_F_A01/Hair_F_B01/Hair_F_B02
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/Neck/Head/Hair_base/Hair_F_A01/Hair_F_B01/Hair_F_B02/Hair_F_B03
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/Neck/Head/Hair_base/Hair_L_A01
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/Neck/Head/Hair_base/Hair_L_A01/Hair_L_A02
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/Neck/Head/Hair_base/Hair_L_A01/Hair_L_A02/Hair_L_A03
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/Neck/Head/Hair_base/Hair_L_A01/Hair_L_A02/Hair_L_A03/Hair_L_A04
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/Neck/Head/Hair_base/Hair_L_A01/Hair_L_A02/Hair_L_A03/Hair_L_A04/Hair_L_A05
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/Neck/Head/Hair_base/Hair_L_A01/Hair_L_A02/Hair_L_A03/Hair_L_A04/Hair_L_A05/Hair_L_A06
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/Neck/Head/Hair_base/Hair_L_A01/Hair_L_A02/Hair_L_A03/Hair_L_A04/Hair_L_A05/Hair_L_A06/Hair_L_A07
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/Neck/Head/Hair_base/Hair_L_A01/Hair_L_A02/Hair_L_A03/Hair_L_A04/Hair_L_A05/Hair_L_A06/Hair_L_A07/Hair_L_A08
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/Neck/Head/Hair_base/Hair_L_A01/Hair_L_A02/Hair_L_A03/Hair_L_C01
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/Neck/Head/Hair_base/Hair_L_A01/Hair_L_A02/Hair_L_A03/Hair_L_C01/Hair_L_C02
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/Neck/Head/Hair_base/Hair_L_A01/Hair_L_A02/Hair_L_A03/Hair_L_C01/Hair_L_C02/Hair_L_C03
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/Neck/Head/Hair_base/Hair_L_A01/Hair_L_A02/Hair_L_A03/Hair_L_C01/Hair_L_C02/Hair_L_C03/Hair_L_C04
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/Neck/Head/Hair_base/Hair_L_A01/Hair_L_A02/Hair_L_A03/Hair_L_D01
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/Neck/Head/Hair_base/Hair_L_A01/Hair_L_A02/Hair_L_A03/Hair_L_D01/Hair_L_D02
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/Neck/Head/Hair_base/Hair_L_A01/Hair_L_A02/Hair_L_A03/Hair_L_D01/Hair_L_D02/Hair_L_D03
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/Neck/Head/Hair_base/Hair_L_A01/Hair_L_A02/Hair_L_A03/Hair_L_D01/Hair_L_D02/Hair_L_D03/Hair_L_D04
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/Neck/Head/Hair_base/Hair_L_A01/Hair_L_A02/Hair_L_B01
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/Neck/Head/Hair_base/Hair_L_A01/Hair_L_A02/Hair_L_B01/Hair_L_B02
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/Neck/Head/Hair_base/Hair_L_A01/Hair_L_A02/Hair_L_B01/Hair_L_B02/Hair_L_B03
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/Neck/Head/Hair_base/Hair_L_A01/Hair_L_A02/Hair_L_B01/Hair_L_B02/Hair_L_B03/Hair_L_B04
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/Neck/Head/Hair_base/Hair_L_A01/Hair_L_A02/Hair_L_B01/Hair_L_B02/Hair_L_B03/Hair_L_B04/Hair_L_B05
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/Neck/Head/Hair_base/Hair_L_A01/Hair_L_A02/Hair_L_B01/Hair_L_B02/Hair_L_B03/Hair_L_B04/Hair_L_B05/Hair_L_B06
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/Neck/Head/Hair_base/Hair_L_A01/Hair_L_A02/Hair_L_B01/Hair_L_B02/Hair_L_B03/Hair_L_B04/Hair_L_B05/Hair_L_B06/Hair_L_B07
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/Neck/Head/Hair_base/Hair_L_A01/Hair_L_A02/Hair_L_B01/Hair_L_B02/Hair_L_B03/Hair_L_B04/Hair_L_B05/Hair_L_B06/Hair_L_B07/Hair_L_B08
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/Neck/Head/Hair_base/Hair_LB_A01
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/Neck/Head/Hair_base/Hair_LB_A01/Hair_LB_A02
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/Neck/Head/Hair_base/Hair_LB_A01/Hair_LB_A02/Hair_LB_A03
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/Neck/Head/Hair_base/Hair_LB_A01/Hair_LB_A02/Hair_LB_A03/Hair_LB_A04
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/Neck/Head/Hair_base/Hair_LB_A01/Hair_LB_A02/Hair_LB_A03/Hair_LB_A04/Hair_LB_A05
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/Neck/Head/Hair_base/Hair_LB_A01/Hair_LB_A02/Hair_LB_A03/Hair_LB_A04/Hair_LB_A05/Hair_LB_A06
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/Neck/Head/Hair_base/Hair_LB_A01/Hair_LB_A02/Hair_LB_A03/Hair_LB_A04/Hair_LB_A05/Hair_LB_A06/Hair_LB_A07
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/Neck/Head/Hair_base/Hair_LB_A01/Hair_LB_A02/Hair_LB_A03/Hair_LB_A04/Hair_LB_A05/Hair_LB_A06/Hair_LB_A07/Hair_LB_A08
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/Neck/Head/Hair_base/Hair_LB_B01
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/Neck/Head/Hair_base/Hair_LB_B01/Hair_LB_B02
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/Neck/Head/Hair_base/Hair_LB_B01/Hair_LB_B02/Hair_LB_B03
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/Neck/Head/Hair_base/Hair_LB_B01/Hair_LB_B02/Hair_LB_B03/Hair_LB_B04
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/Neck/Head/Hair_base/Hair_LB_B01/Hair_LB_B02/Hair_LB_B03/Hair_LB_B04/Hair_LB_B05
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/Neck/Head/Hair_base/Hair_LB_B01/Hair_LB_B02/Hair_LB_B03/Hair_LB_B04/Hair_LB_B05/Hair_LB_B06
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/Neck/Head/Hair_base/Hair_LB_B01/Hair_LB_B02/Hair_LB_B03/Hair_LB_B04/Hair_LB_B05/Hair_LB_B06/Hair_LB_B08
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/Neck/Head/Hair_base/Hair_LF_A01
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/Neck/Head/Hair_base/Hair_LF_A01/Hair_LF_A02
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/Neck/Head/Hair_base/Hair_LF_A01/Hair_LF_A02/Hair_LF_A03
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/Neck/Head/Hair_base/Hair_LF_A01/Hair_LF_A02/Hair_LF_A03/Hair_LF_A04
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/Neck/Head/Hair_base/Hair_LF_A01/Hair_LF_A02/Hair_LF_A03/Hair_LF_A04/Hair_LF_A05
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/Neck/Head/Hair_base/Hair_R_A01
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/Neck/Head/Hair_base/Hair_R_A01/Hair_R_A02
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/Neck/Head/Hair_base/Hair_R_A01/Hair_R_A02/Hair_R_A03
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/Neck/Head/Hair_base/Hair_R_A01/Hair_R_A02/Hair_R_A03/Hair_R_A04
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/Neck/Head/Hair_base/Hair_R_A01/Hair_R_A02/Hair_R_A03/Hair_R_A04/Hair_R_A05
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/Neck/Head/Hair_base/Hair_R_A01/Hair_R_A02/Hair_R_A03/Hair_R_A04/Hair_R_A05/Hair_R_A06
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/Neck/Head/Hair_base/Hair_R_B01
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/Neck/Head/Hair_base/Hair_R_B01/Hair_R_B02
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/Neck/Head/Hair_base/Hair_R_B01/Hair_R_B02/Hair_R_B03
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/Neck/Head/Hair_base/Hair_R_B01/Hair_R_B02/Hair_R_B03/Hair_R_B04
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/Neck/Head/Hair_base/Hair_R_B01/Hair_R_B02/Hair_R_B03/Hair_R_B04/Hair_R_B05
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/Neck/Head/Hair_base/Hair_R_B01/Hair_R_C01
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/Neck/Head/Hair_base/Hair_R_B01/Hair_R_C01/Hair_R_C02
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/Neck/Head/Hair_base/Hair_R_B01/Hair_R_C01/Hair_R_C02/Hair_R_C03
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/Neck/Head/Hair_base/Hair_R_B01/Hair_R_C01/Hair_R_C02/Hair_R_C03/Hair_R_C04
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/Neck/Head/Hair_base/Hair_R_B01/Hair_R_C01/Hair_R_C02/Hair_R_C03/Hair_R_C04/Hair_R_C05
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/Neck/Head/Hair_base/Hair_R_B01/Hair_R_D01
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/Neck/Head/Hair_base/Hair_R_B01/Hair_R_D01/Hair_R_D02
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/Neck/Head/Hair_base/Hair_R_B01/Hair_R_D01/Hair_R_D02/Hair_R_D03
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/Neck/Head/Hair_base/Hair_R_B01/Hair_R_D01/Hair_R_D02/Hair_R_D03/Hair_R_D04
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/Neck/Head/Hair_base/Hair_R_B01/Hair_R_D01/Hair_R_D02/Hair_R_D03/Hair_R_D04/Hair_R_D05
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/Neck/Head/Hair_base/Hair_RB_A01
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/Neck/Head/Hair_base/Hair_RB_A01/Hair_RB_A02
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/Neck/Head/Hair_base/Hair_RB_A01/Hair_RB_A02/Hair_RB_A03
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/Neck/Head/Hair_base/Hair_RB_A01/Hair_RB_A02/Hair_RB_A03/Hair_RB_A04
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/Neck/Head/Hair_base/Hair_RB_A01/Hair_RB_A02/Hair_RB_A03/Hair_RB_A04/Hair_RB_A05
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/Neck/Head/Hair_base/Hair_RB_A01/Hair_RB_A02/Hair_RB_A03/Hair_RB_A04/Hair_RB_A05/Hair_RB_A06
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/Neck/Head/Hair_base/Hair_RB_A01/Hair_RB_A02/Hair_RB_A03/Hair_RB_A04/Hair_RB_A05/Hair_RB_A06/Hair_RB_A07
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/Neck/Head/Hair_base/Hair_RB_A01/Hair_RB_A02/Hair_RB_A03/Hair_RB_D01
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/Neck/Head/Hair_base/Hair_RB_A01/Hair_RB_A02/Hair_RB_A03/Hair_RB_D01/Hair_RB_D02
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/Neck/Head/Hair_base/Hair_RB_A01/Hair_RB_A02/Hair_RB_A03/Hair_RB_D01/Hair_RB_D02/Hair_RB_D03
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/Neck/Head/Hair_base/Hair_RB_A01/Hair_RB_A02/Hair_RB_A03/Hair_RB_D01/Hair_RB_D02/Hair_RB_D03/Hair_RB_D04
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/Neck/Head/Hair_base/Hair_RB_A01/Hair_RB_A02/Hair_RB_A03/Hair_RB_D01/Hair_RB_D02/Hair_RB_D03/Hair_RB_D04/Hair_RB_D05
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/Neck/Head/Hair_base/Hair_RB_A01/Hair_RB_A02/Hair_RB_A03/Hair_RB_D01/Hair_RB_D02/Hair_RB_D03/Hair_RB_D04/Hair_RB_D05/Hair_RB_D06
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/Neck/Head/Hair_base/Hair_RB_A01/Hair_RB_A02/Hair_RB_A03/Hair_RB_D01/Hair_RB_D02/Hair_RB_D03/Hair_RB_D04/Hair_RB_D05/Hair_RB_D06/Hair_RB_D07
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/Neck/Head/Hair_base/Hair_RB_A01/Hair_RB_A02/Hair_RB_A03/Hair_RC_A01
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/Neck/Head/Hair_base/Hair_RB_A01/Hair_RB_A02/Hair_RB_A03/Hair_RC_A01/Hair_RC_A02
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/Neck/Head/Hair_base/Hair_RB_A01/Hair_RB_A02/Hair_RB_A03/Hair_RC_A01/Hair_RC_A02/Hair_RC_A03
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/Neck/Head/Hair_base/Hair_RB_A01/Hair_RB_A02/Hair_RB_A03/Hair_RC_A01/Hair_RC_A02/Hair_RC_A03/Hair_RC_A04
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/Neck/Head/Hair_base/Hair_RB_A01/Hair_RB_A02/Hair_RB_A03/Hair_RC_A01/Hair_RC_A02/Hair_RC_A03/Hair_RC_A04/Hair_RC_A05
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/Neck/Head/Hair_base/Hair_RB_A01/Hair_RB_A02/Hair_RB_A03/Hair_RC_A01/Hair_RC_A02/Hair_RC_A03/Hair_RC_A04/Hair_RC_A05/Hair_RC_A06
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/Neck/Head/Hair_base/Hair_RF_A01
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/Neck/Head/Hair_base/Hair_RF_A01/Hair_RF_A02
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/Neck/Head/Hair_base/Hair_RF_A01/Hair_RF_A02/Hair_RF_A03
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/Neck/Head/Hair_base/Hair_RF_A01/Hair_RF_A02/Hair_RF_A03/Hair_RF_A04
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/Neck/Head/Hair_base/Hair_RF_A01/Hair_RF_A02/Hair_RF_A03/Hair_RF_A04/Hair_RF_A05
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/Neck/Head/Hat_geo
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/Neck/Head/LeftEye
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/Neck/Head/RightEye
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/RightBreast
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/RightBreast/RightBreast_end
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/RightShoulder
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/RightShoulder/RightArm
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/RightShoulder/RightArm/RightForeArm
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/RightShoulder/RightArm/RightForeArm/RightHand1
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/RightShoulder/RightArm/RightForeArm/RightHand1/RightHand
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/RightShoulder/RightArm/RightForeArm/RightHand1/RightHand/RightHandThumb0
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/RightShoulder/RightArm/RightForeArm/RightHand1/RightHand/RightHandThumb0/RightHandThumb1
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/RightShoulder/RightArm/RightForeArm/RightHand1/RightHand/RightHandThumb0/RightHandThumb1/RightHandThumb2
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/RightShoulder/RightArm/RightForeArm/RightHand1/RightHand/RightHandThumb0/RightHandThumb1/RightHandThumb2/RightHandThumb3
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/RightShoulder/RightArm/RightForeArm/RightHand1/RightHand/RightHandThumb0/RightHandThumb1/RightHandThumb2/RightHandThumb3/RightHandThumb4
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/RightShoulder/RightArm/RightForeArm/RightHand1/RightHand/RightInHandIndex0
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/RightShoulder/RightArm/RightForeArm/RightHand1/RightHand/RightInHandIndex0/RightInHandIndex1
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/RightShoulder/RightArm/RightForeArm/RightHand1/RightHand/RightInHandIndex0/RightInHandIndex1/RightInHandIndex2
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/RightShoulder/RightArm/RightForeArm/RightHand1/RightHand/RightInHandIndex0/RightInHandIndex1/RightInHandIndex2/RightInHandIndex3
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/RightShoulder/RightArm/RightForeArm/RightHand1/RightHand/RightInHandIndex0/RightInHandIndex1/RightInHandIndex2/RightInHandIndex3/RightInHandIndex4
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/RightShoulder/RightArm/RightForeArm/RightHand1/RightHand/RightInHandMiddle0
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/RightShoulder/RightArm/RightForeArm/RightHand1/RightHand/RightInHandMiddle0/RightInHandMiddle1
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/RightShoulder/RightArm/RightForeArm/RightHand1/RightHand/RightInHandMiddle0/RightInHandMiddle1/RightInHandMiddle2
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/RightShoulder/RightArm/RightForeArm/RightHand1/RightHand/RightInHandMiddle0/RightInHandMiddle1/RightInHandMiddle2/RightInHandMiddle3
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/RightShoulder/RightArm/RightForeArm/RightHand1/RightHand/RightInHandMiddle0/RightInHandMiddle1/RightInHandMiddle2/RightInHandMiddle3/RightInHandMiddle4
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/RightShoulder/RightArm/RightForeArm/RightHand1/RightHand/RightInHandPinky0
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/RightShoulder/RightArm/RightForeArm/RightHand1/RightHand/RightInHandPinky0/RightInHandPinky1
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/RightShoulder/RightArm/RightForeArm/RightHand1/RightHand/RightInHandPinky0/RightInHandPinky1/RightInHandPinky2
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/RightShoulder/RightArm/RightForeArm/RightHand1/RightHand/RightInHandPinky0/RightInHandPinky1/RightInHandPinky2/RightInHandPinky3
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/RightShoulder/RightArm/RightForeArm/RightHand1/RightHand/RightInHandPinky0/RightInHandPinky1/RightInHandPinky2/RightInHandPinky3/RightInHandPinky4
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/RightShoulder/RightArm/RightForeArm/RightHand1/RightHand/RightInHandRing0
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/RightShoulder/RightArm/RightForeArm/RightHand1/RightHand/RightInHandRing0/RightInHandRing1
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/RightShoulder/RightArm/RightForeArm/RightHand1/RightHand/RightInHandRing0/RightInHandRing1/RightInHandRing2
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/RightShoulder/RightArm/RightForeArm/RightHand1/RightHand/RightInHandRing0/RightInHandRing1/RightInHandRing2/RightInHandRing3
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/RightShoulder/RightArm/RightForeArm/RightHand1/RightHand/RightInHandRing0/RightInHandRing1/RightInHandRing2/RightInHandRing3/RightInHandRing4
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/RightShoulder/ShoulderRibbon_RA_01
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/RightShoulder/ShoulderRibbon_RA_01/ShoulderRibbon_RA_02
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/RightShoulder/ShoulderRibbon_RA_01/ShoulderRibbon_RA_02/ShoulderRibbon_RA_03
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/RightShoulder/ShoulderRibbon_RB_01
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/RightShoulder/ShoulderRibbon_RB_01/ShoulderRibbon_RB_02
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/RightShoulder/ShoulderRibbon_RB_01/ShoulderRibbon_RB_02/ShoulderRibbon_RB_03
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/RightShoulder/ShoulderRibbon_RC_01
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/RightShoulder/ShoulderRibbon_RC_01/ShoulderRibbon_RC_02
+    m_Weight: 1
+  - m_Path: ROOT/References/Hips/Spine/Spine1/Spine2/Spine3/RightShoulder/ShoulderRibbon_RC_01/ShoulderRibbon_RC_02/ShoulderRibbon_RC_03
+    m_Weight: 1
