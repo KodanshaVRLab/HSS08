@@ -22,8 +22,43 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: MKS Eyebrow
+    second: {fileID: 2100000, guid: f3a31bc55c14b874883cb3576a4ab5c5, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_Shoes
+    second: {fileID: 2100000, guid: 067cf81d48c27a04e99af98d917fe9c5, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: Orange
     second: {fileID: 2100000, guid: cecc5ff2d85c65f4e8ed7919f7b3ab0b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Pupil
+    second: {fileID: 2100000, guid: c75d00df5251a26419db1a8db6b47b3a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Std_Skin_Body.001
+    second: {fileID: 2100000, guid: fa8592d5e1b850847b1acb1c41835810, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Std_Skin_Head.001
+    second: {fileID: 2100000, guid: 2404821c4a1483d4daffd06deafcf1bf, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Std_Skin_Leg.001
+    second: {fileID: 2100000, guid: 9a630edaeda5f2345897c8ab361aa032, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Underwear_Bottoms
+    second: {fileID: 2100000, guid: 952987268a3b5cb4a9e69c0808e2af8c, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
