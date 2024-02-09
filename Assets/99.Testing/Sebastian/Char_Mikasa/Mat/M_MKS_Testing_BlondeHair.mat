@@ -125,7 +125,7 @@ Material:
     - _AlphaClip: 0
     - _AlphaCutoff: 0.5
     - _AlphaToMask: 0
-    - _Aniso: -0.75
+    - _Aniso: -0.66
     - _Blend: 0
     - _BlendModePreserveSpecular: 1
     - _BumpScale: 1
@@ -143,18 +143,18 @@ Material:
     - _GlossyReflections: 0
     - _MetaDepthOcclusionBias: 0
     - _Metallic: 0.157
-    - _MetallicStrength: 0.078
+    - _MetallicStrength: 0
     - _NormalStrength: 1
     - _OcclusionStrength: 1
     - _Parallax: 0.005
     - _QueueControl: 0
     - _QueueOffset: 0
     - _ReceiveShadows: 1
-    - _RoundNormals: 0.432
+    - _RoundNormals: 0.375
     - _ShadowSoftness: 1
     - _ShadowThreshold: -0.72
     - _Smoothness: 0.5
-    - _SmoothnessStrength: 0.498
+    - _SmoothnessStrength: 0.337
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
