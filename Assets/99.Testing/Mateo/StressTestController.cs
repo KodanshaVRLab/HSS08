@@ -84,10 +84,26 @@ namespace KVRL.HSS08.Testing
 
         [SerializeField] bool debugVerbose = false;
 
+        protected virtual void OnValidate()
+        {
+            if (ovr == null)
+            {
+                ovr = FindObjectOfType<OVRManager>();
+            }
+
+            if (passthroughLayer == null)
+            {
+                passthroughLayer = FindObjectOfType<OVRPassthroughLayer>();
+            }
+        }
+
         private void Awake()
         {
+            PopulateComponentList(skinnedMeshContainer, ref skinnedMeshes);
             BindComponentList(skinnedMeshContainer, skinnedMeshes, skinnedMeshSlider, skinnedMeshCounter, maxSkinnedMeshes);
+            
             BindComponentList(meshContainer, meshes, meshSlider, meshCounter, maxMeshes);
+            
             BindComponentList(VFXContainer, vfxs, vfxSlider, vfxCounter, maxSystems);
         }
 
@@ -147,7 +163,7 @@ namespace KVRL.HSS08.Testing
 
         }
 
-        void PopulateComponentList<T>(Transform container, List<T> list) where T : Component
+        void PopulateComponentList<T>(Transform container, ref List<T> list) where T : Component
         {
             if (container != null)
             {
@@ -160,6 +176,13 @@ namespace KVRL.HSS08.Testing
                     if (c.TryGetComponent<T>(out t))
                     {
                         list.Add(t);
+                    } else // Cover deeply nested components, like skinned mesh renderers in model prefabs
+                    {
+                        t = c.GetComponentInChildren<T>();
+                        if (t != null)
+                        {
+                            list.Add(t);
+                        }
                     }
                 }
 

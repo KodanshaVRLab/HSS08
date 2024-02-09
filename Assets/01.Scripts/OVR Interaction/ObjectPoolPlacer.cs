@@ -146,6 +146,53 @@ namespace KVRL.HSS08.Testing
 
         }
 
+        [Button]
+        void DistributeGrid(Vector4 xzRange)
+        {
+#if UNITY_EDITOR
+            float countRoot = Mathf.Sqrt(poolCapacity);
+            float xSize = Mathf.Abs(xzRange.x - xzRange.y);
+            float zSize = Mathf.Abs(xzRange.z - xzRange.w);
+
+            float xGrid = Mathf.Max(Mathf.Ceil(countRoot * xSize / zSize), 1);
+            float zGrid = Mathf.Max(Mathf.Ceil(countRoot * zSize / xSize), 1);
+
+            int undoGroup = Undo.GetCurrentGroup();
+            bool shouldBreak = false;
+
+            for (int z = 0; z < zGrid; ++z)
+            {
+                float t_z = z / (zGrid - 1);
+                for (int x = 0; x < xGrid; ++x)
+                {
+                    int index = Mathf.RoundToInt(z * xGrid + x);
+
+                    float t_x = x / (xGrid - 1);
+                    float xPos = Mathf.Lerp(xzRange.x, xzRange.y, t_x);
+                    float zPos = Mathf.Lerp(xzRange.z, xzRange.w, t_z);
+
+                    if (index >= poolCapacity)
+                    {
+                        shouldBreak = true;
+                        break;
+                    }
+
+                    Transform target = pool[index].transform;
+
+                    Undo.RecordObject(target, "Distribute Grid");
+
+                    target.localPosition = new Vector3(xPos, 0, zPos);
+                }
+
+                if (shouldBreak) {
+                    break;
+                }
+            }
+
+            Undo.CollapseUndoOperations(undoGroup);
+#endif
+        }
+
         #endregion
     }
 }
