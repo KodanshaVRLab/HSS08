@@ -143,7 +143,7 @@ Material:
     - _GlossyReflections: 0
     - _MetaDepthOcclusionBias: 0
     - _Metallic: 0
-    - _MetallicStrength: 0
+    - _MetallicStrength: 0.426
     - _NormalStrength: 1
     - _OcclusionStrength: 1
     - _Parallax: 0.005
@@ -154,7 +154,7 @@ Material:
     - _ShadowSoftness: 1
     - _ShadowThreshold: -0.01
     - _Smoothness: 0.5
-    - _SmoothnessStrength: 0.097
+    - _SmoothnessStrength: 0.347
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1

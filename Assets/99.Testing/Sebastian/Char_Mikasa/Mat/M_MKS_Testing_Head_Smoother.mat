@@ -125,7 +125,7 @@ Material:
     - _AlphaClip: 0
     - _AlphaCutoff: 0.5
     - _AlphaToMask: 0
-    - _Aniso: 0
+    - _Aniso: -0.056
     - _Blend: 0
     - _BlendModePreserveSpecular: 1
     - _BumpScale: 1
@@ -151,17 +151,17 @@ Material:
     - _QueueOffset: 0
     - _ReceiveShadows: 1
     - _RoundNormals: 0.364
-    - _ShadowSoftness: 0.495
-    - _ShadowThreshold: -0.33
+    - _ShadowSoftness: 0.579
+    - _ShadowThreshold: -0.038
     - _Smoothness: 0.5
-    - _SmoothnessStrength: 0.06127519
+    - _SmoothnessStrength: 0.523
     - _SmoothnessTextureChannel: 1
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _SrcBlendAlpha: 1
     - _Surface: 0
     - _TerminatorSoftness: 1
-    - _TerminatorStrength: 0.76
+    - _TerminatorStrength: 0.727
     - _TerminatorWidth: 1
     - _WorkflowMode: 1
     - _ZWrite: 1
@@ -171,8 +171,8 @@ Material:
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _LitTint: {r: 1, g: 1, b: 1, a: 0}
     - _RoundnormalBias: {r: 0, g: 0, b: 1, a: 0}
-    - _ScatteringTint: {r: 0.9019608, g: 0.37242943, b: 0.115451, a: 1}
-    - _ShadowTint: {r: 0.3679245, g: 0.3679245, b: 0.3679245, a: 0}
+    - _ScatteringTint: {r: 0.735849, g: 0.43511656, b: 0.2880918, a: 1}
+    - _ShadowTint: {r: 0.3207547, g: 0.3192417, b: 0.3192417, a: 0}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
-    - _TerminatorColorTint: {r: 1, g: 0.9563492, b: 0.92857146, a: 1}
+    - _TerminatorColorTint: {r: 1, g: 0.870283, b: 0.7877358, a: 1}
   m_BuildTextureStacks: []
