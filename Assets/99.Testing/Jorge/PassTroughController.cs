@@ -20,7 +20,7 @@ public class PassTroughController : MonoBehaviour
     public Slider GrayScale2Color_Contrast, Grayscale2Color_Brightness, Grayscale2Color_Posterize;
     public Slider ColorLut_Blend;
     public Slider BlendedLut_Blend;
-    public TMPro.TextMeshProUGUI CurrentModelabel;
+    public TMPro.TextMeshProUGUI CurrentModelabel, toggleBtnLabel;
 
     public Texture2D originLUT, targetLUT;
     
@@ -32,10 +32,12 @@ public class PassTroughController : MonoBehaviour
         passtrough = GetComponent<OVRPassthroughLayer>();
         if (!passtrough)
             Destroy(this);
+        changeColor();
     }
     public GameObject test;
     float currentContrast, currentSaturation, currentBrightness, currentGSContrast,currentGSBrightness,currentGSPosterize;
     float currentLutBlend, currentBlendedLutBlend;
+    public Image colorIMG;
     [Button]
     public void updateColorСontrol()
     {
@@ -96,35 +98,20 @@ public class PassTroughController : MonoBehaviour
     
     public void RightStick(CallbackContext context)
     {
-        var c = context.ReadValue<Vector2>();
-        updatePasstrough(c.y * passSpeed);
-        if(edgeOn)
-        {
-            color.x += c.x * passSpeed;
-            changeColor();
-
-        }
+        
     }
     public void LeftStick(CallbackContext context)
     {
-        var c = context.ReadValue<Vector2>();
-         
-        if (edgeOn)
-        {
-            color.y += c.x*passSpeed;
-            color.z += c.y*passSpeed;
-            changeColor();
-        }
+        
     }
     public void OnBButton(CallbackContext context)
     {
-        updateColorСontrol();
+        
     }
     public void OnAButton(CallbackContext context)
     {
 
-        if (test) test.SetActive(!test.activeInHierarchy);
-        toggleEdgeRendering(!edgeOn);
+        
     }
 
     public void updateContrast(float c)
@@ -172,7 +159,7 @@ public class PassTroughController : MonoBehaviour
 
     public void updatePasstrough(float passtroughAmount)
     {
-        passTAmount += passtroughAmount;
+        passTAmount = passtroughAmount;
         passtrough.textureOpacity = passTAmount;
     }
     public void toggleEdgeRendering(bool value)
@@ -180,9 +167,33 @@ public class PassTroughController : MonoBehaviour
         edgeOn = value;
         passtrough.edgeRenderingEnabled = edgeOn;
     }
+    public void toggleEdgeRendering()
+    {
+        edgeOn = !edgeOn;
+        if (toggleBtnLabel)
+            toggleBtnLabel.text = edgeOn ? "Turn Edges Off" : "TurnEdgesOn";
+        passtrough.edgeRenderingEnabled = edgeOn;
+    }
     public void changeColor()
     {
         passtrough.edgeColor = new Color(color.x,color.y,color.z);
+        if (colorIMG) colorIMG.color = passtrough.edgeColor;
+    }
+    public void updateColorX(float x)
+    {
+        color.x = x;
+        
+        changeColor();
+    }
+    public void updateColorY(float x)
+    {
+        color.y = x;
+        changeColor();
+    }
+    public void updateColorZ(float x)
+    {
+        color.z= x;
+        changeColor();
     }
     // Update is called once per frame
     void Update()
