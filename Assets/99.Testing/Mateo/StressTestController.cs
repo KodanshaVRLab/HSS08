@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 using UnityEngine.UI;
 using UnityEngine.VFX;
@@ -44,7 +45,15 @@ namespace KVRL.HSS08.Testing
 
 
         [SerializeField, ReadOnly] Camera hmdCamera;
+
+        [SerializeField] GameObject ppVolume;
         [SerializeField, ReadOnly] PostProcessData postPro;
+        [SerializeField] Toggle ppToggle;
+
+        [SerializeField] Toggle passthroughToggle;
+
+        [SerializeField] GameObject hdriSky;
+        [SerializeField] Toggle hdriSkyToggle;
 
         public int SkinnedMeshCount
         {
@@ -100,11 +109,26 @@ namespace KVRL.HSS08.Testing
         private void Awake()
         {
             PopulateComponentList(skinnedMeshContainer, ref skinnedMeshes);
-            BindComponentList(skinnedMeshContainer, skinnedMeshes, skinnedMeshSlider, skinnedMeshCounter, maxSkinnedMeshes);
+            BindComponentList(skinnedMeshContainer, skinnedMeshes, skinnedMeshSlider, skinnedMeshCounter, maxSkinnedMeshes, true);
             
             BindComponentList(meshContainer, meshes, meshSlider, meshCounter, maxMeshes);
             
             BindComponentList(VFXContainer, vfxs, vfxSlider, vfxCounter, maxSystems);
+
+            var ovrRig = ovr.GetComponent<OVRCameraRig>();
+            var camL = ovrRig.leftEyeCamera;
+            var camC = ovrRig.centerEyeAnchor.GetComponent<Camera>();
+            var camR = ovrRig.rightEyeCamera;
+
+            
+
+            BindMasterPostPro(ppVolume, 
+                camL.GetUniversalAdditionalCameraData(), 
+                camC.GetUniversalAdditionalCameraData(), 
+                camR.GetUniversalAdditionalCameraData(), 
+                ppToggle);
+            BindPassthrough(passthroughToggle);
+            BindHDRISky(hdriSky, camL, camC, camR, hdriSkyToggle);
         }
 
         // Start is called before the first frame update
@@ -193,7 +217,7 @@ namespace KVRL.HSS08.Testing
             }
         }
 
-        void BindComponentList<T>(Transform container, List<T> components, Slider slider, TMP_Text counter, int maxValue) where T : Component
+        void BindComponentList<T>(Transform container, List<T> components, Slider slider, TMP_Text counter, int maxValue, bool bindRoot = false) where T : Component
         {
             if (components != null && components.Count > 0 && slider != null && counter != null)
             {
@@ -203,9 +227,22 @@ namespace KVRL.HSS08.Testing
                     for (int i = 0; i < components.Count; ++i)
                     {
                         T t = components[i];
-                        // t.enabled = i < target; // unity is fucking stupid and makes built-in components NOT MonoBehaviours, and only SOMETIMES Behaviours (enable/disable-able)
-                        // Renderers Can be enabled/disabled but inherit from Component directly and NOT from Behaviour. Thanks.
-                        t.gameObject.SetActive(i < target); 
+                        if (bindRoot)
+                        {
+                            Transform root = t.transform;
+                            while (root.parent != container)
+                            {
+                                root = root.parent;
+                            }
+
+                            root.gameObject.SetActive(i < target);
+                        }
+                        else
+                        {
+                            // t.enabled = i < target; // unity is fucking stupid and makes built-in components NOT MonoBehaviours, and only SOMETIMES Behaviours (enable/disable-able)
+                            // Renderers Can be enabled/disabled but inherit from Component directly and NOT from Behaviour. Thanks.
+                            t.gameObject.SetActive(i < target);
+                        }
                     }
 
                     counter.text = $"{target}/{maxValue}";
@@ -217,6 +254,48 @@ namespace KVRL.HSS08.Testing
             } else if (debugVerbose)
             {
                 Debug.LogError($"Could not bind slider callback, make sure references aren't null!\nContainer: {container}\nSlider: {slider}\nCounter: {counter}", gameObject);
+            }
+        }
+    
+        void BindMasterPostPro(GameObject volume, UniversalAdditionalCameraData camL, UniversalAdditionalCameraData camC, UniversalAdditionalCameraData camR, Toggle toggle)
+        {
+            if (volume != null && 
+                camL != null &&
+                camC != null &&
+                camR != null &&
+                toggle != null)
+            {
+                toggle.onValueChanged.AddListener((bool b) =>
+                {
+                    camL.renderPostProcessing = b;
+                    camC.renderPostProcessing = b;
+                    camR.renderPostProcessing = b;
+                    volume.SetActive(b);
+                });
+            }
+        }
+
+        void BindPassthrough(Toggle toggle) { 
+            if (toggle != null && ovr != null)
+            {
+                toggle.onValueChanged.AddListener((bool b) =>
+                {
+                    ovr.isInsightPassthroughEnabled = b;
+                });
+            }
+        }
+
+        void BindHDRISky(GameObject sky, Camera camL, Camera camC, Camera camR, Toggle toggle)
+        {
+            if (sky != null && toggle != null)
+            {
+                toggle.onValueChanged.AddListener((bool b) =>
+                {
+                    CameraClearFlags flag = b ? CameraClearFlags.Skybox : CameraClearFlags.SolidColor;
+
+                    camL.clearFlags = camC.clearFlags = camR.clearFlags = flag;
+                    sky.SetActive(b);
+                });
             }
         }
     }
