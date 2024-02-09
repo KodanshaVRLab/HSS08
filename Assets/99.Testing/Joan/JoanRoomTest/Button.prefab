@@ -57,7 +57,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 2100000, guid: 96bee9ade4922d843b017efb25fe5105, type: 2}
+  m_Material: {fileID: 2100000, guid: f671931f45dfc0049b61ef05f9bd0182, type: 2}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
@@ -143,7 +143,7 @@ MonoBehaviour:
   m_text: Button 1
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2100000, guid: 261a3bf98686ea842b5fd696202d51a4, type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: 22f9c8fc237e95b428b5893c65545736, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -266,8 +266,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 2100000, guid: 96bee9ade4922d843b017efb25fe5105, type: 2}
-  m_Color: {r: 0.24417053, g: 0.74317175, b: 0.8773585, a: 1}
+  m_Material: {fileID: 2100000, guid: f671931f45dfc0049b61ef05f9bd0182, type: 2}
+  m_Color: {r: 0.24417053, g: 0.74317175, b: 0.8773585, a: 0.2509804}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -943,7 +943,7 @@ MonoBehaviour:
             m_PersistentCalls:
               m_Calls: []
         image: {fileID: 1588623765514184235}
-        color: {r: 0.24313726, g: 0.74509805, b: 0.8784314, a: 1}
+        color: {r: 0.24313726, g: 0.74509805, b: 0.8784314, a: 0.2509804}
         forceStartValue: 0
         startColor: {r: 1, g: 1, b: 1, a: 1}
     - rid: 6241848497469652997
@@ -1047,7 +1047,7 @@ MonoBehaviour:
             m_PersistentCalls:
               m_Calls: []
         image: {fileID: 1588623765514184235}
-        color: {r: 0.5896226, g: 0.9138714, b: 1, a: 1}
+        color: {r: 0.5896226, g: 0.9138714, b: 1, a: 0.2509804}
         forceStartValue: 0
         startColor: {r: 1, g: 1, b: 1, a: 1}
     - rid: 6241848497469652999
@@ -1099,6 +1099,6 @@ MonoBehaviour:
             m_PersistentCalls:
               m_Calls: []
         image: {fileID: 1588623765514184235}
-        color: {r: 0.9916445, g: 1, b: 0.48584908, a: 1}
+        color: {r: 0.9916445, g: 1, b: 0.48584908, a: 0.2509804}
         forceStartValue: 0
         startColor: {r: 1, g: 1, b: 1, a: 1}
