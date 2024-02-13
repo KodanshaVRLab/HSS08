@@ -14,12 +14,16 @@ public class ShikiriAnimationController : MonoBehaviour
     public float maxRayDist = 1000;
     public LayerMask lm;
     public float rotationSpeed = 1f;
+    public float positionSpeed = 1f;
+
     public bool wallIsDetected;
     Quaternion targetRotation;
     public float roationDelta = 0f;
+    public float positionDelta = 0f;
     public Transform rayPoint;
     Quaternion startRotation;
-    Vector3 hitPoint,startpos;
+    Vector3 hitPoint,startpos, hitPointOffset;
+    public bool adjustPosition;
     // Start is called before the first frame update
     void Start()
     {
@@ -59,7 +63,8 @@ public class ShikiriAnimationController : MonoBehaviour
             
             wallIsDetected = true;
             hitPoint = hito.point;
-            startpos = transform.position;
+
+           
             Vector3 forward = transform.up - hito.normal* Vector3.Dot(transform.up, hito.normal);
             targetRotation= Quaternion.LookRotation(forward, hito.normal);
             startRotation = transform.rotation;
@@ -69,14 +74,30 @@ public class ShikiriAnimationController : MonoBehaviour
         {
             speed = maxSpeed/speedMultiplier;
             transform.rotation = Quaternion.Slerp(startRotation, targetRotation, roationDelta);
-            transform.position = Vector3.Lerp(startpos, hitPoint, roationDelta);
+          
             roationDelta += Time.deltaTime*rotationSpeed;
-            if(roationDelta>1)
+            if (roationDelta>1)
             {
+                
+                positionDelta = 0;
+                startpos = transform.position;
+                hitPoint.x = startpos.x;
+                hitPoint.z = startpos.z;
+                adjustPosition = true;
                 roationDelta = 0;
                 wallIsDetected = false;
                 speed =maxSpeed;
             }
+
+        }
+        else if(adjustPosition)
+        {
+           /* transform.position = Vector3.Lerp(startpos, hitPoint, positionDelta) +transform.forward* speed;
+            positionDelta += Time.deltaTime * positionSpeed;
+
+            if(positionDelta>1)
+                adjustPosition = false;*/
+
         }
     }
 }
