@@ -17,6 +17,7 @@ namespace KVRL.HSS08.Testing
         [SerializeField] OVRManager ovr;
         [SerializeField] OVRPassthroughLayer passthroughLayer;
 
+        [Header("Skinned Meshes")]
         [SerializeField] Transform skinnedMeshContainer;
         private List<SkinnedMeshRenderer> skinnedMeshes;
         [SerializeField] Slider skinnedMeshSlider;
@@ -24,7 +25,10 @@ namespace KVRL.HSS08.Testing
         [SerializeField] TMP_Text skinnedTriangleCounter;
         [SerializeField] int maxSkinnedMeshes = 100;
 
+        private int trisPerSkinnedMesh = 0;
+        private int vertsPerSkinnedMesh = 0;
 
+        [Header("Meshes")]
         [SerializeField] Transform meshContainer;
         private List<MeshRenderer> meshes;
         [SerializeField] Slider meshSlider;
@@ -32,7 +36,9 @@ namespace KVRL.HSS08.Testing
         [SerializeField] TMP_Text triangleCounter;
         [SerializeField] int maxMeshes = 100;
 
+        private int vertsPerMesh = 0;
 
+        [Header("Visual Effects")]
         [SerializeField] Transform VFXContainer;
         private List<VisualEffect> vfxs;
         [SerializeField] Slider vfxSlider;
@@ -41,9 +47,12 @@ namespace KVRL.HSS08.Testing
         [SerializeField] TMP_Text particleCounter;
         [SerializeField] TMP_Text totalParticleCounter;
         [SerializeField] int maxSystems = 50;
-        [SerializeField] int maxParticlesPersystem = 8000;
+        [SerializeField] int maxParticlesPerSystem = 8000;
 
+        private int systemCount = 0;
+        private int particleCount = 50;
 
+        [Header("Features")]
         [SerializeField, ReadOnly] Camera hmdCamera;
 
         [SerializeField] GameObject ppVolume;
@@ -91,6 +100,7 @@ namespace KVRL.HSS08.Testing
             get; private set;
         }
 
+        [Header("Debug")]
         [SerializeField] bool debugVerbose = false;
 
         protected virtual void OnValidate()
@@ -109,11 +119,15 @@ namespace KVRL.HSS08.Testing
         private void Awake()
         {
             PopulateComponentList(skinnedMeshContainer, ref skinnedMeshes);
-            BindComponentList(skinnedMeshContainer, skinnedMeshes, skinnedMeshSlider, skinnedMeshCounter, maxSkinnedMeshes, true);
-            
+            GameObject smTemplate = BindComponentList(skinnedMeshContainer, skinnedMeshes, skinnedMeshSlider, skinnedMeshCounter, maxSkinnedMeshes, true);
+            ComputeSkinnedPolyEstimate(smTemplate);
+            BindGeometryStats(skinnedMeshSlider, skinnedTriangleCounter, vertsPerSkinnedMesh, trisPerSkinnedMesh);
+
             BindComponentList(meshContainer, meshes, meshSlider, meshCounter, maxMeshes);
-            
+
+            PopulateComponentList(VFXContainer, ref vfxs);
             BindComponentList(VFXContainer, vfxs, vfxSlider, vfxCounter, maxSystems);
+            BindVFXParticleCount(vfxs, vfxSlider, particleSlider, particleCounter, totalParticleCounter);
 
             var ovrRig = ovr.GetComponent<OVRCameraRig>();
             var camL = ovrRig.leftEyeCamera;
@@ -217,7 +231,7 @@ namespace KVRL.HSS08.Testing
             }
         }
 
-        void BindComponentList<T>(Transform container, List<T> components, Slider slider, TMP_Text counter, int maxValue, bool bindRoot = false) where T : Component
+        GameObject BindComponentList<T>(Transform container, List<T> components, Slider slider, TMP_Text counter, int maxValue, bool bindRoot = false) where T : Component
         {
             if (components != null && components.Count > 0 && slider != null && counter != null)
             {
@@ -255,8 +269,88 @@ namespace KVRL.HSS08.Testing
             {
                 Debug.LogError($"Could not bind slider callback, make sure references aren't null!\nContainer: {container}\nSlider: {slider}\nCounter: {counter}", gameObject);
             }
+
+            return container.GetChild(0).gameObject;
         }
     
+        void ComputeSkinnedPolyEstimate(GameObject root)
+        {
+            if (debugVerbose && root != null)
+            {
+                Debug.Log($"Estimating stats for Skinned Meshes in {root.name}", gameObject);
+            }
+
+            if (root == null)
+            {
+                Debug.LogError("No GameObject found to compute Skinned Mesh stats!", gameObject);
+                return;
+            }
+
+            var renderers = root.GetComponentsInChildren<SkinnedMeshRenderer>();
+            int totalTris = 0, totalVerts = 0;
+            foreach (SkinnedMeshRenderer renderer in renderers)
+            {
+                totalVerts += renderer.sharedMesh.vertices.Length;
+                totalTris += renderer.sharedMesh.triangles.Length;
+            }
+
+            vertsPerSkinnedMesh = totalVerts;
+            trisPerSkinnedMesh = totalTris;
+        }
+
+        void BindGeometryStats(Slider slider, TMP_Text stats, int unitVerts, int unitTris)
+        {
+            if (slider == null || stats == null)
+            {
+                return;
+            }
+
+            void SetStats(float count)
+            {
+                int totalVerts = (int)count * unitVerts;
+                int totalTris = (int)count * unitTris;
+
+                stats.text = $"Verts: {totalVerts} // Tris: {totalTris}";
+            }
+
+            slider.onValueChanged.AddListener(SetStats);
+        }
+
+        void BindVFXParticleCount(List<VisualEffect> vfx, Slider systemSlider, Slider countSlider, TMP_Text counter, TMP_Text output)
+        {
+            if (vfx == null || vfx.Count == 0 || systemSlider == null || countSlider == null || output == null)
+            {
+                return;
+            }
+
+            void SetOutput(int count) {
+                output.text = $"Total particles: {count}";
+            }
+
+            void SysCallback(float sysCount)
+            {
+                int count = (int)(sysCount * countSlider.value);
+                SetOutput(count);
+            }
+
+            void CountCallback(float countCount)
+            {
+                for (int i = 0; i < vfx.Count; ++i)
+                {
+                    vfx[i].SetFloat("Particle Count", countCount);
+                }
+
+                counter.text = $"{(int)countCount}/{maxParticlesPerSystem}";
+
+                int count = (int)(countCount * systemSlider.value);
+                SetOutput(count);
+            }
+
+            systemSlider.onValueChanged.AddListener(SysCallback);
+            countSlider.onValueChanged.AddListener(CountCallback);
+            countSlider.maxValue = maxParticlesPerSystem;
+        }
+
         void BindMasterPostPro(GameObject volume, UniversalAdditionalCameraData camL, UniversalAdditionalCameraData camC, UniversalAdditionalCameraData camR, Toggle toggle)
         {
             if (volume != null && 

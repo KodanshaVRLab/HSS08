@@ -8,6 +8,7 @@ Shader "S_NoAlphaSkybox"
 		[HideInInspector] _EmissionColor("Emission Color", Color) = (1,1,1,1)
 		_Cubemap("Cubemap", CUBE) = "white" {}
 		_Alpha("Alpha", Range( 0 , 1)) = 1
+		[HideInInspector]_Cubemap_HDR("Cubemap_HDR", Vector) = (1,1,1,0)
 
 
 		//_TessPhongStrength( "Tess Phong Strength", Range( 0, 1 ) ) = 0.5
@@ -62,6 +63,7 @@ Shader "S_NoAlphaSkybox"
 			HLSLPROGRAM
 
 			#define ASE_SRP_VERSION 140009
+			#define ASE_USING_SAMPLING_MACROS 1
 
 
 			#pragma multi_compile_fragment _ _SCREEN_SPACE_OCCLUSION
@@ -113,8 +115,10 @@ Shader "S_NoAlphaSkybox"
 				UNITY_VERTEX_OUTPUT_STEREO
 			};
 
-			samplerCUBE _Cubemap;
+			TEXTURECUBE(_Cubemap);
+			SAMPLER(sampler_Cubemap);
 			CBUFFER_START( UnityPerMaterial )
+			float4 _Cubemap_HDR;
 			float _Alpha;
 			CBUFFER_END
 
@@ -174,9 +178,10 @@ Shader "S_NoAlphaSkybox"
 				#endif
 
 				float3 ase_worldViewDir = ( _WorldSpaceCameraPos.xyz - WorldPosition );
-				ase_worldViewDir = normalize(ase_worldViewDir);
+				ase_worldViewDir = SafeNormalize( ase_worldViewDir );
+				float3 decodeLightMap14 = DecodeLightmap(SAMPLE_TEXTURECUBE( _Cubemap, sampler_Cubemap, -ase_worldViewDir ),_Cubemap_HDR);
 				
-				float3 Color = texCUBE( _Cubemap, -ase_worldViewDir ).rgb;
+				float3 Color = decodeLightMap14;
 				float Alpha = _Alpha;
 
 				#ifdef _WRITE_RENDERING_LAYERS
@@ -202,6 +207,7 @@ Shader "S_NoAlphaSkybox"
 			HLSLPROGRAM
 
 			#define ASE_SRP_VERSION 140009
+			#define ASE_USING_SAMPLING_MACROS 1
 
 
 			#pragma vertex vert
@@ -238,6 +244,7 @@ Shader "S_NoAlphaSkybox"
 			};
 
 			CBUFFER_START(UnityPerMaterial)
+			float4 _Cubemap_HDR;
 			float _Alpha;
 			#ifdef ASE_TESSELLATION
 				float _TessPhongStrength;
@@ -409,6 +416,7 @@ Shader "S_NoAlphaSkybox"
 			HLSLPROGRAM
 
 			#define ASE_SRP_VERSION 140009
+			#define ASE_USING_SAMPLING_MACROS 1
 
 
 			#pragma vertex vert
@@ -445,6 +453,7 @@ Shader "S_NoAlphaSkybox"
 			};
 
 			CBUFFER_START(UnityPerMaterial)
+			float4 _Cubemap_HDR;
 			float _Alpha;
 			#ifdef ASE_TESSELLATION
 				float _TessPhongStrength;
@@ -657,16 +666,20 @@ Shader "S_NoAlphaSkybox"
 }
 /*ASEBEGIN
 Version=19202
-Node;AmplifyShaderEditor.TemplateMultiPassMasterNode;0;0,0;Float;False;True;-1;2;UnityEditor.ShaderGraphUnlitGUI;0;22;S_NoAlphaSkybox;8fb54f3f64680404a8f46af4bfbe14aa;True;Skybox;0;0;Skybox;1;False;False;False;False;False;False;False;False;False;False;False;False;False;False;True;2;False;;False;False;False;False;False;False;False;False;False;True;False;0;False;;255;False;;255;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;False;True;2;False;;False;False;True;5;RenderPipeline=UniversalPipeline;RenderType=Background=RenderType;Queue=Background=Queue=0;UniversalMaterialType=Unlit;PreviewType=Skybox;True;5;True;12;all;0;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;True;False;0;False;;255;False;;255;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;False;False;False;False;False;False;False;0;;0;0;Standard;0;0;3;True;True;True;False;;False;0
-Node;AmplifyShaderEditor.TemplateMultiPassMasterNode;1;0,0;Float;False;False;-1;2;UnityEditor.ShaderGraphUnlitGUI;0;1;New Amplify Shader;8fb54f3f64680404a8f46af4bfbe14aa;True;SceneSelectionPass;0;1;SceneSelectionPass;0;False;False;False;False;False;False;False;False;False;False;False;False;False;False;True;2;False;;False;False;False;False;False;False;False;False;False;True;False;0;False;;255;False;;255;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;False;True;2;False;;False;False;True;5;RenderPipeline=UniversalPipeline;RenderType=Background=RenderType;Queue=Background=Queue=0;UniversalMaterialType=Unlit;PreviewType=Skybox;True;5;True;12;all;0;False;False;False;False;False;False;False;False;False;False;False;False;True;0;False;;False;True;2;False;;False;False;False;False;False;False;False;False;False;False;False;False;False;False;True;1;LightMode=SceneSelectionPass;False;False;0;;0;0;Standard;0;False;0
-Node;AmplifyShaderEditor.TemplateMultiPassMasterNode;2;0,0;Float;False;False;-1;2;UnityEditor.ShaderGraphUnlitGUI;0;1;New Amplify Shader;8fb54f3f64680404a8f46af4bfbe14aa;True;ScenePickingPass;0;2;ScenePickingPass;4;False;False;False;False;False;False;False;False;False;False;False;False;False;False;True;2;False;;False;False;False;False;False;False;False;False;False;True;False;0;False;;255;False;;255;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;False;True;2;False;;False;False;True;5;RenderPipeline=UniversalPipeline;RenderType=Background=RenderType;Queue=Background=Queue=0;UniversalMaterialType=Unlit;PreviewType=Skybox;True;5;True;12;all;0;False;False;False;False;False;False;False;False;False;False;False;False;True;0;False;;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;True;1;LightMode=Picking;False;False;0;;0;0;Standard;0;False;0
-Node;AmplifyShaderEditor.ViewDirInputsCoordNode;4;-1104.172,-151.0699;Inherit;False;World;False;0;4;FLOAT3;0;FLOAT;1;FLOAT;2;FLOAT;3
-Node;AmplifyShaderEditor.NegateNode;5;-836.9994,-154.2506;Inherit;False;1;0;FLOAT3;0,0,0;False;1;FLOAT3;0
-Node;AmplifyShaderEditor.RangedFloatNode;6;-429.8794,146.8484;Inherit;False;Property;_Alpha;Alpha;1;0;Create;True;0;0;0;False;0;False;1;0;0;1;0;1;FLOAT;0
-Node;AmplifyShaderEditor.SamplerNode;3;-513.6358,-159.5516;Inherit;True;Property;_Cubemap;Cubemap;0;0;Create;True;0;0;0;False;0;False;-1;ae184e6c986790e4b85c1c9b05396500;None;True;0;False;white;LockedToCube;False;Object;-1;Auto;Cube;8;0;SAMPLER2D;;False;1;FLOAT3;0,0,0;False;2;FLOAT;0;False;3;FLOAT3;0,0,0;False;4;FLOAT3;0,0,0;False;5;FLOAT;1;False;6;FLOAT;0;False;7;SAMPLERSTATE;;False;5;COLOR;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
-WireConnection;0;2;3;0
+Node;AmplifyShaderEditor.TemplateMultiPassMasterNode;1;0,0;Float;False;False;-1;2;UnityEditor.ShaderGraphUnlitGUI;0;20;New Amplify Shader;8fb54f3f64680404a8f46af4bfbe14aa;True;SceneSelectionPass;0;1;SceneSelectionPass;0;False;False;False;False;False;False;False;False;False;False;False;False;False;False;True;2;False;;False;False;False;False;False;False;False;False;False;True;False;0;False;;255;False;;255;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;False;True;2;False;;False;False;True;5;RenderPipeline=UniversalPipeline;RenderType=Background=RenderType;Queue=Background=Queue=0;UniversalMaterialType=Unlit;PreviewType=Skybox;True;5;True;12;all;0;False;False;False;False;False;False;False;False;False;False;False;False;True;0;False;;False;True;2;False;;False;False;False;False;False;False;False;False;False;False;False;False;False;False;True;1;LightMode=SceneSelectionPass;False;False;0;;0;0;Standard;0;False;0
+Node;AmplifyShaderEditor.TemplateMultiPassMasterNode;2;0,0;Float;False;False;-1;2;UnityEditor.ShaderGraphUnlitGUI;0;20;New Amplify Shader;8fb54f3f64680404a8f46af4bfbe14aa;True;ScenePickingPass;0;2;ScenePickingPass;4;False;False;False;False;False;False;False;False;False;False;False;False;False;False;True;2;False;;False;False;False;False;False;False;False;False;False;True;False;0;False;;255;False;;255;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;False;True;2;False;;False;False;True;5;RenderPipeline=UniversalPipeline;RenderType=Background=RenderType;Queue=Background=Queue=0;UniversalMaterialType=Unlit;PreviewType=Skybox;True;5;True;12;all;0;False;False;False;False;False;False;False;False;False;False;False;False;True;0;False;;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;True;1;LightMode=Picking;False;False;0;;0;0;Standard;0;False;0
+Node;AmplifyShaderEditor.TemplateMultiPassMasterNode;0;11,-122;Float;False;True;-1;2;UnityEditor.ShaderGraphUnlitGUI;0;20;S_NoAlphaSkybox;8fb54f3f64680404a8f46af4bfbe14aa;True;Skybox;0;0;Skybox;2;False;False;False;False;False;False;False;False;False;False;False;False;False;False;True;2;False;;False;False;False;False;False;False;False;False;False;True;False;0;False;;255;False;;255;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;True;True;2;False;;False;False;True;5;RenderPipeline=UniversalPipeline;RenderType=Background=RenderType;Queue=Background=Queue=0;UniversalMaterialType=Unlit;PreviewType=Skybox;True;5;True;12;all;0;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;False;True;False;0;False;;255;False;;255;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;0;False;;False;False;False;False;False;False;False;0;;0;0;Standard;0;0;3;True;True;True;False;;True;0
+Node;AmplifyShaderEditor.ViewDirInputsCoordNode;4;-1158.172,-148.0699;Inherit;False;World;True;0;4;FLOAT3;0;FLOAT;1;FLOAT;2;FLOAT;3
+Node;AmplifyShaderEditor.NegateNode;5;-879.9994,-150.2506;Inherit;False;1;0;FLOAT3;0,0,0;False;1;FLOAT3;0
+Node;AmplifyShaderEditor.SamplerNode;3;-676.6358,-173.5516;Inherit;True;Property;_Cubemap;Cubemap;0;0;Create;True;0;0;0;False;0;False;-1;ae184e6c986790e4b85c1c9b05396500;ae184e6c986790e4b85c1c9b05396500;True;0;False;white;LockedToCube;False;Object;-1;Auto;Cube;8;0;SAMPLERCUBE;;False;1;FLOAT3;0,0,0;False;2;FLOAT;0;False;3;FLOAT3;0,0,0;False;4;FLOAT3;0,0,0;False;5;FLOAT;1;False;6;FLOAT;0;False;7;SAMPLERSTATE;;False;5;COLOR;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
+Node;AmplifyShaderEditor.DecodeLightmapHlpNode;14;-297.6421,-113.3941;Inherit;False;2;0;FLOAT4;0,0,0,0;False;1;FLOAT4;0,0,0,0;False;1;FLOAT3;0
+Node;AmplifyShaderEditor.Vector4Node;15;-612.6421,40.6059;Inherit;False;Property;_Cubemap_HDR;Cubemap_HDR;2;1;[HideInInspector];Create;True;0;0;0;False;0;False;1,1,1,0;0,0,0,0;0;5;FLOAT4;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4
+Node;AmplifyShaderEditor.RangedFloatNode;6;-349.8794,152.8484;Inherit;False;Property;_Alpha;Alpha;1;0;Create;True;0;0;0;False;0;False;1;0;0;1;0;1;FLOAT;0
+WireConnection;0;2;14;0
 WireConnection;0;1;6;0
 WireConnection;5;0;4;0
 WireConnection;3;1;5;0
+WireConnection;14;0;3;0
+WireConnection;14;1;15;0
 ASEEND*/
-//CHKSM=7A87F3A4315F5CEF9F8431F7D3E984E662361746
+//CHKSM=30769361A3FA1C044B0652B4856CA390B9A87630
