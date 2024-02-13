@@ -6,6 +6,7 @@ public class ShikiriAnimationController : MonoBehaviour
 {
     public Animator anim;
     public float maxSpeed = 0.05f;
+    public float speedMultiplier = 0.5f;
     [Range(0f, 1f)]
     public float walkBlend;
     public float speed=0.1f;
@@ -15,8 +16,10 @@ public class ShikiriAnimationController : MonoBehaviour
     public float rotationSpeed = 1f;
     public bool wallIsDetected;
     Quaternion targetRotation;
-    float roationDelta = 0f;
+    public float roationDelta = 0f;
     public Transform rayPoint;
+    Quaternion startRotation;
+    Vector3 hitPoint,startpos;
     // Start is called before the first frame update
     void Start()
     {
@@ -24,6 +27,18 @@ public class ShikiriAnimationController : MonoBehaviour
         walkBlend = 0.7f;
     }
 
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = new Color(1, 0, 0, 0.24f);
+        Gizmos.DrawSphere(rayPoint.position, 0.25f);
+        Gizmos.color = wallIsDetected ? new Color(1, 0, 0, 0.24f): new Color(0, 1, 0, 0.24f);
+        Gizmos.DrawLine(rayPoint.position, rayPoint.position + rayPoint.forward * maxRayDist);
+        if (wallIsDetected)
+        {
+            Gizmos.DrawSphere(hitPoint, 0.25f);
+        }
+
+    }
     // Update is called once per frame
     void Update()
     {
@@ -43,15 +58,18 @@ public class ShikiriAnimationController : MonoBehaviour
         {
             
             wallIsDetected = true;
-            Debug.Log(hito.normal);
+            hitPoint = hito.point;
+            startpos = transform.position;
             Vector3 forward = transform.up - hito.normal* Vector3.Dot(transform.up, hito.normal);
             targetRotation= Quaternion.LookRotation(forward, hito.normal);
+            startRotation = transform.rotation;
              
         }
         else if(wallIsDetected)
         {
-            speed = maxSpeed/3f;
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, roationDelta);
+            speed = maxSpeed/speedMultiplier;
+            transform.rotation = Quaternion.Slerp(startRotation, targetRotation, roationDelta);
+            transform.position = Vector3.Lerp(startpos, hitPoint, roationDelta);
             roationDelta += Time.deltaTime*rotationSpeed;
             if(roationDelta>1)
             {
