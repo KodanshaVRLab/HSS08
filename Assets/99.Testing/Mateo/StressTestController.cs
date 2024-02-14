@@ -3,9 +3,11 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
+using UnityEngine.Rendering.Universal.Internal;
 using UnityEngine.UI;
 using UnityEngine.VFX;
 
@@ -37,6 +39,7 @@ namespace KVRL.HSS08.Testing
         [SerializeField] int maxMeshes = 100;
 
         private int vertsPerMesh = 0;
+        private int trisPerMesh = 0;
 
         [Header("Visual Effects")]
         [SerializeField] Transform VFXContainer;
@@ -56,8 +59,9 @@ namespace KVRL.HSS08.Testing
         [SerializeField, ReadOnly] Camera hmdCamera;
 
         [SerializeField] GameObject ppVolume;
-        [SerializeField, ReadOnly] PostProcessData postPro;
+        [SerializeField, ReadOnly] VolumeProfile postPro;
         [SerializeField] Toggle ppToggle;
+        [SerializeField] Toggle[] ppEffectToggles;
 
         [SerializeField] Toggle passthroughToggle;
 
@@ -76,7 +80,7 @@ namespace KVRL.HSS08.Testing
 
         public int VFXCount
         {
-            get;  private set;
+            get; private set;
         }
 
         public int ParticleCount
@@ -92,8 +96,10 @@ namespace KVRL.HSS08.Testing
         [Flags]
         public enum PostProEffectTests
         {
-            ColorGrading = 0b00000001,
-            Bloom = 0b00000010
+            Tonemapping = 0b00000001,
+            Bloom =        0b00000010,
+            DOF =          0b00000100,
+            ColorAdjust =  0b00001000
         }
         public PostProEffectTests PostProMask
         {
@@ -123,7 +129,10 @@ namespace KVRL.HSS08.Testing
             ComputeSkinnedPolyEstimate(smTemplate);
             BindGeometryStats(skinnedMeshSlider, skinnedTriangleCounter, vertsPerSkinnedMesh, trisPerSkinnedMesh);
 
-            BindComponentList(meshContainer, meshes, meshSlider, meshCounter, maxMeshes);
+            PopulateComponentList(meshContainer, ref meshes);
+            GameObject mTemplate = BindComponentList(meshContainer, meshes, meshSlider, meshCounter, maxMeshes, true);
+            ComputeMeshPolyEstimate(mTemplate);
+            BindGeometryStats(meshSlider, triangleCounter, vertsPerMesh, trisPerMesh);
 
             PopulateComponentList(VFXContainer, ref vfxs);
             BindComponentList(VFXContainer, vfxs, vfxSlider, vfxCounter, maxSystems);
@@ -134,15 +143,19 @@ namespace KVRL.HSS08.Testing
             var camC = ovrRig.centerEyeAnchor.GetComponent<Camera>();
             var camR = ovrRig.rightEyeCamera;
 
-            
 
-            BindMasterPostPro(ppVolume, 
-                camL.GetUniversalAdditionalCameraData(), 
-                camC.GetUniversalAdditionalCameraData(), 
-                camR.GetUniversalAdditionalCameraData(), 
-                ppToggle);
+
+            BindMasterPostPro(ppVolume,
+                camL.GetUniversalAdditionalCameraData(),
+                camC.GetUniversalAdditionalCameraData(),
+                camR.GetUniversalAdditionalCameraData(),
+                ppToggle, ppEffectToggles);
+            BindPostToggles(ppEffectToggles);
+
             BindPassthrough(passthroughToggle);
             BindHDRISky(hdriSky, camL, camC, camR, hdriSkyToggle);
+
+            RefreshAllStates();
         }
 
         // Start is called before the first frame update
@@ -157,23 +170,24 @@ namespace KVRL.HSS08.Testing
 
         }
 
-        /// <summary>
-        /// To test stress of having multiple character meshes at once
-        /// </summary>
-        /// <param name="skinnedMeshCount"></param>
-        public void SetSkinnedMeshCount(float skinnedMeshCount)
-        {
-
-        }
-
-        public void SetMeshCount(float meshCount)
-        {
-
-        }
-
         public void SetPostEffects(PostProEffectTests mask)
         {
+            if (postPro != null)
+            {
+                SetPostState<Tonemapping>(postPro, PostProEffectTests.Tonemapping, mask);
+                SetPostState<Bloom>(postPro, PostProEffectTests.Bloom, mask);
+                SetPostState<DepthOfField>(postPro, PostProEffectTests.DOF, mask);
+                SetPostState<ColorAdjustments>(postPro, PostProEffectTests.ColorAdjust, mask);
+            }
+        }
 
+        void SetPostState<T>(VolumeProfile post, PostProEffectTests flag, PostProEffectTests mask) where T : VolumeComponent
+        {
+            T effect;
+            if (post.TryGet(out effect))
+            {
+                effect.active = (flag & mask) != 0;
+            }
         }
 
         public void TogglePostEffect(PostProEffectTests mask)
@@ -207,14 +221,16 @@ namespace KVRL.HSS08.Testing
             {
                 list = new List<T>();
 
-                for (int i = 0; i < container.childCount; ++i) {
+                for (int i = 0; i < container.childCount; ++i)
+                {
                     Transform c = container.GetChild(i);
 
                     T t;
                     if (c.TryGetComponent<T>(out t))
                     {
                         list.Add(t);
-                    } else // Cover deeply nested components, like skinned mesh renderers in model prefabs
+                    }
+                    else // Cover deeply nested components, like skinned mesh renderers in model prefabs
                     {
                         t = c.GetComponentInChildren<T>();
                         if (t != null)
@@ -265,14 +281,15 @@ namespace KVRL.HSS08.Testing
                 slider.minValue = 0;
                 slider.maxValue = maxValue;
                 slider.onValueChanged.AddListener(Callback);
-            } else if (debugVerbose)
+            }
+            else if (debugVerbose)
             {
                 Debug.LogError($"Could not bind slider callback, make sure references aren't null!\nContainer: {container}\nSlider: {slider}\nCounter: {counter}", gameObject);
             }
 
-            return container.GetChild(0).gameObject;
+            return container != null ? container.GetChild(0).gameObject : null;
         }
-    
+
         void ComputeSkinnedPolyEstimate(GameObject root)
         {
             if (debugVerbose && root != null)
@@ -296,6 +313,31 @@ namespace KVRL.HSS08.Testing
 
             vertsPerSkinnedMesh = totalVerts;
             trisPerSkinnedMesh = totalTris;
+        }
+
+        void ComputeMeshPolyEstimate(GameObject root)
+        {
+            if (debugVerbose && root != null)
+            {
+                Debug.Log($"Estimating stats for Meshes in {root.name}", gameObject);
+            }
+
+            if (root == null)
+            {
+                Debug.LogError("No GameObject found to compute Mesh stats!", gameObject);
+                return;
+            }
+
+            var renderers = root.GetComponentsInChildren<MeshFilter>();
+            int totalTris = 0, totalVerts = 0;
+            foreach (MeshFilter renderer in renderers)
+            {
+                totalVerts += renderer.sharedMesh.vertices.Length;
+                totalTris += renderer.sharedMesh.triangles.Length;
+            }
+
+            vertsPerMesh = totalVerts;
+            trisPerMesh = totalTris;
         }
 
         void BindGeometryStats(Slider slider, TMP_Text stats, int unitVerts, int unitTris)
@@ -323,7 +365,8 @@ namespace KVRL.HSS08.Testing
                 return;
             }
 
-            void SetOutput(int count) {
+            void SetOutput(int count)
+            {
                 output.text = $"Total particles: {count}";
             }
 
@@ -351,9 +394,9 @@ namespace KVRL.HSS08.Testing
             countSlider.maxValue = maxParticlesPerSystem;
         }
 
-        void BindMasterPostPro(GameObject volume, UniversalAdditionalCameraData camL, UniversalAdditionalCameraData camC, UniversalAdditionalCameraData camR, Toggle toggle)
+        void BindMasterPostPro(GameObject volume, UniversalAdditionalCameraData camL, UniversalAdditionalCameraData camC, UniversalAdditionalCameraData camR, Toggle toggle, Toggle[] subToggles)
         {
-            if (volume != null && 
+            if (volume != null &&
                 camL != null &&
                 camC != null &&
                 camR != null &&
@@ -365,11 +408,41 @@ namespace KVRL.HSS08.Testing
                     camC.renderPostProcessing = b;
                     camR.renderPostProcessing = b;
                     volume.SetActive(b);
+
+                    if (subToggles != null)
+                    {
+                        for (int i = 0; i < subToggles.Length; ++i)
+                        {
+                            subToggles[i].interactable = b;
+                        }
+                    }
                 });
+
+                postPro = volume.GetComponent<Volume>().profile;
             }
         }
 
-        void BindPassthrough(Toggle toggle) { 
+        void BindPostToggles(Toggle[] toggles)
+        {
+            void GeneratePPMask(bool dummy)
+            {
+                int mask = 0;
+                for (int i = 0; i < toggles.Length; ++i)
+                {
+                    mask += (toggles[i].isOn ? 1 : 0) << i;
+                }
+
+                SetPostEffects((PostProEffectTests)mask);
+            }
+
+            for (int i = 0;i < toggles.Length; ++i)
+            {
+                toggles[i].onValueChanged.AddListener(GeneratePPMask);
+            }
+        }
+
+        void BindPassthrough(Toggle toggle)
+        {
             if (toggle != null && ovr != null)
             {
                 toggle.onValueChanged.AddListener((bool b) =>
@@ -391,6 +464,35 @@ namespace KVRL.HSS08.Testing
                     sky.SetActive(b);
                 });
             }
+        }
+
+        void RefreshAllStates()
+        {
+            skinnedMeshSlider.Trigger();
+            meshSlider.Trigger();
+            vfxSlider.Trigger();
+            particleSlider.Trigger();
+
+            passthroughToggle.Trigger();
+            ppToggle.Trigger();
+            if (ppEffectToggles != null && ppEffectToggles.Length > 0)
+            {
+                ppEffectToggles[0].Trigger();
+            }
+            hdriSkyToggle.Trigger();
+        }
+    }
+
+    public static class UIExtensions
+    {
+        public static void Trigger(this Toggle toggle)
+        {
+            toggle.onValueChanged.Invoke(toggle.isOn);
+        }
+
+        public static void Trigger(this Slider slider)
+        {
+            slider.onValueChanged.Invoke(slider.value);
         }
     }
 }
