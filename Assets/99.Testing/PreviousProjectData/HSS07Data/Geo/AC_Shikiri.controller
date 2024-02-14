@@ -168,13 +168,13 @@ AnimatorController:
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   - m_Name: isWalking
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 0}
+    m_Controller: {fileID: 9100000}
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: DanceLayer
@@ -191,7 +191,7 @@ AnimatorController:
   - serializedVersion: 5
     m_Name: WalkLayer
     m_StateMachine: {fileID: -7931665963510945885}
-    m_Mask: {fileID: 31900000, guid: 615a22e718b1afc4d80588674b75123d, type: 2}
+    m_Mask: {fileID: 0}
     m_Motions: []
     m_Behaviours: []
     m_BlendingMode: 0

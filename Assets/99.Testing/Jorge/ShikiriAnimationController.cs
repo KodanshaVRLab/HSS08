@@ -24,9 +24,12 @@ public class ShikiriAnimationController : MonoBehaviour
     Quaternion startRotation;
     Vector3 hitPoint,startpos, hitPointOffset;
     public bool adjustPosition;
+    public Transform debugSphere;
+    LineRenderer lr;
     // Start is called before the first frame update
     void Start()
     {
+        lr = GetComponent<LineRenderer>();
         anim = GetComponent<Animator>();
         walkBlend = 0.7f;
     }
@@ -46,6 +49,11 @@ public class ShikiriAnimationController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(lr && debugSphere)
+        {
+            lr.SetPosition(0, rayPoint.position);
+            lr.SetPosition(1, debugSphere.position);
+        }
         if(anim)
         {
             anim.SetBool("isDancing", isDancing);
@@ -63,8 +71,8 @@ public class ShikiriAnimationController : MonoBehaviour
             
             wallIsDetected = true;
             hitPoint = hito.point;
-
-           
+            startpos = transform.position;
+            debugSphere.position = hitPoint;
             Vector3 forward = transform.up - hito.normal* Vector3.Dot(transform.up, hito.normal);
             targetRotation= Quaternion.LookRotation(forward, hito.normal);
             startRotation = transform.rotation;
@@ -76,28 +84,32 @@ public class ShikiriAnimationController : MonoBehaviour
             transform.rotation = Quaternion.Slerp(startRotation, targetRotation, roationDelta);
           
             roationDelta += Time.deltaTime*rotationSpeed;
+            if (adjustPosition)
+            {
+
+                transform.position = Vector3.Lerp(startpos, hitPoint, positionDelta) + transform.forward * speed;
+                positionDelta += Time.deltaTime * positionSpeed;
+
+                if (positionDelta > 1)
+                    adjustPosition = false;
+
+            }
             if (roationDelta>1)
             {
                 
                 positionDelta = 0;
-                startpos = transform.position;
+                
                 hitPoint.x = startpos.x;
                 hitPoint.z = startpos.z;
-                adjustPosition = true;
+                
                 roationDelta = 0;
                 wallIsDetected = false;
                 speed =maxSpeed;
             }
 
         }
-        else if(adjustPosition)
-        {
-           /* transform.position = Vector3.Lerp(startpos, hitPoint, positionDelta) +transform.forward* speed;
-            positionDelta += Time.deltaTime * positionSpeed;
-
-            if(positionDelta>1)
-                adjustPosition = false;*/
-
-        }
+        
+        else
+            debugSphere.position = rayPoint.position+rayPoint.forward*maxRayDist;
     }
 }
