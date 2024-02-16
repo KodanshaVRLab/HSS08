@@ -149,7 +149,12 @@ namespace KVRL.HSS08.Testing
             {
                 foreach (var sys in genericSystems)
                 {
-                    if (sys != null && sys.IsMainSystem)
+                    if (sys == null)
+                    {
+                        continue;
+                    }
+
+                    if (sys.IsMainSystem)
                     {
                         callbackWrapper.WhenSelect.AddListener(sys.TriggerInteraction);
                     } else if (verbose)
@@ -200,7 +205,12 @@ namespace KVRL.HSS08.Testing
             {
                 foreach (var sys in genericSystems)
                 {
-                    if (sys != null && sys.IsMainSystem)
+                    if (sys == null)
+                    {
+                        continue;
+                    }
+
+                    if (sys.IsMainSystem)
                     {
                         callbackWrapper.WhenSelect.RemoveListener(sys.TriggerInteraction);
                     }

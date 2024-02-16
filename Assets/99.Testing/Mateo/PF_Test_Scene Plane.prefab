@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3994239692896396994}
   - component: {fileID: 59065775367747313}
   - component: {fileID: 1859101439548871438}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Passthrough Plane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -131,7 +131,7 @@ GameObject:
   - component: {fileID: 7949312349603572756}
   - component: {fileID: 8073023213207898053}
   - component: {fileID: 8472765280479857786}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: PF_Test_Scene Plane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -194,7 +194,7 @@ GameObject:
   - component: {fileID: 3651986303944757008}
   - component: {fileID: 5626334354173044039}
   - component: {fileID: 6436003997736403772}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Virtual Plane
   m_TagString: Untagged
   m_Icon: {fileID: 0}

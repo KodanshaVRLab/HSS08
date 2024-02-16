@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 3319056739275674653}
   - component: {fileID: 8224620100580178916}
   - component: {fileID: 37896434708351722}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: PF_Test_PlaneInteractableProxy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -208,4 +208,5 @@ MonoBehaviour:
   enableDecals: 1
   enableEnvSwap: 1
   enableGenerics: 1
+  genericSystems: []
   verbose: 1
