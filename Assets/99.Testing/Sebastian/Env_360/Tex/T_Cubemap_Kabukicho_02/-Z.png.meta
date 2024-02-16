@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 89f82933872c21d449d22b8c42eb8828
+guid: 98d04a2f8e2826e488f7bf01f37d5b93
 labels:
 - texture
 TextureImporter:
@@ -53,7 +53,7 @@ TextureImporter:
   spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
-  alphaUsage: 1
+  alphaUsage: 0
   alphaIsTransparency: 0
   spriteTessellationDetail: -1
   textureType: 0
