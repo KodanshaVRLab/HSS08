@@ -1,3 +1,4 @@
+using Meta.WitAi.Attributes;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +9,10 @@ public class JoanWallDetector : MonoBehaviour
 {
     [SerializeField]
     private OVRSceneManager sceneManager = null;
+    [SerializeField]
+    private Transform userHead = null;
 
+    public UnityEvent<GameObject> onBestWallFound = null;
     public UnityEvent<Vector3> wallFound = null;
     public UnityEvent<Quaternion> wallFound2 = null;
 
@@ -17,10 +21,11 @@ public class JoanWallDetector : MonoBehaviour
 
     private void Awake()
     {
-        sceneManager.SceneModelLoadedSuccessfully += RoomLoaded;
+        //sceneManager.SceneModelLoadedSuccessfully += FindBestWall;
     }
 
-    private void RoomLoaded()
+    [Button]
+    public void FindFrontWall()
     {
         List<GameObject> suitableWalls = FindObjectsOfType<OVRSemanticClassification>()
                     .Where(c => c.Contains(OVRSceneManager.Classification.WallFace))
@@ -28,22 +33,18 @@ public class JoanWallDetector : MonoBehaviour
                     .Where(wall => CheckIfWallIsBigEnough(wall))
                     .ToList();
 
-        float minDistance = float.MaxValue;
-        GameObject closestWall = null;
-        foreach (GameObject wall in suitableWalls)
-        {
-            float distance = Vector3.Distance(Camera.main.transform.position, wall.transform.position);
-            if (distance < minDistance)
-            {
-                minDistance = distance;
-                closestWall = wall;
-            }
-        }
+        //Transform bestWallTransform = GetFrontestWall(suitableWalls);
+        GameObject bestWall = GetFrontestWall(suitableWalls);
 
-        if (closestWall != null)
+        if (bestWall != null)
         {
-            wallFound?.Invoke(closestWall.transform.position);
-            wallFound2?.Invoke(closestWall.transform.rotation);
+            onBestWallFound?.Invoke(bestWall);
+            //wallFound?.Invoke(bestWallTransform.position);
+            //wallFound2?.Invoke(bestWallTransform.rotation);
+        }
+        else
+        {
+            Debug.LogError($"No wall found!");
         }
     }
 
@@ -58,5 +59,63 @@ public class JoanWallDetector : MonoBehaviour
     {
         OVRScenePlane scenePlane = wallFace.GetComponentInChildren<OVRScenePlane>();
         return scenePlane.Dimensions;
+    }
+
+    private Transform GetClosestWall(List<GameObject> walls)
+    {
+        GameObject bestWall = null;
+
+        float minDistance = float.MaxValue;
+        foreach (GameObject wall in walls)
+        {
+            float distance = Vector3.Distance(Camera.main.transform.position, wall.transform.position);
+            if (distance < minDistance)
+            {
+                minDistance = distance;
+                bestWall = wall;
+            }
+        }
+
+        Transform bestWallTransform = bestWall != null
+            ? bestWall.transform
+            : null;
+        return bestWallTransform;
+    }
+
+    private GameObject GetFrontestWall(List<GameObject> walls)
+    {
+        GameObject bestWall = null;
+
+        float maxDotProduct = -float.MaxValue;
+        Vector3 userFrontDirection = GetUserFrontDirection();
+        foreach (GameObject wall in walls)
+        {
+            Vector3 wallPostion = wall.transform.position;
+            Vector3 userToWall = GetUserToWallDirection(wallPostion);
+
+            float dotProduct = Vector3.Dot(userFrontDirection, userToWall);
+            if (dotProduct > maxDotProduct)
+            {
+                maxDotProduct = dotProduct;
+                bestWall = wall;
+            }
+        }
+
+        return bestWall;
+    }
+
+    private Vector3 GetUserFrontDirection()
+    {
+        Vector3 vector = userHead.transform.forward;
+        vector.y = 0f;
+        Vector3 direction = vector.normalized;
+        return direction;
+    }
+    private Vector3 GetUserToWallDirection(Vector3 wallPosition)
+    {
+        Vector3 vector = wallPosition - userHead.position;
+        vector.y = 0f;
+        Vector3 direction = vector.normalized;
+        return direction;
     }
 }

@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Shader Graphs_HologramShaderTMPro2
+  m_Name: Shader Graphs_HologramShaderTMPro_v1
   m_Shader: {fileID: -6465566751694194690, guid: 04b9e486a90ae084c947f7d58bc80586, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -41,18 +41,25 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Alpha: 1
-    - _HorizontalMove: 10
-    - _LineHeight: 0.0025
+    - _Alpha: 0.85
+    - _ConvergenceYPosition: -1000
+    - _HologramLineHeight: 0.00125
+    - _HorizontalMove: 0
+    - _LineHeight: 0.00125
+    - _LineSpeed: 10
+    - _LineThickness: 0.00125
     - _MaxAlpha: 1
     - _MinAlpha: 0.75
     - _NoiseIntensity: 1
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _Speed: 10
+    - _Speed: 5
     m_Colors:
     - _AlphaRange: {r: 0.35, g: 0.6, b: 0, a: 0}
-    - _Filter: {r: 0, g: 1, b: 0.85882354, a: 0.7490196}
+    - _Filter: {r: 0.09019608, g: 1, b: 0.8666667, a: 1}
+    - _HologramAlphaRange: {r: 0.75, g: 1, b: 0, a: 0}
+    - _LineAlphaRange: {r: 0.75, g: 1, b: 0, a: 0}
+    - _TextAlphaRange: {r: 0.35, g: 0.6, b: 0, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &4395700459699243140
 MonoBehaviour:

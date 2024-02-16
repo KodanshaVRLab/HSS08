@@ -1,0 +1,54 @@
+{
+    "name": "JoanInputActions",
+    "maps": [
+        {
+            "name": "UIPrototype",
+            "id": "1c6e13e2-d064-493c-b55d-88757b9201b4",
+            "actions": [
+                {
+                    "name": "PrevMode",
+                    "type": "Button",
+                    "id": "4cd27f55-41f1-4819-a3b6-0e137e55afe6",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "NextMode",
+                    "type": "Button",
+                    "id": "5ea1be1d-f3e8-42cd-9f3c-d55e66de4774",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "00048048-8d90-4774-b9c0-aedc240a9134",
+                    "path": "<XRController>{RightHand}/{TriggerButton}",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "NextMode",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "52e25b0f-9f67-4887-9616-a1563862cc3d",
+                    "path": "<XRController>{LeftHand}/{TriggerButton}",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "PrevMode",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}

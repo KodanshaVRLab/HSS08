@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Shader Graphs_HologramShader
+  m_Name: Shader Graphs_HologramShader_v0
   m_Shader: {fileID: -6465566751694194690, guid: 7bd11fb949aa1a44b967651346f2c245, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -45,12 +45,12 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Alpha: 1
-    - _NoiseIntensity: 10
+    - _Alpha: 0.85
+    - _NoiseIntensity: 5
     - _QueueControl: 0
     - _QueueOffset: 0
     m_Colors:
-    - _Filter: {r: 0, g: 1, b: 0.8601885, a: 0.7490196}
+    - _Filter: {r: 0.09019608, g: 1, b: 0.8666667, a: 1}
   m_BuildTextureStacks: []
 --- !u!114 &2164174566352308880
 MonoBehaviour:
