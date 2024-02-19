@@ -98,6 +98,8 @@ namespace AmplifyShaderEditor
 			EditorPrefs.DeleteKey( PrefDisablePreviews );
 			EditorPrefs.DeleteKey( PrefForceTemplateMinShaderModel );
 			EditorPrefs.DeleteKey( PrefForceTemplateInlineProperties );
+
+			LoadSettings();
 		}
 
 		private static void LoadSettings()
@@ -177,7 +179,7 @@ namespace AmplifyShaderEditor
 				GlobalDisablePreviews = EditorGUILayout.Toggle( DisablePreviews, GlobalDisablePreviews );
 				GlobalForceTemplateMinShaderModel = EditorGUILayout.Toggle( ForceTemplateMinShaderModel, GlobalForceTemplateMinShaderModel );
 				GlobalForceTemplateInlineProperties = EditorGUILayout.Toggle( ForceTemplateInlineProperties, GlobalForceTemplateInlineProperties );
-			}			
+			}
 			if ( EditorGUI.EndChangeCheck() )
 			{
 				SaveSettings();

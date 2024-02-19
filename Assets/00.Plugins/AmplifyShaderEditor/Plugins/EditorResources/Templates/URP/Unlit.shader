@@ -81,28 +81,19 @@ Shader /*ase_name*/ "Hidden/Universal/Unlit" /*end*/
 				true:SetDefine:Forward:pragma instancing_options renderinglayer
 				false:RemoveDefine:Forward:pragma instancing_options renderinglayer
 			Option:LOD CrossFade:false,true:true
-				true:SetDefine:Forward:pragma multi_compile_fragment _ LOD_FADE_CROSSFADE
-				true:SetDefine:ShadowCaster:pragma multi_compile_fragment _ LOD_FADE_CROSSFADE
-				true:SetDefine:DepthOnly:pragma multi_compile_fragment _ LOD_FADE_CROSSFADE
-				true:SetDefine:DepthNormals:pragma multi_compile_fragment _ LOD_FADE_CROSSFADE
-				false:RemoveDefine:Forward:pragma multi_compile_fragment _ LOD_FADE_CROSSFADE
-				false:RemoveDefine:ShadowCaster:pragma multi_compile_fragment _ LOD_FADE_CROSSFADE
-				false:RemoveDefine:DepthOnly:pragma multi_compile_fragment _ LOD_FADE_CROSSFADE
-				false:RemoveDefine:DepthNormals:pragma multi_compile_fragment _ LOD_FADE_CROSSFADE
+				true:SetDefine:Forward:pragma multi_compile _ LOD_FADE_CROSSFADE
+				true:SetDefine:ShadowCaster:pragma multi_compile _ LOD_FADE_CROSSFADE
+				true:SetDefine:DepthOnly:pragma multi_compile _ LOD_FADE_CROSSFADE
+				true:SetDefine:DepthNormals:pragma multi_compile _ LOD_FADE_CROSSFADE
+				false:RemoveDefine:Forward:pragma multi_compile _ LOD_FADE_CROSSFADE
+				false:RemoveDefine:ShadowCaster:pragma multi_compile _ LOD_FADE_CROSSFADE
+				false:RemoveDefine:DepthOnly:pragma multi_compile _ LOD_FADE_CROSSFADE
+				false:RemoveDefine:DepthNormals:pragma multi_compile _ LOD_FADE_CROSSFADE
 			Option:Built-in Fog:false,true:true
 				true:SetDefine:Forward:pragma multi_compile_fog
 				false:RemoveDefine:Forward:pragma multi_compile_fog
 				true:SetDefine:ASE_FOG 1
 				false:RemoveDefine:ASE_FOG 1
-			Option:DOTS Instancing:false,true:false
-				true:SetDefine:Forward:pragma multi_compile _ DOTS_INSTANCING_ON
-				true:SetDefine:ShadowCaster:pragma multi_compile _ DOTS_INSTANCING_ON
-				true:SetDefine:DepthOnly:pragma multi_compile _ DOTS_INSTANCING_ON
-				true:SetDefine:DepthNormals:pragma multi_compile _ DOTS_INSTANCING_ON
-				false:RemoveDefine:Forward:pragma multi_compile _ DOTS_INSTANCING_ON
-				false:RemoveDefine:ShadowCaster:pragma multi_compile _ DOTS_INSTANCING_ON
-				false:RemoveDefine:DepthOnly:pragma multi_compile _ DOTS_INSTANCING_ON
-				false:RemoveDefine:DepthNormals:pragma multi_compile _ DOTS_INSTANCING_ON
 			Option:Meta Pass:false,true:false
 				true:IncludePass:Meta
 				true:ShowPort:Forward:Baked Albedo
@@ -570,20 +561,38 @@ Shader /*ase_name*/ "Hidden/Universal/Unlit" /*end*/
 			HLSLPROGRAM
 
 			#pragma shader_feature_local _RECEIVE_SHADOWS_OFF
-
 			#pragma multi_compile_fragment _ _SCREEN_SPACE_OCCLUSION
 			#pragma multi_compile_fragment _ _DBUFFER_MRT1 _DBUFFER_MRT2 _DBUFFER_MRT3
+
+			/*ase_srp_cond_begin:<140007*/
+            #pragma multi_compile_fragment _ _WRITE_RENDERING_LAYERS
+			/*ase_srp_cond_end*/
 
 			#pragma multi_compile _ DIRLIGHTMAP_COMBINED
             #pragma multi_compile _ LIGHTMAP_ON
             #pragma multi_compile _ DYNAMICLIGHTMAP_ON
 			#pragma multi_compile_fragment _ DEBUG_DISPLAY
-			#pragma multi_compile_fragment _ _WRITE_RENDERING_LAYERS
+
+			/*ase_srp_cond_begin:<140007*/
+            #pragma multi_compile _ DOTS_INSTANCING_ON
+			/*ase_srp_cond_end*/
 
 			#pragma vertex vert
 			#pragma fragment frag
 
 			#define SHADERPASS SHADERPASS_UNLIT
+
+			/*ase_srp_cond_begin:>=140007*/
+            #if ASE_SRP_VERSION >=140007
+			#include_with_pragmas "Packages/com.unity.render-pipelines.universal/ShaderLibrary/DOTS.hlsl"
+			#endif
+			/*ase_srp_cond_end*/
+
+			/*ase_srp_cond_begin:>=140007*/
+			#if ASE_SRP_VERSION >=140007
+			#include_with_pragmas "Packages/com.unity.render-pipelines.universal/ShaderLibrary/RenderingLayers.hlsl"
+			#endif
+			/*ase_srp_cond_end*/
 
 			#include "Packages/com.unity.render-pipelines.core/ShaderLibrary/Color.hlsl"
 			#include "Packages/com.unity.render-pipelines.core/ShaderLibrary/Texture.hlsl"
@@ -854,7 +863,17 @@ Shader /*ase_name*/ "Hidden/Universal/Unlit" /*end*/
 
 			#pragma multi_compile_vertex _ _CASTING_PUNCTUAL_LIGHT_SHADOW
 
+			/*ase_srp_cond_begin:<140007*/
+            #pragma multi_compile _ DOTS_INSTANCING_ON
+			/*ase_srp_cond_end*/
+
 			#define SHADERPASS SHADERPASS_SHADOWCASTER
+
+			/*ase_srp_cond_begin:>=140007*/
+            #if ASE_SRP_VERSION >=140007
+			#include_with_pragmas "Packages/com.unity.render-pipelines.universal/ShaderLibrary/DOTS.hlsl"
+			#endif
+			/*ase_srp_cond_end*/
 
 			#include "Packages/com.unity.render-pipelines.core/ShaderLibrary/Color.hlsl"
 			#include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
@@ -1098,13 +1117,23 @@ Shader /*ase_name*/ "Hidden/Universal/Unlit" /*end*/
 		    }
 
 			ZWrite On
-			ColorMask 0
+			ColorMask R
 			AlphaToMask Off
 
 			HLSLPROGRAM
 
+			/*ase_srp_cond_begin:<140007*/
+            #pragma multi_compile _ DOTS_INSTANCING_ON
+			/*ase_srp_cond_end*/
+
 			#pragma vertex vert
 			#pragma fragment frag
+
+			/*ase_srp_cond_begin:>=140007*/
+            #if ASE_SRP_VERSION >=140007
+			#include_with_pragmas "Packages/com.unity.render-pipelines.universal/ShaderLibrary/DOTS.hlsl"
+			#endif
+			/*ase_srp_cond_end*/
 
 			#include "Packages/com.unity.render-pipelines.core/ShaderLibrary/Color.hlsl"
 			#include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
@@ -1632,12 +1661,22 @@ Shader /*ase_name*/ "Hidden/Universal/Unlit" /*end*/
 
 			HLSLPROGRAM
 
+			/*ase_srp_cond_begin:<140007*/
+            #pragma multi_compile _ DOTS_INSTANCING_ON
+			/*ase_srp_cond_end*/
+
 			#pragma vertex vert
 			#pragma fragment frag
 
 			#define ATTRIBUTES_NEED_NORMAL
 			#define ATTRIBUTES_NEED_TANGENT
 			#define SHADERPASS SHADERPASS_DEPTHONLY
+
+			/*ase_srp_cond_begin:>=140007*/
+            #if ASE_SRP_VERSION >=140007
+			#include_with_pragmas "Packages/com.unity.render-pipelines.universal/ShaderLibrary/DOTS.hlsl"
+			#endif
+			/*ase_srp_cond_end*/
 
 			#include "Packages/com.unity.render-pipelines.core/ShaderLibrary/Color.hlsl"
 			#include "Packages/com.unity.render-pipelines.core/ShaderLibrary/Texture.hlsl"
@@ -1839,6 +1878,10 @@ Shader /*ase_name*/ "Hidden/Universal/Unlit" /*end*/
 
 			HLSLPROGRAM
 
+			/*ase_srp_cond_begin:<140007*/
+            #pragma multi_compile _ DOTS_INSTANCING_ON
+			/*ase_srp_cond_end*/
+
 			#pragma vertex vert
 			#pragma fragment frag
 
@@ -1846,6 +1889,12 @@ Shader /*ase_name*/ "Hidden/Universal/Unlit" /*end*/
 			#define ATTRIBUTES_NEED_TANGENT
 
 			#define SHADERPASS SHADERPASS_DEPTHONLY
+
+			/*ase_srp_cond_begin:>=140007*/
+            #if ASE_SRP_VERSION >=140007
+			#include_with_pragmas "Packages/com.unity.render-pipelines.universal/ShaderLibrary/DOTS.hlsl"
+			#endif
+			/*ase_srp_cond_end*/
 
 			#include "Packages/com.unity.render-pipelines.core/ShaderLibrary/Color.hlsl"
 			#include "Packages/com.unity.render-pipelines.core/ShaderLibrary/Texture.hlsl"
@@ -2055,14 +2104,23 @@ Shader /*ase_name*/ "Hidden/Universal/Unlit" /*end*/
 			#pragma vertex vert
 			#pragma fragment frag
 
-			#pragma multi_compile_fragment _ _WRITE_RENDERING_LAYERS
         	#pragma multi_compile_fragment _ _GBUFFER_NORMALS_OCT
+
+			/*ase_srp_cond_begin:<140007*/
+            #pragma multi_compile_fragment _ _WRITE_RENDERING_LAYERS
+			/*ase_srp_cond_end*/
 
 			#define ATTRIBUTES_NEED_NORMAL
 			#define ATTRIBUTES_NEED_TANGENT
 			#define VARYINGS_NEED_NORMAL_WS
 
 			#define SHADERPASS SHADERPASS_DEPTHNORMALSONLY
+
+			/*ase_srp_cond_begin:>=140007*/
+			#if ASE_SRP_VERSION >=140007
+			#include_with_pragmas "Packages/com.unity.render-pipelines.universal/ShaderLibrary/RenderingLayers.hlsl"
+			#endif
+			/*ase_srp_cond_end*/
 
 			#include "Packages/com.unity.render-pipelines.core/ShaderLibrary/Color.hlsl"
 			#include "Packages/com.unity.render-pipelines.core/ShaderLibrary/Texture.hlsl"

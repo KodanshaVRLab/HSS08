@@ -464,7 +464,7 @@ namespace AmplifyShaderEditor
 		public readonly static float INPUT_PORT_DELTA_Y = 7;
 		public readonly static float PORT_TO_LABEL_SPACE_X = 4;
 
-		public readonly static float NODE_HEADER_HEIGHT = 0;
+		public readonly static float NODE_HEADER_HEIGHT = 32;
 		public readonly static float NODE_HEADER_EXTRA_HEIGHT = 0;
 		public readonly static float NODE_HEADER_LEFTRIGHT_MARGIN = 10;
 

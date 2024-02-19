@@ -1,3 +1,45 @@
+v1.9.3.2
+
+   Templates
+      * Fixed URP 14x template compile errors in some Unity versions
+
+v1.9.3.1
+
+   Editor
+      * Potential fix ASEPackageManagerHelper exceptions in batchmode (#237)
+
+   Templates
+      * Added URP 2D templates to SRP 17x
+      * Fixed URP 2D templates color change bug in 15x and 16x (#211)
+
+   Nodes
+      * Added min/max/steps inputs to "Parallax Occlusion Mapping" node (#163)
+
+v1.9.3
+
+   Editor
+      * Fixed inline properties sometimes losing connection (#212)
+      * Fixed broken double-click to change property names (#231)
+      * Fixed broken "Reset and Forget All" in ASE Preferences
+
+   Templates
+      * Added support for URP/HDRP 17x (Unity 2023.3.0b4)
+      * Updated URP/HDRP with latest unity changes (10x to 17x)
+      * Updated HDRP Refraction (10x to 17x)
+      * Fixed HDRP logic issues in SSR (10x to 17x)
+      * Fixed HDRP FullscreenDebug pass errors (#246)
+      * Fixed HDRP Unlit build errors (#247)
+
+   Nodes
+      * Updated "Polar Coordinate" node
+      * Updated "Flipbook" node
+      * Updated "SRP Additional Light" node
+
+   Samples      
+      * Removed URP Reflection Probe sample (moved to Amplify Shader Pack)
+      * Removed URP Terrain sample (moved to Amplify Shader Pack)
+      * Removed unused assets
+
 v1.9.2.2
 
    Templates

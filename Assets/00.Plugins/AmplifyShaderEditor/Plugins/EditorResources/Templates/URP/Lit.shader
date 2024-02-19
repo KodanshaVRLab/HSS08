@@ -181,16 +181,16 @@ Shader /*ase_name*/ "Hidden/Universal/Lit" /*end*/
 				false:RemoveDefine:Forward:pragma instancing_options renderinglayer
 				false:RemoveDefine:GBuffer:pragma instancing_options renderinglayer
 			Option:LOD CrossFade:false,true:true
-				true:SetDefine:Forward:pragma multi_compile_fragment _ LOD_FADE_CROSSFADE
-				true:SetDefine:GBuffer:pragma multi_compile_fragment _ LOD_FADE_CROSSFADE
-				true:SetDefine:ShadowCaster:pragma multi_compile_fragment _ LOD_FADE_CROSSFADE
-				true:SetDefine:DepthOnly:pragma multi_compile_fragment _ LOD_FADE_CROSSFADE
-				true:SetDefine:DepthNormals:pragma multi_compile_fragment _ LOD_FADE_CROSSFADE
-				false:RemoveDefine:Forward:pragma multi_compile_fragment _ LOD_FADE_CROSSFADE
-				false:RemoveDefine:GBuffer:pragma multi_compile_fragment _ LOD_FADE_CROSSFADE
-				false:RemoveDefine:ShadowCaster:pragma multi_compile_fragment _ LOD_FADE_CROSSFADE
-				false:RemoveDefine:DepthOnly:pragma multi_compile_fragment _ LOD_FADE_CROSSFADE
-				false:RemoveDefine:DepthNormals:pragma multi_compile_fragment _ LOD_FADE_CROSSFADE
+				true:SetDefine:Forward:pragma multi_compile _ LOD_FADE_CROSSFADE
+				true:SetDefine:GBuffer:pragma multi_compile _ LOD_FADE_CROSSFADE
+				true:SetDefine:ShadowCaster:pragma multi_compile _ LOD_FADE_CROSSFADE
+				true:SetDefine:DepthOnly:pragma multi_compile _ LOD_FADE_CROSSFADE
+				true:SetDefine:DepthNormals:pragma multi_compile _ LOD_FADE_CROSSFADE
+				false:RemoveDefine:Forward:pragma multi_compile _ LOD_FADE_CROSSFADE
+				false:RemoveDefine:GBuffer:pragma multi_compile _ LOD_FADE_CROSSFADE
+				false:RemoveDefine:ShadowCaster:pragma multi_compile _ LOD_FADE_CROSSFADE
+				false:RemoveDefine:DepthOnly:pragma multi_compile _ LOD_FADE_CROSSFADE
+				false:RemoveDefine:DepthNormals:pragma multi_compile _ LOD_FADE_CROSSFADE
 			Option:Built-in Fog:false,true:true
 				true:SetDefine:Forward:pragma multi_compile_fog
 				true:SetDefine:GBuffer:pragma multi_compile_fog
@@ -210,17 +210,6 @@ Shader /*ase_name*/ "Hidden/Universal/Lit" /*end*/
 			Option:Extra Pre Pass:false,true:false
 				true:IncludePass:ExtraPrePass
 				false,disable:ExcludePass:ExtraPrePass
-			Option:DOTS Instancing:false,true:false
-				true:SetDefine:Forward:pragma multi_compile _ DOTS_INSTANCING_ON
-				true:SetDefine:GBuffer:pragma multi_compile _ DOTS_INSTANCING_ON
-				true:SetDefine:ShadowCaster:pragma multi_compile _ DOTS_INSTANCING_ON
-				true:SetDefine:DepthOnly:pragma multi_compile _ DOTS_INSTANCING_ON
-				true:SetDefine:DepthNormals:pragma multi_compile _ DOTS_INSTANCING_ON
-				false:RemoveDefine:Forward:pragma multi_compile _ DOTS_INSTANCING_ON
-				false:RemoveDefine:GBuffer:pragma multi_compile _ DOTS_INSTANCING_ON
-				false:RemoveDefine:ShadowCaster:pragma multi_compile _ DOTS_INSTANCING_ON
-				false:RemoveDefine:DepthOnly:pragma multi_compile _ DOTS_INSTANCING_ON
-				false:RemoveDefine:DepthNormals:pragma multi_compile _ DOTS_INSTANCING_ON
 			Option:Tessellation:false,true:false
 				true:SetDefine:ASE_TESSELLATION 1
 				true:SetDefine:pragma require tessellation tessHW
@@ -700,7 +689,7 @@ Shader /*ase_name*/ "Hidden/Universal/Lit" /*end*/
 					Color = MixFog( Color, IN.fogFactor );
 				#endif
 
-				#ifdef LOD_FADE_CROSSFADE
+				#if defined(LOD_FADE_CROSSFADE)
 					LODFadeCrossFade( IN.positionCS );
 				#endif
 
@@ -735,20 +724,36 @@ Shader /*ase_name*/ "Hidden/Universal/Lit" /*end*/
 
 			#pragma multi_compile _ _MAIN_LIGHT_SHADOWS _MAIN_LIGHT_SHADOWS_CASCADE _MAIN_LIGHT_SHADOWS_SCREEN
 			#pragma multi_compile _ _ADDITIONAL_LIGHTS_VERTEX _ADDITIONAL_LIGHTS
+
+			/*ase_srp_cond_begin:>=140006*/
+            #pragma multi_compile _ EVALUATE_SH_MIXED EVALUATE_SH_VERTEX
+			/*ase_srp_cond_end*/
+
 			#pragma multi_compile_fragment _ _ADDITIONAL_LIGHT_SHADOWS
 			#pragma multi_compile_fragment _ _REFLECTION_PROBE_BLENDING
 			#pragma multi_compile_fragment _ _REFLECTION_PROBE_BOX_PROJECTION
+
 			/*ase_srp_cond_begin:<140009*/
 			#pragma multi_compile_fragment _ _SHADOWS_SOFT
-			/*ase_srp_cond_end*/
+            /*ase_srp_cond_end*/
+
 			/*ase_srp_cond_begin:>=140009*/
 			#pragma multi_compile_fragment _ _SHADOWS_SOFT _SHADOWS_SOFT_LOW _SHADOWS_SOFT_MEDIUM _SHADOWS_SOFT_HIGH
-			/*ase_srp_cond_end*/
+            /*ase_srp_cond_end*/
+
 			#pragma multi_compile_fragment _ _SCREEN_SPACE_OCCLUSION
 			#pragma multi_compile_fragment _ _DBUFFER_MRT1 _DBUFFER_MRT2 _DBUFFER_MRT3
-			#pragma multi_compile_fragment _ _LIGHT_LAYERS
+			#pragma multi_compile _ _LIGHT_LAYERS
 			#pragma multi_compile_fragment _ _LIGHT_COOKIES
 			#pragma multi_compile _ _FORWARD_PLUS
+		
+			/*ase_srp_cond_begin:<140007*/
+            #pragma multi_compile_fragment _ _WRITE_RENDERING_LAYERS
+			/*ase_srp_cond_end*/
+
+			/*ase_srp_cond_begin:<140007*/
+            #pragma multi_compile _ DOTS_INSTANCING_ON
+			/*ase_srp_cond_end*/
 
 			#pragma multi_compile _ LIGHTMAP_SHADOW_MIXING
 			#pragma multi_compile _ SHADOWS_SHADOWMASK
@@ -756,12 +761,23 @@ Shader /*ase_name*/ "Hidden/Universal/Lit" /*end*/
 			#pragma multi_compile _ LIGHTMAP_ON
 			#pragma multi_compile _ DYNAMICLIGHTMAP_ON
 			#pragma multi_compile_fragment _ DEBUG_DISPLAY
-			#pragma multi_compile_fragment _ _WRITE_RENDERING_LAYERS
 
 			#pragma vertex vert
 			#pragma fragment frag
 
 			#define SHADERPASS SHADERPASS_FORWARD
+
+			/*ase_srp_cond_begin:>=140007*/
+            #if ASE_SRP_VERSION >=140007
+			#include_with_pragmas "Packages/com.unity.render-pipelines.universal/ShaderLibrary/DOTS.hlsl"
+			#endif
+			/*ase_srp_cond_end*/
+
+			/*ase_srp_cond_begin:>=140007*/
+			#if ASE_SRP_VERSION >=140007
+			#include_with_pragmas "Packages/com.unity.render-pipelines.universal/ShaderLibrary/RenderingLayers.hlsl"
+			#endif
+			/*ase_srp_cond_end*/
 
 			#include "Packages/com.unity.render-pipelines.core/ShaderLibrary/Color.hlsl"
 			#include "Packages/com.unity.render-pipelines.core/ShaderLibrary/Texture.hlsl"
@@ -769,6 +785,17 @@ Shader /*ase_name*/ "Hidden/Universal/Lit" /*end*/
 			#include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Lighting.hlsl"
 			#include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Input.hlsl"
 			#include "Packages/com.unity.render-pipelines.core/ShaderLibrary/TextureStack.hlsl"
+
+			/*ase_srp_cond_begin:>=140010*/
+            #if ASE_SRP_VERSION >=140010
+			#include_with_pragmas "Packages/com.unity.render-pipelines.core/ShaderLibrary/FoveatedRenderingKeywords.hlsl"
+			#endif
+			/*ase_srp_cond_end*/
+
+			/*ase_srp_cond_begin:<140010*/
+			#include "Packages/com.unity.render-pipelines.core/ShaderLibrary/FoveatedRendering.hlsl"
+            /*ase_srp_cond_end*/
+
 			#include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Shadows.hlsl"
 			#include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/ShaderGraphFunctions.hlsl"
 			#include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/DBuffer.hlsl"
@@ -1030,7 +1057,7 @@ Shader /*ase_name*/ "Hidden/Universal/Lit" /*end*/
 				UNITY_SETUP_INSTANCE_ID(IN);
 				UNITY_SETUP_STEREO_EYE_INDEX_POST_VERTEX(IN);
 
-				#ifdef LOD_FADE_CROSSFADE
+				#if defined(LOD_FADE_CROSSFADE)
 					LODFadeCrossFade( IN.positionCS );
 				#endif
 
@@ -1320,12 +1347,22 @@ Shader /*ase_name*/ "Hidden/Universal/Lit" /*end*/
 
 			HLSLPROGRAM
 
+			#pragma multi_compile_vertex _ _CASTING_PUNCTUAL_LIGHT_SHADOW
+
+			/*ase_srp_cond_begin:<140007*/
+            #pragma multi_compile _ DOTS_INSTANCING_ON
+			/*ase_srp_cond_end*/
+
 			#pragma vertex vert
 			#pragma fragment frag
 
-			#pragma multi_compile_vertex _ _CASTING_PUNCTUAL_LIGHT_SHADOW
-
 			#define SHADERPASS SHADERPASS_SHADOWCASTER
+
+			/*ase_srp_cond_begin:>=140007*/
+            #if ASE_SRP_VERSION >=140007
+			#include_with_pragmas "Packages/com.unity.render-pipelines.universal/ShaderLibrary/DOTS.hlsl"
+			#endif
+			/*ase_srp_cond_end*/
 
 			#include "Packages/com.unity.render-pipelines.core/ShaderLibrary/Color.hlsl"
 			#include "Packages/com.unity.render-pipelines.core/ShaderLibrary/Texture.hlsl"
@@ -1333,6 +1370,17 @@ Shader /*ase_name*/ "Hidden/Universal/Lit" /*end*/
 			#include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Lighting.hlsl"
 			#include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Input.hlsl"
 			#include "Packages/com.unity.render-pipelines.core/ShaderLibrary/TextureStack.hlsl"
+
+			/*ase_srp_cond_begin:>=140010*/
+            #if ASE_SRP_VERSION >=140010
+			#include_with_pragmas "Packages/com.unity.render-pipelines.core/ShaderLibrary/FoveatedRenderingKeywords.hlsl"
+			#endif
+			/*ase_srp_cond_end*/
+
+			/*ase_srp_cond_begin:<140010*/
+			#include "Packages/com.unity.render-pipelines.core/ShaderLibrary/FoveatedRendering.hlsl"
+            /*ase_srp_cond_end*/
+
 			#include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/ShaderGraphFunctions.hlsl"
 			#include "Packages/com.unity.render-pipelines.universal/Editor/ShaderGraph/Includes/ShaderPass.hlsl"
 
@@ -1591,7 +1639,7 @@ Shader /*ase_name*/ "Hidden/Universal/Lit" /*end*/
 					#endif
 				#endif
 
-				#ifdef LOD_FADE_CROSSFADE
+				#if defined(LOD_FADE_CROSSFADE)
 					LODFadeCrossFade( IN.positionCS );
 				#endif
 
@@ -1620,10 +1668,20 @@ Shader /*ase_name*/ "Hidden/Universal/Lit" /*end*/
 
 			HLSLPROGRAM
 
+			/*ase_srp_cond_begin:<140007*/
+            #pragma multi_compile _ DOTS_INSTANCING_ON
+			/*ase_srp_cond_end*/
+
 			#pragma vertex vert
 			#pragma fragment frag
 
 			#define SHADERPASS SHADERPASS_DEPTHONLY
+
+			/*ase_srp_cond_begin:>=140007*/
+            #if ASE_SRP_VERSION >=140007
+			#include_with_pragmas "Packages/com.unity.render-pipelines.universal/ShaderLibrary/DOTS.hlsl"
+			#endif
+			/*ase_srp_cond_end*/
 
 			#include "Packages/com.unity.render-pipelines.core/ShaderLibrary/Color.hlsl"
 			#include "Packages/com.unity.render-pipelines.core/ShaderLibrary/Texture.hlsl"
@@ -1631,6 +1689,17 @@ Shader /*ase_name*/ "Hidden/Universal/Lit" /*end*/
 			#include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Lighting.hlsl"
 			#include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Input.hlsl"
 			#include "Packages/com.unity.render-pipelines.core/ShaderLibrary/TextureStack.hlsl"
+
+			/*ase_srp_cond_begin:>=140010*/
+            #if ASE_SRP_VERSION >=140010
+			#include_with_pragmas "Packages/com.unity.render-pipelines.core/ShaderLibrary/FoveatedRenderingKeywords.hlsl"
+			#endif
+			/*ase_srp_cond_end*/
+
+			/*ase_srp_cond_begin:<140010*/
+			#include "Packages/com.unity.render-pipelines.core/ShaderLibrary/FoveatedRendering.hlsl"
+            /*ase_srp_cond_end*/
+
 			#include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/ShaderGraphFunctions.hlsl"
 			#include "Packages/com.unity.render-pipelines.universal/Editor/ShaderGraph/Includes/ShaderPass.hlsl"
 
@@ -1863,7 +1932,7 @@ Shader /*ase_name*/ "Hidden/Universal/Lit" /*end*/
 					clip(Alpha - AlphaClipThreshold);
 				#endif
 
-				#ifdef LOD_FADE_CROSSFADE
+				#if defined(LOD_FADE_CROSSFADE)
 					LODFadeCrossFade( IN.positionCS );
 				#endif
 
@@ -1903,6 +1972,17 @@ Shader /*ase_name*/ "Hidden/Universal/Lit" /*end*/
 			#include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Lighting.hlsl"
 			#include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Input.hlsl"
 			#include "Packages/com.unity.render-pipelines.core/ShaderLibrary/TextureStack.hlsl"
+
+			/*ase_srp_cond_begin:>=140010*/
+            #if ASE_SRP_VERSION >=140010
+			#include_with_pragmas "Packages/com.unity.render-pipelines.core/ShaderLibrary/FoveatedRenderingKeywords.hlsl"
+			#endif
+			/*ase_srp_cond_end*/
+
+			/*ase_srp_cond_begin:<140010*/
+			#include "Packages/com.unity.render-pipelines.core/ShaderLibrary/FoveatedRendering.hlsl"
+            /*ase_srp_cond_end*/
+
 			#include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/ShaderGraphFunctions.hlsl"
 			#include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/MetaInput.hlsl"
 			#include "Packages/com.unity.render-pipelines.universal/Editor/ShaderGraph/Includes/ShaderPass.hlsl"
@@ -2184,6 +2264,17 @@ Shader /*ase_name*/ "Hidden/Universal/Lit" /*end*/
 			#include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Lighting.hlsl"
 			#include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Input.hlsl"
 			#include "Packages/com.unity.render-pipelines.core/ShaderLibrary/TextureStack.hlsl"
+
+			/*ase_srp_cond_begin:>=140010*/
+            #if ASE_SRP_VERSION >=140010
+			#include_with_pragmas "Packages/com.unity.render-pipelines.core/ShaderLibrary/FoveatedRenderingKeywords.hlsl"
+			#endif
+			/*ase_srp_cond_end*/
+
+			/*ase_srp_cond_begin:<140010*/
+			#include "Packages/com.unity.render-pipelines.core/ShaderLibrary/FoveatedRendering.hlsl"
+            /*ase_srp_cond_end*/
+
 			#include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/ShaderGraphFunctions.hlsl"
 			#include "Packages/com.unity.render-pipelines.universal/Editor/ShaderGraph/Includes/ShaderPass.hlsl"
 
@@ -2421,9 +2512,28 @@ Shader /*ase_name*/ "Hidden/Universal/Lit" /*end*/
 			#pragma vertex vert
 			#pragma fragment frag
 
-			#pragma multi_compile_fragment _ _WRITE_RENDERING_LAYERS
+			/*ase_srp_cond_begin:<140007*/
+            #pragma multi_compile_fragment _ _WRITE_RENDERING_LAYERS
+			/*ase_srp_cond_end*/
+
+			/*ase_srp_cond_begin:<140007*/
+            #pragma multi_compile _ DOTS_INSTANCING_ON
+			/*ase_srp_cond_end*/
 
 			#define SHADERPASS SHADERPASS_DEPTHNORMALSONLY
+			//#define SHADERPASS SHADERPASS_DEPTHNORMALS
+
+			/*ase_srp_cond_begin:>=140007*/
+            #if ASE_SRP_VERSION >=140007
+			#include_with_pragmas "Packages/com.unity.render-pipelines.universal/ShaderLibrary/DOTS.hlsl"
+			#endif
+			/*ase_srp_cond_end*/
+
+			/*ase_srp_cond_begin:>=140007*/
+			#if ASE_SRP_VERSION >=140007
+			#include_with_pragmas "Packages/com.unity.render-pipelines.universal/ShaderLibrary/RenderingLayers.hlsl"
+			#endif
+			/*ase_srp_cond_end*/
 
 			#include "Packages/com.unity.render-pipelines.core/ShaderLibrary/Color.hlsl"
 			#include "Packages/com.unity.render-pipelines.core/ShaderLibrary/Texture.hlsl"
@@ -2431,6 +2541,17 @@ Shader /*ase_name*/ "Hidden/Universal/Lit" /*end*/
 			#include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Lighting.hlsl"
 			#include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Input.hlsl"
 			#include "Packages/com.unity.render-pipelines.core/ShaderLibrary/TextureStack.hlsl"
+
+			/*ase_srp_cond_begin:>=140010*/
+            #if ASE_SRP_VERSION >=140010
+			#include_with_pragmas "Packages/com.unity.render-pipelines.core/ShaderLibrary/FoveatedRenderingKeywords.hlsl"
+			#endif
+			/*ase_srp_cond_end*/
+
+			/*ase_srp_cond_begin:<140010*/
+			#include "Packages/com.unity.render-pipelines.core/ShaderLibrary/FoveatedRendering.hlsl"
+            /*ase_srp_cond_end*/
+
 			#include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/ShaderGraphFunctions.hlsl"
 			#include "Packages/com.unity.render-pipelines.universal/Editor/ShaderGraph/Includes/ShaderPass.hlsl"
 
@@ -2674,6 +2795,7 @@ Shader /*ase_name*/ "Hidden/Universal/Lit" /*end*/
 				float3 Normal = /*ase_frag_out:Normal;Float3;5;-1;_FragNormal*/float3(0, 0, 1)/*end*/;
 				float Alpha = /*ase_frag_out:Alpha;Float;0;-1;_Alpha*/1/*end*/;
 				float AlphaClipThreshold = /*ase_frag_out:Alpha Clip Threshold;Float;1;-1;_AlphaClip*/0.5/*end*/;
+
 				#ifdef ASE_DEPTH_WRITE_ON
 					float DepthValue = /*ase_frag_out:Depth Value;Float;17;-1;_DepthValue*/IN.positionCS.z/*end*/;
 				#endif
@@ -2682,7 +2804,7 @@ Shader /*ase_name*/ "Hidden/Universal/Lit" /*end*/
 					clip(Alpha - AlphaClipThreshold);
 				#endif
 
-				#ifdef LOD_FADE_CROSSFADE
+				#if defined(LOD_FADE_CROSSFADE)
 					LODFadeCrossFade( IN.positionCS );
 				#endif
 
@@ -2746,27 +2868,51 @@ Shader /*ase_name*/ "Hidden/Universal/Lit" /*end*/
 			#pragma multi_compile _ _MAIN_LIGHT_SHADOWS _MAIN_LIGHT_SHADOWS_CASCADE _MAIN_LIGHT_SHADOWS_SCREEN
 			#pragma multi_compile_fragment _ _REFLECTION_PROBE_BLENDING
 			#pragma multi_compile_fragment _ _REFLECTION_PROBE_BOX_PROJECTION
+
 			/*ase_srp_cond_begin:<140009*/
 			#pragma multi_compile_fragment _ _SHADOWS_SOFT
-			/*ase_srp_cond_end*/
+            /*ase_srp_cond_end*/
+
 			/*ase_srp_cond_begin:>=140009*/
 			#pragma multi_compile_fragment _ _SHADOWS_SOFT _SHADOWS_SOFT_LOW _SHADOWS_SOFT_MEDIUM _SHADOWS_SOFT_HIGH
-			/*ase_srp_cond_end*/
+            /*ase_srp_cond_end*/
+
 			#pragma multi_compile_fragment _ _DBUFFER_MRT1 _DBUFFER_MRT2 _DBUFFER_MRT3
+			#pragma multi_compile_fragment _ _GBUFFER_NORMALS_OCT
 			#pragma multi_compile_fragment _ _RENDER_PASS_ENABLED
+      
+			/*ase_srp_cond_begin:<140007*/
+            #pragma multi_compile_fragment _ _WRITE_RENDERING_LAYERS
+			/*ase_srp_cond_end*/
 
 			#pragma multi_compile _ LIGHTMAP_SHADOW_MIXING
+			#pragma multi_compile _ _MIXED_LIGHTING_SUBTRACTIVE
 			#pragma multi_compile _ SHADOWS_SHADOWMASK
 			#pragma multi_compile _ DIRLIGHTMAP_COMBINED
 			#pragma multi_compile _ LIGHTMAP_ON
 			#pragma multi_compile _ DYNAMICLIGHTMAP_ON
-			#pragma multi_compile_fragment _ _GBUFFER_NORMALS_OCT
-			#pragma multi_compile_fragment _ _WRITE_RENDERING_LAYERS
+			#pragma multi_compile_fragment _ DEBUG_DISPLAY
+
+			/*ase_srp_cond_begin:<140007*/
+            #pragma multi_compile _ DOTS_INSTANCING_ON
+			/*ase_srp_cond_end*/
 
 			#pragma vertex vert
 			#pragma fragment frag
 
 			#define SHADERPASS SHADERPASS_GBUFFER
+
+			/*ase_srp_cond_begin:>=140007*/
+            #if ASE_SRP_VERSION >=140007
+			#include_with_pragmas "Packages/com.unity.render-pipelines.universal/ShaderLibrary/DOTS.hlsl"
+			#endif
+			/*ase_srp_cond_end*/
+
+			/*ase_srp_cond_begin:>=140007*/
+			#if ASE_SRP_VERSION >=140007
+			#include_with_pragmas "Packages/com.unity.render-pipelines.universal/ShaderLibrary/RenderingLayers.hlsl"
+			#endif
+			/*ase_srp_cond_end*/
 
 			#include "Packages/com.unity.render-pipelines.core/ShaderLibrary/Color.hlsl"
 			#include "Packages/com.unity.render-pipelines.core/ShaderLibrary/Texture.hlsl"
@@ -2774,6 +2920,17 @@ Shader /*ase_name*/ "Hidden/Universal/Lit" /*end*/
 			#include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Lighting.hlsl"
 			#include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Input.hlsl"
 			#include "Packages/com.unity.render-pipelines.core/ShaderLibrary/TextureStack.hlsl"
+
+			/*ase_srp_cond_begin:>=140010*/
+            #if ASE_SRP_VERSION >=140010
+			#include_with_pragmas "Packages/com.unity.render-pipelines.core/ShaderLibrary/FoveatedRenderingKeywords.hlsl"
+			#endif
+			/*ase_srp_cond_end*/
+
+			/*ase_srp_cond_begin:<140010*/
+			#include "Packages/com.unity.render-pipelines.core/ShaderLibrary/FoveatedRendering.hlsl"
+            /*ase_srp_cond_end*/
+
 			#include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Shadows.hlsl"
 			#include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/ShaderGraphFunctions.hlsl"
 			#include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/DBuffer.hlsl"
@@ -3028,7 +3185,7 @@ Shader /*ase_name*/ "Hidden/Universal/Lit" /*end*/
 				UNITY_SETUP_INSTANCE_ID(IN);
 				UNITY_SETUP_STEREO_EYE_INDEX_POST_VERTEX(IN);
 
-				#ifdef LOD_FADE_CROSSFADE
+				#if defined(LOD_FADE_CROSSFADE)
 					LODFadeCrossFade( IN.positionCS );
 				#endif
 
@@ -3189,6 +3346,10 @@ Shader /*ase_name*/ "Hidden/Universal/Lit" /*end*/
 
 			HLSLPROGRAM
 
+			/*ase_srp_cond_begin:<140007*/
+            #pragma multi_compile _ DOTS_INSTANCING_ON
+			/*ase_srp_cond_end*/
+
 			#pragma vertex vert
 			#pragma fragment frag
 
@@ -3204,7 +3365,25 @@ Shader /*ase_name*/ "Hidden/Universal/Lit" /*end*/
 			#include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Lighting.hlsl"
 			#include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Input.hlsl"
 			#include "Packages/com.unity.render-pipelines.core/ShaderLibrary/TextureStack.hlsl"
+
+			/*ase_srp_cond_begin:>=140010*/
+            #if ASE_SRP_VERSION >=140010
+			#include_with_pragmas "Packages/com.unity.render-pipelines.core/ShaderLibrary/FoveatedRenderingKeywords.hlsl"
+			#endif
+			/*ase_srp_cond_end*/
+
+			/*ase_srp_cond_begin:<140010*/
+			#include "Packages/com.unity.render-pipelines.core/ShaderLibrary/FoveatedRendering.hlsl"
+            /*ase_srp_cond_end*/
+
 			#include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/ShaderGraphFunctions.hlsl"
+
+			/*ase_srp_cond_begin:>=140007*/
+            #if ASE_SRP_VERSION >=140007
+			#include_with_pragmas "Packages/com.unity.render-pipelines.universal/ShaderLibrary/DOTS.hlsl"
+			#endif
+			/*ase_srp_cond_end*/
+
 			#include "Packages/com.unity.render-pipelines.universal/Editor/ShaderGraph/Includes/ShaderPass.hlsl"
 
 			/*ase_pragma*/
@@ -3424,6 +3603,10 @@ Shader /*ase_name*/ "Hidden/Universal/Lit" /*end*/
 
 			HLSLPROGRAM
 
+			/*ase_srp_cond_begin:<140007*/
+            #pragma multi_compile _ DOTS_INSTANCING_ON
+			/*ase_srp_cond_end*/
+
 			#pragma vertex vert
 			#pragma fragment frag
 
@@ -3439,7 +3622,25 @@ Shader /*ase_name*/ "Hidden/Universal/Lit" /*end*/
 			#include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Lighting.hlsl"
 			#include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Input.hlsl"
 			#include "Packages/com.unity.render-pipelines.core/ShaderLibrary/TextureStack.hlsl"
+
+			/*ase_srp_cond_begin:>=140010*/
+            #if ASE_SRP_VERSION >=140010
+			#include_with_pragmas "Packages/com.unity.render-pipelines.core/ShaderLibrary/FoveatedRenderingKeywords.hlsl"
+			#endif
+			/*ase_srp_cond_end*/
+
+			/*ase_srp_cond_begin:<140010*/
+			#include "Packages/com.unity.render-pipelines.core/ShaderLibrary/FoveatedRendering.hlsl"
+            /*ase_srp_cond_end*/
+
 			#include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/ShaderGraphFunctions.hlsl"
+
+			/*ase_srp_cond_begin:>=140007*/
+            #if ASE_SRP_VERSION >=140007
+			#include_with_pragmas "Packages/com.unity.render-pipelines.universal/ShaderLibrary/DOTS.hlsl"
+			#endif
+			/*ase_srp_cond_end*/
+
 			#include "Packages/com.unity.render-pipelines.universal/Editor/ShaderGraph/Includes/ShaderPass.hlsl"
 
 			/*ase_pragma*/
