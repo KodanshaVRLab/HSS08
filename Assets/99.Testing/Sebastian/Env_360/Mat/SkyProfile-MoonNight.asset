@@ -38,7 +38,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MoonTex:
-        m_Texture: {fileID: 2800000, guid: f2a9708932cff5d42859554c9e7dd4ec, type: 3}
+        m_Texture: {fileID: 2800000, guid: b8cb7b564087a124baf2daaf3e03efed, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _StarsCubemap:
@@ -69,10 +69,10 @@ Material:
     - _HorizonExponent: 5
     - _HorizonStep: 1000
     - _HorizonThickness: 1
-    - _MoonGlow: 0.116
-    - _MoonLightIntensity: 0.2
-    - _MoonSize: 0.299
-    - _MoonSoftEdge: 0
+    - _MoonGlow: 0.125
+    - _MoonLightIntensity: 0.4
+    - _MoonSize: 0.286
+    - _MoonSoftEdge: 0.078
     - _OverheadCloudAltitude: 1000
     - _OverheadCloudAnimationSpeed: 50
     - _OverheadCloudFlowDirectionX: 1
@@ -81,18 +81,18 @@ Material:
     - _OverheadCloudRemapMin: 0
     - _OverheadCloudSize: 10
     - _OverheadCloudStep: 2
-    - _StarsDensity0: 0.4
+    - _StarsDensity0: 0.916
     - _StarsDensity1: 0.34
     - _StarsDensity2: 0.45
     - _StarsEndPosition: 1
-    - _StarsGlow0: 0.01
+    - _StarsGlow0: 0.078
     - _StarsGlow1: 0.01
     - _StarsGlow2: 0.01
     - _StarsOpacity: 1
-    - _StarsSize0: 0.42
-    - _StarsSize1: 0.53
-    - _StarsSize2: 0.46
-    - _StarsStartPosition: -0.01
+    - _StarsSize0: 0.185
+    - _StarsSize1: 0.133
+    - _StarsSize2: 0.102
+    - _StarsStartPosition: 0.03
     - _StarsTwinkle0: 5
     - _StarsTwinkle1: 6
     - _StarsTwinkle2: 2
@@ -106,7 +106,7 @@ Material:
     - _GroundColor: {r: 0, g: 0, b: 0, a: 1}
     - _HorizonCloudColor: {r: 1, g: 1, b: 1, a: 1}
     - _HorizonColor: {r: 0, g: 0, b: 0, a: 1}
-    - _MoonColor: {r: 0.89482963, g: 1.020364, b: 1.0717734, a: 1}
+    - _MoonColor: {r: 0.94786954, g: 1.0808448, b: 1.1353014, a: 1}
     - _MoonDirection: {r: 0, g: -0.38268346, b: 0.92387956, a: 0}
     - _MoonLightColor: {r: 1, g: 1, b: 1, a: 1}
     - _OverheadCloudColor: {r: 1, g: 1, b: 1, a: 0.09803922}
@@ -139,20 +139,20 @@ MonoBehaviour:
   fogSyncOption: 2
   fogColor: {r: 0, g: 0, b: 0, a: 0}
   enableStars: 1
-  starsStartPosition: -0.01
+  starsStartPosition: 0.03
   starsEndPosition: 1
   starsOpacity: 1
   starsLayerCount: 3
   starsColor0: {r: 1, g: 1, b: 1, a: 1}
   starsColor1: {r: 1, g: 1, b: 1, a: 1}
   starsColor2: {r: 1, g: 1, b: 1, a: 1}
-  starsDensity0: 0.4
+  starsDensity0: 0.916
   starsDensity1: 0.34
   starsDensity2: 0.45
-  starsSize0: 0.42
-  starsSize1: 0.53
-  starsSize2: 0.46
-  starsGlow0: 0.01
+  starsSize0: 0.185
+  starsSize1: 0.133
+  starsSize2: 0.102
+  starsGlow0: 0.078
   starsGlow1: 0.01
   starsGlow2: 0.01
   starsTwinkle0: 5
@@ -172,15 +172,15 @@ MonoBehaviour:
   sunLightColor: {r: 0, g: 0, b: 0, a: 0}
   sunLightIntensity: 0
   enableMoon: 1
-  moonTexture: {fileID: 2800000, guid: f2a9708932cff5d42859554c9e7dd4ec, type: 3}
-  moonColor: {r: 0.89482963, g: 1.020364, b: 1.0717734, a: 1}
-  moonSize: 0.299
-  moonSoftEdge: 0
-  moonGlow: 0.116
+  moonTexture: {fileID: 2800000, guid: b8cb7b564087a124baf2daaf3e03efed, type: 3}
+  moonColor: {r: 0.94786954, g: 1.0808448, b: 1.1353014, a: 1}
+  moonSize: 0.286
+  moonSoftEdge: 0.078
+  moonGlow: 0.125
   useBakedMoon: 0
   moonCubemap: {fileID: 0}
   moonLightColor: {r: 1, g: 1, b: 1, a: 1}
-  moonLightIntensity: 0.2
+  moonLightIntensity: 0.4
   customCloudTexture: {fileID: 0}
   enableHorizonCloud: 0
   horizonCloudColor: {r: 1, g: 1, b: 1, a: 1}
