@@ -1,30 +1,123 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.IO;
+using Sirenix.OdinInspector;
 
 public class EnemyMG : MonoBehaviour
 {
     public float lapseTime = 5f;
     public List<Enemy> enemies;
-    int currentIndex;
+    [ShowInInspector]
+    public Queue<Enemy> lastRoundEnemies=new Queue<Enemy>();
+
+    [ShowInInspector][ReadOnly]
+    bool isPlayerRound;
+    int currentBeatIndex, currentEnemyIndex;
     float delta;
-    // Start is called before the first frame update
-    void Start()
+
+    public AudioSource audioHolder;
+    
+    public List<beat> beats;
+    public string beatsDataPath;
+
+    public MikasaRythmController mRC;
+
+    public float minBeatDuration = 5f;
+    private IEnumerator Start()
+    {
+        yield return new WaitForSeconds(5f);
+        audioHolder.Play();
+        isPlayerRound = false;
+    }
+    [Button]
+    public void LoadData()
+    {
+        if (beatsDataPath != string.Empty)
+        {
+            beats = loadDatafromLocation(beatsDataPath);
+        }
+    }
+    public static List<beat> loadDatafromLocation(string fileName)
     {
         
+        fileName = "Assets/07.Data/AudioTracks/" + fileName + (fileName.Contains(".txt") ? "" : ".txt");
+        Debug.Log("Loading from " + fileName);
+        List<beat> loadedBeats = new List<beat>();
+        if (File.Exists(fileName))
+        {
+            var Data = File.ReadAllLines(fileName);
+            foreach (var item in Data)
+            {
+                loadedBeats.Add(JsonUtility.FromJson<beat>(item));
+            }
+            return loadedBeats;
+        }
+        Debug.LogWarning("FILE NOT FOUND!");
+        return null;
     }
 
     // Update is called once per frame
     void Update()
     {
-        delta += Time.deltaTime;
-        if(delta>lapseTime)
+        if(audioHolder.isPlaying)
         {
-            delta = 0;
-            enemies[currentIndex].transform.localScale = Vector3.Lerp(Vector3.zero, Vector3.one, 0);
+            if(currentBeatIndex>=0 && currentBeatIndex<beats.Count-3)
+            {
+                if (audioHolder.time >= beats[currentBeatIndex].time)
+                {
+                    Enemy nextEnemy;
+                    if (!isPlayerRound)
+                    {
+                        nextEnemy =  getRandomEnemy();
+                        Debug.Log("adding enemy " + nextEnemy.name+ "To mikasa enemies");
+                        lastRoundEnemies.Enqueue(nextEnemy);
+                        mRC.updateTarget(nextEnemy.transform);
+                        if (lastRoundEnemies.Count >= 4)
+                        {
+                            
+                            isPlayerRound = true;
+                        }
+                    }
+                    else
+                    {
+                        if (mRC)
+                            mRC.disablePointing();
+                        nextEnemy = lastRoundEnemies.Dequeue();
+                        Debug.Log("gettinh enemy " + nextEnemy.name + "from mikasa enemies");
 
-            currentIndex = (currentIndex + 1) % enemies.Count;
+                        if (lastRoundEnemies.Count==0)
+                        {
+                            isPlayerRound = false;
+                        }
+                    }
+                    nextEnemy.beatEnemy(beats[currentBeatIndex+3].time-beats[currentBeatIndex].time);
+                    currentBeatIndex=getNextIndex();
+                    
+                }
+            }
         }
-        enemies[currentIndex].transform.localScale = Vector3.Lerp(Vector3.zero, Vector3.one, delta / lapseTime);
+        
+    }
+    int getNextIndex()
+    {
+        for (int i = currentBeatIndex; i < beats.Count; i++)
+        {
+            if(beats[i].time> beats[currentBeatIndex].time+beats[currentBeatIndex].duration+minBeatDuration)
+            {
+                return i;
+            }
+        }
+
+        return -1;
+    }
+
+    public Enemy getRandomEnemy()
+    {
+        int random = Random.Range(0, enemies.Count);
+        if (!enemies[random].isActive)
+            return enemies[random];
+        else
+            return getRandomEnemy();
     }
 }

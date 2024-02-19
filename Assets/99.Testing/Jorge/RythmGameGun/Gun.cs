@@ -13,8 +13,7 @@ public class Gun : MonoBehaviour
     LineRenderer lr;
     Vector3 startPosition,endPosition;
     public float maxDistance=5f;
-    public float rayCastRadius = 0.24f;
-    public LayerMask layerMask;
+     public LayerMask layerMask;
 
     public Transform hairCross, hairCrossCenter;
 
@@ -48,11 +47,19 @@ public class Gun : MonoBehaviour
     }
     public bool checkCollision()
     {
-        Ray r = new Ray(shootPos.position, shootPos.position + shootPos.forward * maxDistance);
+        Ray r = new Ray(shootPos.position,  shootPos.forward * maxDistance);
         RaycastHit hito;
-        if (Physics.SphereCast(r, rayCastRadius, out hito, layerMask))
+        if (Physics.Raycast(r,out hito, layerMask))
         {
             Debug.Log("Raycast hit " + hito.transform.name);
+            Enemy hitEnemy;
+            if(hito.transform.TryGetComponent<Enemy>(out hitEnemy))
+            {
+                if(hitEnemy.isActive)
+                {
+                    hitEnemy.onShoot();
+                }
+            }
             return true;
         }
         return false;

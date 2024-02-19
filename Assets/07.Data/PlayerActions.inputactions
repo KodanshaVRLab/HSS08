@@ -33,6 +33,15 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "RightTrigger",
+                    "type": "Button",
+                    "id": "dde4c9da-3b66-4955-a2f8-31657f854016",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "BButton",
                     "type": "Button",
                     "id": "7d47519b-daf7-43e8-93e7-7dc85725d4b8",
@@ -67,41 +76,8 @@
                 },
                 {
                     "name": "",
-                    "id": "2d34418c-327c-4fe3-879d-c8f3420e244f",
-                    "path": "<XRController>{LeftHand}/{PrimaryTrigger}",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "LeftTrigger",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "51b0b008-46d0-4962-9bad-863cf9ef0e35",
-                    "path": "<XRController>{RightHand}/{PrimaryTrigger}",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "LeftTrigger",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "66dc21c7-f85f-4344-8b8d-3eca7c5f2edf",
-                    "path": "<XRController>{LeftHand}/primaryButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "LeftTrigger",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "3e1cbd32-6f0d-4ca2-8ad0-427bcd387174",
-                    "path": "<XRController>{RightHand}/primaryButton",
+                    "id": "26c6fd2a-d451-4827-9d89-d4883a710b77",
+                    "path": "<XRController>{LeftHand}/triggerPressed",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -128,6 +104,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "BButton",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "eeae66ad-2c16-4902-ab70-a4b594f235c6",
+                    "path": "<XRController>{RightHand}/triggerPressed",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "RightTrigger",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

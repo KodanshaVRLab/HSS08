@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class RythmHaircross : MonoBehaviour
 {
@@ -13,11 +14,10 @@ public class RythmHaircross : MonoBehaviour
     int currentScaleIndex = 1;
     public float timeToChange;
     public Transform cameraTransfrom;
-     IEnumerator animateHairCross()
-    {
 
-         
-        
+    public UnityEvent onBeat;
+     IEnumerator animateHairCross()
+    {        
         timeToChange = 1f / (tempo/60f);
         var delta=0f;
         while (!isPaused)
@@ -26,6 +26,8 @@ public class RythmHaircross : MonoBehaviour
             delta += Time.deltaTime;
             if (delta >= timeToChange)
             {
+                onBeat.Invoke();
+                Debug.Log("Beat");
                 currentScaleIndex = (currentScaleIndex + 1);
                 if (currentScaleIndex > steps)
                 {
@@ -42,15 +44,9 @@ public class RythmHaircross : MonoBehaviour
         }
 
     }
-    // Start is called before the first frame update
     void Start()
     {
         StartCoroutine(animateHairCross());
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-       
-    }
+     
 }
