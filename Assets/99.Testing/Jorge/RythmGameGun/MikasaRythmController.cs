@@ -37,6 +37,12 @@ public class MikasaRythmController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (lr.enabled)
+        {
+            if (shootPoint)
+                lr.SetPosition(0, shootPoint.position);
+            if (target)
+                lr.SetPosition(1, target.position);
+        }
     }
 }

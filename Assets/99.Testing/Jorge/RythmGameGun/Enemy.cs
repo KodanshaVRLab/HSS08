@@ -14,9 +14,13 @@ public class Enemy : MonoBehaviour
     Coroutine activateCO;
 
     public GameObject onHitFX;
+    public EnemyMG enemyMG;
+    bool canBeShot;
+    Renderer[] renderers;
     [Button]
     public void onShoot()
     {
+        if (!canBeShot) return;
         if (activateCO != null)
         {
             StopCoroutine(activateCO);
@@ -26,11 +30,17 @@ public class Enemy : MonoBehaviour
         if (onHitFX)
             Destroy(Instantiate(onHitFX, transform.position, Quaternion.identity), 0.5f);
     }
-    public void beatEnemy(float duration)
+    public void beatEnemy(float duration, bool isPlayerRound=false)
     {
+        canBeShot = isPlayerRound;
+        foreach (var renderer in renderers)
+        {
+            renderer.material.color = canBeShot ? Color.white : Color.red;
+        }
         beatDuration = duration;
         if (!isActive)
           activateCO=  StartCoroutine(activate());
+
     }
     IEnumerator activate()
     {
@@ -42,6 +52,8 @@ public class Enemy : MonoBehaviour
             transform.localScale = Vector3.one * Mathf.Lerp(scaleMinMax.x, scaleMinMax.y, delta / beatDuration);
             yield return new WaitForEndOfFrame();
         }
+        if (canBeShot)
+            OVRInput.SetControllerVibration(1f, 0.2f);
         transform.localScale = Vector3.one * Mathf.Lerp(scaleMinMax.x, scaleMinMax.y, 0f);
         activateCO = null;
         isActive = false;
@@ -49,7 +61,7 @@ public class Enemy : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        renderers = GetComponentsInChildren<Renderer>();
     }
 
     // Update is called once per frame

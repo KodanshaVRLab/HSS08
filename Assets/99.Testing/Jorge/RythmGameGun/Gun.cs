@@ -17,8 +17,10 @@ public class Gun : MonoBehaviour
 
     public Transform hairCross, hairCrossCenter;
 
+    AudioSource aSource;
     void Start()
     {
+        aSource = GetComponent<AudioSource>();
         lr = GetComponent<LineRenderer>();
         if (lr) lr.enabled = false;
         if (!shootPos)
@@ -34,7 +36,10 @@ public class Gun : MonoBehaviour
     [Button]
     public void ShootProjectile()
     {
+
         if (isShooting) return;
+        if (aSource)
+            aSource.Play();
         if (lr) lr.enabled = true;
         projectileMovementDelta = 0;
         isShooting = true;

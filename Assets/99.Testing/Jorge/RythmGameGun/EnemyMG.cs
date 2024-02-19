@@ -11,8 +11,8 @@ public class EnemyMG : MonoBehaviour
     [ShowInInspector]
     public Queue<Enemy> lastRoundEnemies=new Queue<Enemy>();
 
-    [ShowInInspector][ReadOnly]
-    bool isPlayerRound;
+    [ReadOnly]
+    public bool isPlayerRound;
     int currentBeatIndex, currentEnemyIndex;
     float delta;
 
@@ -29,6 +29,10 @@ public class EnemyMG : MonoBehaviour
         yield return new WaitForSeconds(5f);
         audioHolder.Play();
         isPlayerRound = false;
+        foreach (var enemy in enemies)
+        {
+            enemy.enemyMG = this;
+        }
     }
     [Button]
     public void LoadData()
@@ -66,6 +70,15 @@ public class EnemyMG : MonoBehaviour
             {
                 if (audioHolder.time >= beats[currentBeatIndex].time)
                 {
+                    if (lastRoundEnemies.Count >= 4)
+                    {
+
+                        isPlayerRound = true;
+                    }
+                    else if (lastRoundEnemies.Count == 0)
+                    {
+                        isPlayerRound = false;
+                    }
                     Enemy nextEnemy;
                     if (!isPlayerRound)
                     {
@@ -73,11 +86,7 @@ public class EnemyMG : MonoBehaviour
                         Debug.Log("adding enemy " + nextEnemy.name+ "To mikasa enemies");
                         lastRoundEnemies.Enqueue(nextEnemy);
                         mRC.updateTarget(nextEnemy.transform);
-                        if (lastRoundEnemies.Count >= 4)
-                        {
-                            
-                            isPlayerRound = true;
-                        }
+                        
                     }
                     else
                     {
@@ -86,12 +95,9 @@ public class EnemyMG : MonoBehaviour
                         nextEnemy = lastRoundEnemies.Dequeue();
                         Debug.Log("gettinh enemy " + nextEnemy.name + "from mikasa enemies");
 
-                        if (lastRoundEnemies.Count==0)
-                        {
-                            isPlayerRound = false;
-                        }
+                       
                     }
-                    nextEnemy.beatEnemy(beats[currentBeatIndex+3].time-beats[currentBeatIndex].time);
+                    nextEnemy.beatEnemy((minBeatDuration+ beats[currentBeatIndex+3].time)-beats[currentBeatIndex].time, isPlayerRound);
                     currentBeatIndex=getNextIndex();
                     
                 }
