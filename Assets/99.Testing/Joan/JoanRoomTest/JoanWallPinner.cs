@@ -33,6 +33,19 @@ public class JoanWallPinner : MonoBehaviour
         objectToPin.transform.SetPositionAndRotation(position, rotation);
     }
 
+    public void PintToWall(Transform wall, Transform target)
+    {
+        if (wall == null)
+        {
+            Debug.LogError($"PinToWall failed: given wall is NULL!");
+            return;
+        }        
+        Vector3 position = GetWallBestPosition(wall);
+        Quaternion rotation = GetWallRotation(wall);
+        target.SetPositionAndRotation(position, rotation);
+    }
+
+
     private Vector3 GetWallBestPosition(Transform wallTransform)
     {
         float wallHalfWidth = GetWallHalfWidth(wallTransform.gameObject);

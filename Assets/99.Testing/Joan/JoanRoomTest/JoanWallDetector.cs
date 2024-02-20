@@ -47,7 +47,42 @@ public class JoanWallDetector : MonoBehaviour
             Debug.LogError($"No wall found!");
         }
     }
+    public Transform FetchRandomWall()
+    {
+        List<GameObject> suitableWalls = FindObjectsOfType<OVRSemanticClassification>()
+                   .Where(c => c.Contains(OVRSceneManager.Classification.WallFace))
+                   .Select(c => c.gameObject)
+                   .Where(wall => CheckIfWallIsBigEnough(wall))
+                   .ToList();
 
+        if (suitableWalls.Count == 0) return null;
+        var Rand = Random.Range(0, suitableWalls.Count);
+        return suitableWalls[Rand].transform;
+    }
+    public Transform FetchFrontWall()
+    {
+        List<GameObject> suitableWalls = FindObjectsOfType<OVRSemanticClassification>()
+                    .Where(c => c.Contains(OVRSceneManager.Classification.WallFace))
+                    .Select(c => c.gameObject)
+                    .Where(wall => CheckIfWallIsBigEnough(wall))
+                    .ToList();
+
+        //Transform bestWallTransform = GetFrontestWall(suitableWalls);
+        GameObject bestWall = GetFrontestWall(suitableWalls);
+
+        if (bestWall != null)
+        {
+            onBestWallFound?.Invoke(bestWall);
+            return bestWall.transform;
+            //wallFound?.Invoke(bestWallTransform.position);
+            //wallFound2?.Invoke(bestWallTransform.rotation);
+        }
+        else
+        {
+            Debug.LogError($"No wall found!");
+        }
+        return null;
+    }
     private bool CheckIfWallIsBigEnough(GameObject wall)
     {
         Vector2 wallSize = GetWallBounds(wall);

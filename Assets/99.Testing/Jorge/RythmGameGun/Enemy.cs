@@ -33,6 +33,7 @@ public class Enemy : MonoBehaviour
     public void beatEnemy(float duration, bool isPlayerRound=false)
     {
         canBeShot = isPlayerRound;
+        if(renderers!=null)
         foreach (var renderer in renderers)
         {
             renderer.material.color = canBeShot ? Color.white : Color.red;
@@ -59,7 +60,7 @@ public class Enemy : MonoBehaviour
         isActive = false;
     }
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         renderers = GetComponentsInChildren<Renderer>();
     }
