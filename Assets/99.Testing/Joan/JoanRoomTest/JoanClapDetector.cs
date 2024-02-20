@@ -22,7 +22,11 @@ public class JoanClapDetector : MonoBehaviour
     [SerializeField]
     private float angleRangeFromHeadForward = 60f;
 
+    [SerializeField]
+    private float maxTimeForDoubleClap = 1f;
+
     public UnityEvent OnClap = null;
+    public UnityEvent OnDoubleClap = null;
 
     [ShowInInspector, ReadOnly]
     private bool clapAvailable = false;
@@ -88,9 +92,36 @@ public class JoanClapDetector : MonoBehaviour
         }
     }
 
+    private bool doubleClapAvailable = false;
+
     private void Clap()
     {
+        if (doubleClapAvailable)
+        {
+            DoubleClap();
+            return;
+        }
+
         clapAvailable = false;
         OnClap?.Invoke();
+
+        doubleClapAvailable = true;
+        TimedActions.Start(this, "DoubleClapTimer", maxTimeForDoubleClap, DoubleClapTimedOut);
+    }
+
+    private void DoubleClap()
+    {
+        TimedActions.Stop(this, "DoubleClapTimer");
+
+        clapAvailable = false;
+        doubleClapAvailable = false;
+
+        OnClap?.Invoke();
+        OnDoubleClap?.Invoke();
+    }
+
+    private void DoubleClapTimedOut()
+    {
+        doubleClapAvailable = false;
     }
 }

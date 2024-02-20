@@ -18,6 +18,13 @@ public class JoanVerticalBillboard : MonoBehaviour
         direction.y = 0f;
         direction.Normalize();
 
+        if (direction == Vector3.zero)
+        {
+            direction = -target.forward;
+            direction.y = 0f;
+            direction.Normalize();
+        }
+
         Quaternion newRotation = Quaternion.LookRotation(direction, Vector3.up);
         transform.rotation = newRotation;
     }

@@ -13,12 +13,14 @@ public class JoanHologramProjectorPrototype : JoanPrototype
 
     public override void Activate()
     {
+        base.Activate();
         attacher.AttachObject();
         tableDetector.DetectTable();
     }
 
     public override void Deactivate()
     {
+        base.Deactivate();
         attacher.DettachObject();
     }
 
@@ -33,8 +35,8 @@ public class JoanHologramProjectorPrototype : JoanPrototype
         OVRSceneVolume sceneVolume = table.GetComponentInChildren<OVRSceneVolume>();
         float halfHeight = sceneVolume.Dimensions.y;
         Vector3 center = sceneVolume.transform.position;
-        Vector3 topCenter = center + Vector3.up * halfHeight;
-        return topCenter;
+        //Vector3 topCenter = center + Vector3.up * halfHeight;
+        return center;
     }
 
     public void CenterFound(Vector3 center)

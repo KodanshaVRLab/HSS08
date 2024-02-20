@@ -10,11 +10,13 @@ public class JoanCloseAndFollowPrototype : JoanPrototype
 
     public override void Activate()
     {
+        base.Activate();
         attacher.AttachObject();
     }
 
     public override void Deactivate()
     {
+        base.Deactivate();
         attacher.DettachObject();
     }
 }

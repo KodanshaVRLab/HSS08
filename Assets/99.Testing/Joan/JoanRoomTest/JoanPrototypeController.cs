@@ -31,6 +31,7 @@ public class JoanPrototypeController : MonoBehaviour
         ActivatePrototype(defaultPrototypeIndex);
     }
 
+    [Button]
     private void ActivatePrototype(int index)
     {
         if (currentPrototypeIndex == index)
@@ -38,17 +39,33 @@ public class JoanPrototypeController : MonoBehaviour
             return;
         }
 
+        newIndex = index;
+        DeactiveCurrentPrototype();
+        Invoke(nameof(ActivateNewPrototype), 0.1f);
+    }
+
+    private int newIndex = -1;
+
+    [Button]
+    private void DeactiveCurrentPrototype()
+    {
         if (currentPrototype != null)
         {
             currentPrototype.Deactivate();
+
             currentPrototypeIndex = -1;
             currentPrototype = null;
         }
+    }
+
+    private void ActivateNewPrototype()
+    {
+        int index = newIndex;
+
+        currentPrototype = prototypes[index];
+        currentPrototype.Activate();
 
         currentPrototypeIndex = index;
-        currentPrototype = prototypes[currentPrototypeIndex];
-
-        currentPrototype.Activate();
         onPrototypeChanged?.Invoke(currentPrototype.name);
     }
 

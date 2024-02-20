@@ -18,8 +18,11 @@ public class JoanWallPinner : MonoBehaviour
     [SerializeField]
     private float heightOffset = 0f;
 
+    [SerializeField]
+    private bool flip = false;
+
     [Button]
-    public void PintToWall(GameObject wall)
+    public void PinToWall(GameObject wall)
     {
         if (wall == null)
         {
@@ -27,37 +30,32 @@ public class JoanWallPinner : MonoBehaviour
             return;
         }
 
+        PinToWall(objectToPin.transform, wall);
+    }
+
+    [Button]
+    public void PinToWall(Transform objectToPin, GameObject wall)
+    {
         Transform wallTransform = wall.transform;
         Vector3 position = GetWallBestPosition(wallTransform);
         Quaternion rotation = GetWallRotation(wallTransform);
         objectToPin.transform.SetPositionAndRotation(position, rotation);
     }
 
-    public void PintToWall(Transform wall, Transform target)
-    {
-        if (wall == null)
-        {
-            Debug.LogError($"PinToWall failed: given wall is NULL!");
-            return;
-        }        
-        Vector3 position = GetWallBestPosition(wall);
-        Quaternion rotation = GetWallRotation(wall);
-        target.SetPositionAndRotation(position, rotation);
-    }
-
-
     private Vector3 GetWallBestPosition(Transform wallTransform)
     {
         float wallHalfWidth = GetWallHalfWidth(wallTransform.gameObject);
         Vector3 wallRight = wallTransform.right;
+        Vector3 wallForward = wallTransform.forward;
         Vector3 userForward = userHead.forward;
 
         Vector2 wallPosition2D = new Vector2(wallTransform.position.x, wallTransform.position.z);
         Vector2 wallRight2D = new Vector2(wallRight.x, wallRight.z);
         Vector2 userPosition2D = new Vector2(userHead.position.x, userHead.position.z);
-        Vector2 userForward2D = new Vector2(userForward.x, userForward.z);
+        //Vector2 userForward2D = new Vector2(userForward.x, userForward.z);
+        Vector2 wallForward2D = new Vector2(wallForward.x, wallForward.z);
 
-        Vector2 crossPoint = GetCrossPoint2D(wallPosition2D, wallRight2D, userPosition2D, userForward2D);
+        Vector2 crossPoint = GetCrossPoint2D(wallPosition2D, wallRight2D, userPosition2D, wallForward2D);
 
         Vector2 wallToCrossPosition2D = wallPosition2D - crossPoint;
         float distanceFromWallCenter = wallToCrossPosition2D.magnitude;
@@ -87,6 +85,12 @@ public class JoanWallPinner : MonoBehaviour
     {
         OVRScenePlane scenePlane = wallFace.GetComponentInChildren<OVRScenePlane>();
         return scenePlane.Dimensions.x * 0.5f;
+    }
+
+    public Vector2 GetWallSize(GameObject wallFace)
+    {
+        OVRScenePlane scenePlane = wallFace.GetComponentInChildren<OVRScenePlane>();
+        return scenePlane.Dimensions;
     }
 
     [Button]
@@ -155,6 +159,10 @@ public class JoanWallPinner : MonoBehaviour
         Vector3 wallForward = wallTransform.forward;
         wallForward.y = 0f;
         Quaternion rotation = Quaternion.LookRotation(wallForward, Vector3.up);
+        if (flip)
+        {
+            rotation *= Quaternion.Euler(0f, 180f, 0f);
+        }
         return rotation;
     }
 }

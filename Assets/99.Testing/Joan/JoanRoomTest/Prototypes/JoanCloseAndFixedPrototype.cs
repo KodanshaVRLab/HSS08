@@ -9,6 +9,7 @@ public class JoanCloseAndFixedPrototype : JoanPrototype
 
     public override void Activate()
     {
+        base.Activate();
         userPinner.PinObject();
     }
 }
