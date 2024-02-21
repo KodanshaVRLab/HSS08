@@ -19,6 +19,7 @@ namespace KVRL.HSS08.Testing
             get { return _totalStats; }
         }
 
+        public int TemplateCount => templates.Length;
 
         public int TotalVertexCount
         {
@@ -96,6 +97,7 @@ namespace KVRL.HSS08.Testing
             int i = SanitizeIndex(index);
             return stats[i];
         }
+
 
         [Button]
         public void Clear()
