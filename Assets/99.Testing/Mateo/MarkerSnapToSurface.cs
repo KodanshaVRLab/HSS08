@@ -41,16 +41,21 @@ namespace KVRL.HSS08.Testing
 
         private void Awake()
         {
-            DistanceHandGrabInteractable dum;
-            if (TryGetComponent(out dum))
-            {
-                //dum.WhenStateChanged += StateChange;
-            }
+            //DistanceGrabInteractable dum;
+            //if (TryGetComponent(out dum))
+            //{
+            //    dum.WhenStateChanged += StateChange;
+            //}
         }
 
         void StateChange(InteractableStateChangeArgs args)
         {
             Debug.Log("STATE CHANGE MF");
+        }
+
+        private void OnEnable()
+        {
+            BindCallbacks();
         }
 
         // Update is called once per frame
@@ -64,18 +69,61 @@ namespace KVRL.HSS08.Testing
 
         public void InteractionStarted()
         {
-            //Debug.Log("SNAPPLE");
+            Debug.LogWarning("SNAPPLE");
             CacheSurfaceMarkerTransform();
             snapping = true;
         }
 
         public void InteractionEnded()
         {
-            //Debug.Log($"SNAPPN'T : {snapPoint}");
+            Debug.LogWarning($"SNAPPN'T : {snapPoint}");
             //SnapToPoint(snapPoint);
             StartCoroutine(DelayedSnap(snapPoint, snapNormal, 2));
             RestoreSurfaceMarkerTransform();
             snapping = false;
+        }
+
+        void BindCallbacks()
+        {
+            DistanceGrabInteractable controller;
+            DistanceHandGrabInteractable hand;
+
+            if (TryGetComponent(out controller))
+            {
+                controller.WhenStateChanged += InteractionCallback;
+            }
+
+            if (TryGetComponent(out hand))
+            {
+                hand.WhenStateChanged += InteractionCallback;
+            }
+        }
+
+        void UnbindCallbacks()
+        {
+            DistanceGrabInteractable controller;
+            DistanceHandGrabInteractable hand;
+
+            if (TryGetComponent(out controller))
+            {
+                controller.WhenStateChanged -= InteractionCallback;
+            }
+
+            if (TryGetComponent(out hand))
+            {
+                hand.WhenStateChanged -= InteractionCallback;
+            }
+        }
+
+        void InteractionCallback(InteractableStateChangeArgs args)
+        {
+            if (args.NewState == InteractableState.Select)
+            {
+                InteractionStarted();
+            } else if (args.PreviousState == InteractableState.Select)
+            {
+                InteractionEnded();
+            }
         }
 
         void CacheSurfaceMarkerTransform()

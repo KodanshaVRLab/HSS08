@@ -20,14 +20,30 @@ namespace KVRL.HSS08.Testing
         [SerializeField] int poolCapacity = 50;
         [SerializeField, ReadOnly] List<GameObject> pool = new List<GameObject>();
         [SerializeField] bool oneAtATime = false;
-        private int poolIndex = 0;
 
+        public enum PoolMode
+        {
+            Capped,
+            AutoRecycle,
+            OneAtATime
+        }
+        [SerializeField] PoolMode mode = PoolMode.AutoRecycle;
+
+
+        private int poolIndex = 0;
+        private bool capReached = false;
 
 
         [Button]
         protected GameObject GetNext()
         {
-            if (oneAtATime)
+            // Skip if pool is capped and we already placed all items
+            if (mode == PoolMode.Capped && capReached)
+            {
+                return null;
+            }
+
+            if (mode == PoolMode.OneAtATime)
             {
                 int pIndex = (poolIndex + poolCapacity - 1) % poolCapacity;
                 var prev = pool[pIndex];
@@ -38,6 +54,13 @@ namespace KVRL.HSS08.Testing
             var next = pool[poolIndex++];
             poolIndex %= poolCapacity;
             next.SetActive(true);
+
+            // Flag as cap reached if we cycle back to the first item
+            if (mode == PoolMode.Capped && poolIndex == 0)
+            {
+                capReached = true;
+            }
+
             return next;
         }
 
@@ -66,10 +89,15 @@ namespace KVRL.HSS08.Testing
         public GameObject PlaceObject(Vector3 positionWR, Vector3 normalWR)
         {
             var go = GetNext();
-            Vector3 norm = normalWR;
-            Vector3 pos = positionWR + norm * surfaceBias;
 
-            PositionObject(go, pos, norm);
+            // Null GO means either we have a problem, or we simply reached the object cap
+            if (go != null)
+            {
+                Vector3 norm = normalWR;
+                Vector3 pos = positionWR + norm * surfaceBias;
+
+                PositionObject(go, pos, norm);
+            }
 
             return go;
         }
