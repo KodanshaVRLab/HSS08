@@ -198,7 +198,7 @@ MonoBehaviour:
   _grabSource: {fileID: 0}
   _resetGrabOnGrabsUpdated: 1
   _physicsGrabbable: {fileID: 0}
-  _movementProvider: {fileID: 9089606566012536779}
+  _movementProvider: {fileID: 0}
 --- !u!1 &468268364187471329
 GameObject:
   m_ObjectHideFlags: 0
