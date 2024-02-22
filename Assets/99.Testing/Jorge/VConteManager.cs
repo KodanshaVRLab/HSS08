@@ -16,8 +16,7 @@ public class VConteManager : MonoBehaviour
     public float timeScale = 4f;
     bool isFFWD;
 
-    public OVRManager ovr;
-    bool isPassthrough;
+   public  bool isPassthrough;
     public float currentSongTime { get { return isSongPlaying() ? songContainer.time-62f : -1; } private set { } }
     bool canFFWD;
     public void ToggleCanFFwd(bool value)
@@ -28,15 +27,16 @@ public class VConteManager : MonoBehaviour
     {
         isPassthrough = !isPassthrough;
 
-        ovr.isInsightPassthroughEnabled = isPassthrough;
+        p.textureOpacity = isPassthrough ? 1f : 0f;
     }
     public void SetPassTroughState(bool value)
     {
         isPassthrough = value;
-
-        ovr.isInsightPassthroughEnabled = isPassthrough;
+        
+        
     }
 
+    public OVRPassthroughLayer p;
     // Start is called before the first frame update
     void Start()
     {

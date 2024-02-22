@@ -15,7 +15,7 @@ public class Hammer : MonoBehaviour
     public bool canUse;
     public float coolOffTime;
     int currentEnv = 0;
-    public OVRManager ovr;
+    public VConteManager ovr;
     public GameObject moonENV;
     bool doCheck=false;
     public List<GameObject> meshes;
@@ -33,7 +33,7 @@ public class Hammer : MonoBehaviour
     }
     public void toggleENV()
     {
-        moonENV.SetActive(ovr && !ovr.isInsightPassthroughEnabled);
+        moonENV.SetActive(ovr && !ovr.isPassthrough);
     }
     private void OnDrawGizmos()
     {

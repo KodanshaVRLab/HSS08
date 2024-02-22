@@ -184,7 +184,7 @@ MonoBehaviour:
   - {fileID: 0}
   canUse: 1
   coolOffTime: 1
-  ovr: {fileID: 636530317}
+  ovr: {fileID: 0}
   moonENV: {fileID: 837696635}
   meshes:
   - {fileID: 214051230}
@@ -9109,7 +9109,8 @@ MonoBehaviour:
   songStartTime: 0
   debugLabel: {fileID: 1058160864}
   timeScale: 25
-  ovr: {fileID: 636530317}
+  isPassthrough: 0
+  p: {fileID: 636530309}
 --- !u!4 &1006711648
 Transform:
   m_ObjectHideFlags: 0
