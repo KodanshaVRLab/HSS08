@@ -10,17 +10,29 @@ public class VConteManager : MonoBehaviour
     public List<float> pointsOfInterest;
     public List<GameObject> systems;
     public int currentPoint = 0;
-    public float startTime, currentTime,songStartTime;
+    public float startTime, currentTime, songStartTime;
     public bool isSongPlaying() => songContainer && songContainer.isPlaying;
     public TMPro.TextMeshPro debugLabel;
-    public float timeScale=4f;
+    public float timeScale = 4f;
     bool isFFWD;
 
     public OVRManager ovr;
     bool isPassthrough;
+    public float currentSongTime { get { return isSongPlaying() ? songContainer.time-62f : -1; } private set { } }
+    bool canFFWD;
+    public void ToggleCanFFwd(bool value)
+    {
+        canFFWD = value;
+    }
     public void TogglePassTroughState()
     {
         isPassthrough = !isPassthrough;
+
+        ovr.isInsightPassthroughEnabled = isPassthrough;
+    }
+    public void SetPassTroughState(bool value)
+    {
+        isPassthrough = value;
 
         ovr.isInsightPassthroughEnabled = isPassthrough;
     }
@@ -28,10 +40,12 @@ public class VConteManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        canFFWD = true;
         if (!songContainer || pointsOfInterest.Count != systems.Count)
             Destroy(this);
 
         startTime = Time.time;
+        StartMusic();
     }
 
     public void StartMusic()
@@ -58,13 +72,15 @@ public class VConteManager : MonoBehaviour
     [Button]
     public void FFWD()
     {
+        if (!canFFWD) return;
         Time.timeScale = Time.timeScale == 1 ? timeScale : 1;
         isFFWD = Time.timeScale != 1;
     }
     // Update is called once per frame
     void Update()
     {
-        if(isFFWD)
+        Debug.Log(currentSongTime);
+        if (isFFWD)
         {
             if (songContainer.clip.length > Time.time - songStartTime)
                 songContainer.time = Time.time - songStartTime;

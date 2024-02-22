@@ -26,7 +26,7 @@ public class HammerTarget : MonoBehaviour
     {
         
         target = transform;
-        target.position = player.position + player.forward * playerToTargetDist- player.up*playerToTargetDist;
+        target.position = player.position + player.forward * playerToTargetDist;
         StartCoroutine(activateTarget());
     }
     [Button]

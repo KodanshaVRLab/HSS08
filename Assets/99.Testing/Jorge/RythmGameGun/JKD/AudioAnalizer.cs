@@ -27,6 +27,7 @@ public class AudioAnalizer : MonoBehaviour
         beats.Clear();
         audioTrackHolder = GetComponent<AudioSource>();
         audioTrackHolder.clip = settings.audioTrack;
+        
         PlayerPrefs.SetInt("Analize", 1);
 #if UNITY_EDITOR
 
@@ -43,9 +44,9 @@ public class AudioAnalizer : MonoBehaviour
             setup();
         }
     }
-    IEnumerator doit()
+    IEnumerator doSetup()
     {
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(2f);
         setup();
     }
     private void Awake()
@@ -53,13 +54,17 @@ public class AudioAnalizer : MonoBehaviour
         
         if (analyzeOnAwake)
         {
-            StartCoroutine(doit());
+            StartCoroutine(doSetup());
             PlayerPrefs.SetInt("Analize", 0);
         }
     }
 
     void setup()
-    {        
+    {
+        if (settings.regionz.Count > 0)
+        {
+            audioTrackHolder.time = settings.regionz[0].duration.x - 1f;
+        }
         audioTrackHolder.Play();
         analyze = true;
     }

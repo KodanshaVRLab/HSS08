@@ -15,7 +15,7 @@ public class EnemyMG : MonoBehaviour
 
     [ReadOnly]
     public bool isPlayerRound;
-    int currentBeatIndex, currentEnemyIndex;
+    public int currentBeatIndex, currentEnemyIndex;
     float delta;
 
     public VConteManager VCmg;
@@ -181,7 +181,8 @@ public class EnemyMG : MonoBehaviour
             }
             if (currentBeatIndex >= 0 && currentBeatIndex < beats.Count - 3)
             {
-                if ( VCmg.currentTime >= beats[currentBeatIndex].time)
+                Debug.Log(VCmg.currentSongTime);
+                if ( VCmg.currentSongTime >= beats[currentBeatIndex].time)
                 {
                     if (lastRoundEnemies.Count >= 4)
                     {
@@ -226,7 +227,7 @@ public class EnemyMG : MonoBehaviour
     {
         for (int i = 0; i < beats.Count; i++)
         {
-            if (beats[i].time >= VCmg.currentTime)
+            if (beats[i].time >= VCmg.currentSongTime)
             {
                 return i;
             }

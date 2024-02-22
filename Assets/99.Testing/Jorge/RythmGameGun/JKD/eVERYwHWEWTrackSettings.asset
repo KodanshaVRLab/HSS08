@@ -16,5 +16,5 @@ MonoBehaviour:
   TrackName: eVERYwHERE
   WWiseState: 
   regionz:
-  - duration: {x: 0, y: 234.68355}
-    threshold: 0.34
+  - duration: {x: 154, y: 249}
+    threshold: 0.35

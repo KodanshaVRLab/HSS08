@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
 [CreateAssetMenu(fileName ="TrackSettings",menuName = "Settings/Audio/TrackSettings", order =0)]
 public class TrackSettings : ScriptableObject
 
@@ -13,6 +12,7 @@ public class TrackSettings : ScriptableObject
     [System.Serializable]
     public struct regions
     {
+        
         public Vector2 duration;
         public float threshold;
         public regions(Vector2 dur, float t)
@@ -34,7 +34,7 @@ public class TrackSettings : ScriptableObject
         }
     }
 
-    [HideInInspector]
+     
 
     public List<regions> regionz = new List<regions>();
 
