@@ -27,6 +27,7 @@ namespace KVRL.HSS08.Testing
         private Coroutine swapCoroutine = null;
 
         private static TestEnvironmentSwapper _instance;
+        public bool ignorePointerEvent;
         public static TestEnvironmentSwapper Instance
         {
             get
@@ -60,7 +61,7 @@ namespace KVRL.HSS08.Testing
             /// Implement
             /// Add filtering via PointerEvent data field
             /// 
-
+            if (ignorePointerEvent) return;
             if (FilterEvent(evt.Data))
             {
                 if (swapDuration <= 0)

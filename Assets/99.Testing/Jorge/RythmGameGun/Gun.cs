@@ -35,13 +35,19 @@ public class Gun : MonoBehaviour
 
     }
 
-    
 
 
+    private void OnDisable()
+    {
+        if (projectile)
+        {
+            projectile.parent = transform;
+        }
+    }
     [Button]
     public void ShootProjectile()
     {
-
+        if (!isActiveAndEnabled) return;
         if (isShooting) return;
         if (aSource)
             aSource.Play();

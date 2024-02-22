@@ -49,6 +49,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "AButton1",
+                    "type": "Button",
+                    "id": "e3d8ac35-52bb-4214-90bb-ca314b09d256",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -109,17 +118,6 @@
                 },
                 {
                     "name": "",
-                    "id": "847749d3-26cb-4cbd-ac39-bb7c3ae284fd",
-                    "path": "<XRController>{RightHand}/secondaryButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "BButton",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "7a78bc2f-32b4-455b-b1ab-a73855e4b00b",
                     "path": "<XRController>{LeftHand}/primaryButton",
                     "interactions": "",
@@ -131,12 +129,23 @@
                 },
                 {
                     "name": "",
-                    "id": "2fe9310b-e004-455e-b6dc-ab7331c0ef45",
+                    "id": "6a4d0880-49c9-4fdb-96d3-1762c48834f1",
+                    "path": "<XRController>{RightHand}/secondaryButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "AButton1",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a05e15f5-4b3f-4b07-804c-bb99ad13f000",
                     "path": "<XRController>{LeftHand}/secondaryButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "BButton",
+                    "action": "AButton1",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

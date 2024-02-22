@@ -18,7 +18,7 @@ public class EnemyMG : MonoBehaviour
     int currentBeatIndex, currentEnemyIndex;
     float delta;
 
-    public AudioSource audioHolder;
+    public VConteManager VCmg;
 
     public List<beat> beats;
     public string beatsDataPath;
@@ -35,38 +35,37 @@ public class EnemyMG : MonoBehaviour
     public bool changedWall;
     public Transform mikasa;
     public Transform player;
-    public Vector3 mikasaOffset= new Vector3(-0.5f,0f,0.5f);
+    public Vector3 mikasaOffset = new Vector3(-0.5f, 0f, 0.5f);
     public JoanWallPinner pinner;
     public GameObject testObj;
-    public List<Transform> availableAnchors= new List<Transform>();
+    public List<Transform> availableAnchors = new List<Transform>();
 
-    private IEnumerator Start()
+    private void OnEnable()
     {
-
-        yield return new WaitForSeconds(5f);
+        currentBeatIndex = -1;
         List<GameObject> suitableWalls = FindObjectsOfType<OVRSemanticClassification>()
-                   .Where(c => c.Contains(OVRSceneManager.Classification.WallFace))
-                   .Select(c => c.gameObject)                   
-                   .ToList();
+                  .Where(c => c.Contains(OVRSceneManager.Classification.WallFace))
+                  .Select(c => c.gameObject)
+                  .ToList();
 
         foreach (var pared in suitableWalls)
         {
             if (testObj)
             {
-               var x= Instantiate(testObj, pared.transform.position, pared.transform.rotation);
+                var x = Instantiate(testObj, pared.transform.position, pared.transform.rotation);
                 availableAnchors.Add(x.transform);
                 x.transform.parent = pared.transform;
                 x.AddComponent<WallAchor>();
             }
         }
 
-        if(availableAnchors.Count>0)
+        if (availableAnchors.Count > 0)
         {
             transform.SetPositionAndRotation(availableAnchors[0].position, availableAnchors[0].rotation);
         }
-        var wall = wallDetector.FetchRandomWall();        
+        var wall = wallDetector.FetchRandomWall();
         StartCoroutine(changePos());
-        audioHolder.Play();
+
         isPlayerRound = false;
         foreach (var enemy in enemies)
         {
@@ -76,21 +75,48 @@ public class EnemyMG : MonoBehaviour
 
     IEnumerator moveMikasa(Transform finalPos)
     {
-        Vector3 fPos= finalPos.position + mikasaOffset;
-        
-        fPos.y = player.position.y;
-        Vector3 initialpos = mikasa.position;
-        var delta = 0f;
-        while (delta < mikasaShiftDuration)
+        if (finalPos)
         {
-            mikasa.position = Vector3.Lerp(initialpos, fPos, delta/mikasaShiftDuration);
-            delta += Time.deltaTime;
-            yield return new WaitForEndOfFrame();
+            List<GameObject> suitableFloors = FindObjectsOfType<OVRSemanticClassification>()
+                .Where(c => c.Contains(OVRSceneManager.Classification.Floor))
+                .Select(c => c.gameObject)
+                .ToList();
+            Vector3 fPos = finalPos.position + mikasaOffset;
+            fPos.y = suitableFloors.Count > 0 ? suitableFloors[0].transform.position.y : fPos.y;
+            
+            Vector3 initialpos = mikasa.position;
+            var delta = 0f;
+            while (delta < mikasaShiftDuration)
+            {
+                mikasa.position = Vector3.Lerp(initialpos, fPos, delta / mikasaShiftDuration);
+                delta += Time.deltaTime;
+                yield return new WaitForEndOfFrame();
+            }
+
+           
+            
+             LookAtTarget(mikasa, player.position);
         }
 
-        
-        mikasa.LookAt(player);
+    }
+    public void LookAtTarget(Transform owner, Vector3 targetPosition)
+    {
+        // Calculate the direction from the current object to the target position
+        Vector3 directionToTarget = targetPosition - owner.position;
 
+        // We only want the object to rotate around the Y axis, so we zero out the X and Z components
+        directionToTarget.x = 0;
+        directionToTarget.z = 0;
+
+        // Check if the direction is not zero (the target is not directly above or below the object)
+        if (directionToTarget != Vector3.zero)
+        {
+            // Calculate the rotation needed to look at the target only on the Y axis
+            Quaternion targetRotation = Quaternion.LookRotation(directionToTarget);
+
+            // Apply the rotation to the object, preserving its X and Z rotations
+            owner.rotation = Quaternion.Euler(0, targetRotation.eulerAngles.y, 0);
+        }
     }
     public AudioSource changePosSound;
     IEnumerator changePos()
@@ -104,17 +130,17 @@ public class EnemyMG : MonoBehaviour
     }
 
     public void updatePosition(Transform wall)
-    {       
+    {
         if (wall && pinner)
         {
             var anchor = wall.GetComponentInChildren<WallAchor>();
             if (!anchor)
                 return;
 
-            transform.position = anchor.transform.position+(anchor.transform.forward*distFromWall);
+            transform.position = anchor.transform.position + (anchor.transform.forward * distFromWall);
             transform.rotation = anchor.transform.rotation;
-            
-            
+
+
         }
     }
     [Button]
@@ -127,7 +153,7 @@ public class EnemyMG : MonoBehaviour
     }
     public static List<beat> loadDatafromLocation(string fileName)
     {
-        
+
         fileName = "Assets/07.Data/AudioTracks/" + fileName + (fileName.Contains(".txt") ? "" : ".txt");
         Debug.Log("Loading from " + fileName);
         List<beat> loadedBeats = new List<beat>();
@@ -147,11 +173,15 @@ public class EnemyMG : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(audioHolder.isPlaying)
+        if (VCmg.isSongPlaying())
         {
-            if(currentBeatIndex>=0 && currentBeatIndex<beats.Count-3)
+            if(currentBeatIndex<0)
             {
-                if (audioHolder.time >= beats[currentBeatIndex].time)
+                currentBeatIndex = getStartIndex();
+            }
+            if (currentBeatIndex >= 0 && currentBeatIndex < beats.Count - 3)
+            {
+                if ( VCmg.currentTime >= beats[currentBeatIndex].time)
                 {
                     if (lastRoundEnemies.Count >= 4)
                     {
@@ -162,34 +192,46 @@ public class EnemyMG : MonoBehaviour
                     {
                         isPlayerRound = false;
                     }
-                   
-                    Enemy nextEnemy;                    
-                    
+
+                    Enemy nextEnemy;
+
                     if (!isPlayerRound)
                     {
-                        nextEnemy =  getRandomEnemy();
-                        Debug.Log("adding enemy " + nextEnemy.name+ "To mikasa enemies");
-                        lastRoundEnemies.Enqueue(nextEnemy);
-                        if(!IgnoreMikasa)
-                        mRC.updateTarget(nextEnemy.transform);
+                        nextEnemy = getRandomEnemy();
+                        if (nextEnemy == null) return;
                         
+                        lastRoundEnemies.Enqueue(nextEnemy);
+                        if (!IgnoreMikasa)
+                            mRC.updateTarget(nextEnemy.transform);
+
                     }
                     else
                     {
                         if (mRC)
                             mRC.disablePointing();
                         nextEnemy = lastRoundEnemies.Dequeue();
-                        Debug.Log("gettinh enemy " + nextEnemy.name + "from mikasa enemies");
+                        
 
-                       
+
                     }
-                    nextEnemy.beatEnemy((minBeatDuration + beats[currentBeatIndex + 3].time) - beats[currentBeatIndex].time, isPlayerRound || IgnoreMikasa) ;
-                    currentBeatIndex=getNextIndex();
-                    
+                    nextEnemy.beatEnemy((minBeatDuration + beats[currentBeatIndex + 3].time) - beats[currentBeatIndex].time, isPlayerRound || IgnoreMikasa);
+                    currentBeatIndex = getNextIndex();
+
                 }
             }
         }
-        
+
+    }
+    int getStartIndex()
+    {
+        for (int i = 0; i < beats.Count; i++)
+        {
+            if (beats[i].time >= VCmg.currentTime)
+            {
+                return i;
+            }
+        }
+        return -1;
     }
     int getNextIndex()
     {
@@ -203,13 +245,22 @@ public class EnemyMG : MonoBehaviour
 
         return -1;
     }
-
+    int tries = 0;
     public Enemy getRandomEnemy()
     {
         int random = Random.Range(0, enemies.Count);
         if (!enemies[random].isActive)
+        {
+            tries = 0;
             return enemies[random];
-        else
+        }
+        else if (tries < 4)
+        {
+            tries++;
             return getRandomEnemy();
+        }
+        else
+            return null;
+        
     }
 }

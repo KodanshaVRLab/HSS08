@@ -4,38 +4,45 @@ using UnityEngine;
 
 public class Hammer : MonoBehaviour
 {
-    public Transform  shootPos;
+    public Transform shootPos;
     public float maxDistance = 5f;
-    public LayerMask  targetLayerMask;
+    public LayerMask targetLayerMask;
 
-    public Transform target,player;
-    public float playerToTargetDist = 1f;
+
+
     public List<GameObject> Enviroments;
     public bool canUse;
     public float coolOffTime;
-    int currentEnv=0;
+    int currentEnv = 0;
+    public OVRManager ovr;
+    public GameObject moonENV;
     // Start is called before the first frame update
-    IEnumerator Start()
-    {
-        yield return new WaitForSeconds(2f);
-        setup();
-    }
 
-    public void setup()
+    private void OnTriggerEnter(Collider other)
     {
-        target.position = player.position + player.forward * playerToTargetDist;
+        HammerTarget hTarget;
+        if (other.transform.TryGetComponent<HammerTarget>(out hTarget))
+        {
+            hTarget.onHit();
+
+
+        }
     }
+    public void toggleENV()
+    {
+        moonENV.SetActive(ovr && !ovr.isInsightPassthroughEnabled);
+    }
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawLine(shootPos.position,
+            shootPos.position+ shootPos.forward * maxDistance);
+    }
+    
     // Update is called once per frame
     void Update()
     {
-        Ray r = new Ray(shootPos.position, shootPos.forward * maxDistance);
-        RaycastHit hito;
-        if (Physics.Raycast(r, out hito, targetLayerMask))
-        {
-            Debug.Log("Raycast hit " + hito.transform.name);
-            if(canUse)
-            StartCoroutine(ChangeEnv());
-        }
+         
     }
 
 

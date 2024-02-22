@@ -27,7 +27,7 @@ public class RythmHaircross : MonoBehaviour
             if (delta >= timeToChange)
             {
                 onBeat.Invoke();
-                Debug.Log("Beat");
+                
                 currentScaleIndex = (currentScaleIndex + 1);
                 if (currentScaleIndex > steps)
                 {

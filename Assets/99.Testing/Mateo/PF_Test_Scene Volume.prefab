@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4304213594444127292}
   - component: {fileID: 7890558089840160527}
   - component: {fileID: 4523689222518454969}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Virtual Volume
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -63,7 +63,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 182b201c4fef5e249a3dd982db816f12, type: 2}
+  - {fileID: 2100000, guid: eceb69c76b4579a4fa9128ddf92a1e04, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -130,7 +130,7 @@ GameObject:
   - component: {fileID: 1843640785105820421}
   - component: {fileID: 7620903807854507553}
   - component: {fileID: 6156480787395665077}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: PF_Test_Scene Volume
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -193,7 +193,7 @@ GameObject:
   - component: {fileID: 3145564209919826138}
   - component: {fileID: 945821866171319938}
   - component: {fileID: 4950483163727198980}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Passthrough Volume
   m_TagString: Untagged
   m_Icon: {fileID: 0}
