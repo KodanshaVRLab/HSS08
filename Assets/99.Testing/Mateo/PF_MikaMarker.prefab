@@ -208,7 +208,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6868175947841935010}
-  m_Layer: 5
+  m_Layer: 12
   m_Name: Geo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -276,7 +276,7 @@ GameObject:
   - component: {fileID: 618177026491986139}
   - component: {fileID: 8030493466598643724}
   - component: {fileID: 481278936692193986}
-  m_Layer: 5
+  m_Layer: 12
   m_Name: Sphere Point
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -437,7 +437,7 @@ GameObject:
   - component: {fileID: 4821182561407311663}
   - component: {fileID: 1317585512981642773}
   - component: {fileID: 1022281465359379870}
-  m_Layer: 5
+  m_Layer: 12
   m_Name: Sphere Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
