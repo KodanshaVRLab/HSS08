@@ -1,4 +1,5 @@
 using Sirenix.OdinInspector;
+using Sirenix.OdinInspector.Editor.StateUpdaters;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,6 +13,7 @@ namespace KVRL.HSS08.Testing
 
         [SerializeField] GameObject[] templates = new GameObject[] { };
         [SerializeField, ReadOnly] ModelStats[] stats = new ModelStats[] { };
+        private List<Material> uniqueMaterials = new List<Material>();
 
         [SerializeField, ReadOnly] ModelStats _totalStats;
         public ModelStats TotalStats
@@ -103,7 +105,7 @@ namespace KVRL.HSS08.Testing
         public void Clear()
         {
             // Destroy GameObjects
-            for (int i = transform.childCount - 1; i >=0; --i)
+            for (int i = transform.childCount - 1; i >= 0; --i)
             {
                 Transform t = transform.GetChild(i);
                 Destroy(t.gameObject);
@@ -111,6 +113,9 @@ namespace KVRL.HSS08.Testing
 
             // Reset totals
             _totalStats = new ModelStats { name = "TOTALS" };
+
+            // Reset Material list
+            uniqueMaterials = new List<Material>();
 
             //TotalVertexCount = 0;
             //TotalTriCount = 0;
@@ -150,9 +155,11 @@ namespace KVRL.HSS08.Testing
 
             _totalStats.vertCount += s.vertCount;
             _totalStats.triCount += s.triCount;
-            _totalStats.materialCount += s.materialCount;
+            //_totalStats.materialCount += s.materialCount;
             _totalStats.meshRendererCount += s.meshRendererCount;
             _totalStats.skinnedRendererCount += s.skinnedRendererCount;
+
+            _totalStats.MergeMaterials(s.sharedMaterials);
         }
 
         void PrecalculateModelStats(int index)
@@ -160,6 +167,7 @@ namespace KVRL.HSS08.Testing
             int i = SanitizeIndex(index);
             GameObject model = templates[i];
             ModelStats s = new ModelStats();
+            s.sharedMaterials = new List<Material>();
 
             if (model == null)
             {
@@ -177,7 +185,7 @@ namespace KVRL.HSS08.Testing
         {
             var mf = root.GetComponentsInChildren<MeshFilter>();
             var mr = root.GetComponentsInChildren<MeshRenderer>();
-            List<Material> materials = new List<Material>();
+            //List<Material> materials = new List<Material>();
 
             for (int i = 0; i < mf.Length; ++i)
             {
@@ -186,21 +194,21 @@ namespace KVRL.HSS08.Testing
 
                 foreach (Material m in mr[i].sharedMaterials)
                 {
-                    if (!materials.Contains(m))
+                    if (!stats.sharedMaterials.Contains(m))
                     {
-                        materials.Add(m);
+                        stats.sharedMaterials.Add(m);
                     }
                 }
             }
 
-            stats.materialCount += materials.Count;
+            //stats.materialCount += materials.Count;
             stats.meshRendererCount += mr.Length;
         }
 
         void AddSkinnedMeshStats(GameObject root, ref ModelStats stats)
         {
             var sr = root.GetComponentsInChildren<SkinnedMeshRenderer>();
-            List<Material> materials = new List<Material>();
+            //List<Material> materials = new List<Material>();
 
             for (int i = 0; i < sr.Length; ++i)
             {
@@ -209,14 +217,14 @@ namespace KVRL.HSS08.Testing
 
                 foreach (Material m in sr[i].sharedMaterials)
                 {
-                    if (!materials.Contains(m))
+                    if (!stats.sharedMaterials.Contains(m))
                     {
-                        materials.Add(m);
+                        stats.sharedMaterials.Add(m);
                     }
                 }
             }
 
-            stats.materialCount += materials.Count;
+            //stats.materialCount += materials.Count;
             stats.skinnedRendererCount += sr.Length;
         }
 
@@ -253,13 +261,33 @@ namespace KVRL.HSS08.Testing
         public string name;
         public int vertCount;
         public int triCount;
-        public int materialCount;
         public int meshRendererCount;
         public int skinnedRendererCount;
+        public List<Material> sharedMaterials;
+        public int MaterialCount => sharedMaterials != null ? sharedMaterials.Count : 0;
+
+        public void MergeMaterials(List<Material> materials)
+        {
+            if (sharedMaterials != null)
+            {
+                foreach (Material m in materials)
+                {
+                    if (!sharedMaterials.Contains(m))
+                    {
+                        sharedMaterials.Add(m);
+                    }
+                }
+            }
+            else
+            {
+                sharedMaterials = new List<Material>();
+                sharedMaterials.AddRange(materials);
+            }
+        }
 
         public override string ToString()
         {
-            return $"Model Name: {name}\nVertices: {vertCount}\nTriangles: {triCount}\nMaterials: {materialCount}\nMesh Renderers: {meshRendererCount}\nSKinned Mesh renderers: {skinnedRendererCount}";
+            return $"Model Name: {name}\nVertices: {vertCount}\nTriangles: {triCount}\nMaterials: {MaterialCount}\nMesh Renderers: {meshRendererCount}\nSKinned Mesh renderers: {skinnedRendererCount}";
         }
     }
 }
