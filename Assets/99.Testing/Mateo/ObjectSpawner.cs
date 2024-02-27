@@ -1,5 +1,4 @@
 using Sirenix.OdinInspector;
- 
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -166,6 +165,7 @@ namespace KVRL.HSS08.Testing
             int i = SanitizeIndex(index);
             GameObject model = templates[i];
             ModelStats s = new ModelStats();
+            LODStats l = new LODStats(0);
             s.sharedMaterials = new List<Material>();
 
             if (model == null)
@@ -174,13 +174,14 @@ namespace KVRL.HSS08.Testing
             }
 
             s.name = model.name;
-            AddStaticMeshStats(model, ref s);
-            AddSkinnedMeshStats(model, ref s);
+            AddStaticMeshStats(model, ref s, ref l);
+            AddSkinnedMeshStats(model, ref s, ref l);
+            //Debug.LogWarning(l);
 
             stats[i] = s;
         }
 
-        void AddStaticMeshStats(GameObject root, ref ModelStats stats)
+        void AddStaticMeshStats(GameObject root, ref ModelStats stats, ref LODStats lods)
         {
             var mf = root.GetComponentsInChildren<MeshFilter>();
             var mr = root.GetComponentsInChildren<MeshRenderer>();
@@ -198,13 +199,15 @@ namespace KVRL.HSS08.Testing
                         stats.sharedMaterials.Add(m);
                     }
                 }
+
+                //lods.AnalyzeMesh(mf[i].sharedMesh); // TODO: Change to on-demand function to avoid editor freezes
             }
 
             //stats.materialCount += materials.Count;
             stats.meshRendererCount += mr.Length;
         }
 
-        void AddSkinnedMeshStats(GameObject root, ref ModelStats stats)
+        void AddSkinnedMeshStats(GameObject root, ref ModelStats stats, ref LODStats lods)
         {
             var sr = root.GetComponentsInChildren<SkinnedMeshRenderer>();
             //List<Material> materials = new List<Material>();
@@ -221,6 +224,8 @@ namespace KVRL.HSS08.Testing
                         stats.sharedMaterials.Add(m);
                     }
                 }
+
+                //lods.AnalyzeMesh(sr[i].sharedMesh);
             }
 
             //stats.materialCount += materials.Count;
@@ -287,6 +292,69 @@ namespace KVRL.HSS08.Testing
         public override string ToString()
         {
             return $"Model Name: {name}\nVertices: {vertCount}\nTriangles: {triCount}\nMaterials: {MaterialCount}\nMesh Renderers: {meshRendererCount}\nSKinned Mesh renderers: {skinnedRendererCount}";
+        }
+    }
+
+    [System.Serializable]
+    public struct LODStats
+    {
+        public int LODCount;
+        public float minTriSize;
+        public float maxTriSize;
+        public float meanTriSize;
+
+        public LODStats(int lods)
+        {
+            LODCount = lods;
+            minTriSize = float.MaxValue;
+            maxTriSize = 0.0f;
+            meanTriSize = 0.0f;
+        }
+
+        public void AnalyzeMesh(Mesh mesh)
+        {
+            if (mesh == null || Application.isPlaying)
+            {
+                return;
+            }
+
+            for (int i = 0; i < mesh.triangles.Length; i += 3)
+            {
+                Vector3 A = mesh.vertices[mesh.triangles[i    ]];
+                Vector3 B = mesh.vertices[mesh.triangles[i + 1]];
+                Vector3 C = mesh.vertices[mesh.triangles[i + 2]];
+
+                CompareTri(A, B, C);
+            }
+        }
+
+        public override string ToString()
+        {
+            return $"LODs:{LODCount}\nSmallest:{minTriSize}\nLargest:{maxTriSize}";
+        }
+
+        float Height(Vector3 v0, Vector3 v1, Vector3 v2)
+        {
+            Vector3 u0 = v0 - v1;
+            Vector3 u1 = v2 - v1;
+
+            Vector3 b = u0 * (Vector3.Dot(u0, u1) / u0.sqrMagnitude);
+            Vector3 h = u1 - b;
+
+            return h.magnitude;
+        }
+
+        void CompareTri(Vector3 v0, Vector3 v1, Vector3 v2)
+        {
+            float h0 = Height(v0, v1, v2);
+            float h1 = Height(v1, v2, v0);
+            float h2 = Height(v2, v0, v1);
+
+            float triMin = Mathf.Min(h0, h1, h2);
+            float triMax = Mathf.Max(h0, h1, h2);
+
+            minTriSize = Mathf.Min(minTriSize, triMin);
+            maxTriSize = Mathf.Max(maxTriSize, triMax);
         }
     }
 }
