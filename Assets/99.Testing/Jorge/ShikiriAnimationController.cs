@@ -1,3 +1,4 @@
+using Sirenix.OdinInspector;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -26,6 +27,9 @@ public class ShikiriAnimationController : MonoBehaviour
     public bool adjustPosition;
     public Transform debugSphere;
     LineRenderer lr;
+
+    public Transform target;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -40,15 +44,82 @@ public class ShikiriAnimationController : MonoBehaviour
         Gizmos.DrawSphere(rayPoint.position, 0.25f);
         Gizmos.color = wallIsDetected ? new Color(1, 0, 0, 0.24f): new Color(0, 1, 0, 0.24f);
         Gizmos.DrawLine(rayPoint.position, rayPoint.position + rayPoint.forward * maxRayDist);
+
+        Gizmos.DrawCube(startClimbingTarget, 0.25f * Vector3.one);
         if (wallIsDetected)
         {
             Gizmos.DrawSphere(hitPoint, 0.25f);
         }
 
     }
+    bool isTesting;
+    public float offest;
+    public Vector3 startClimbingTarget;
+    public float rotationSpeedX ,movementSpeedX;
+    public float angleThreshold,distanceThreshold;
+    public bool isclimbing;
+    public float animationBlendSpeed = 1f;
+    private void OnEnable()
+    {
+        
+    }
+    [Button]
+    public void test()
+    {
+        if (!isTesting)
+        {
+            isTesting = true;
+            startClimbingTarget = target.position -target.forward* offest;
+            startClimbingTarget.y = transform.position.y;
+            anim.SetBool("isDancing", true);
+            walkBlend = 0f;
+        }
+
+        if (target)
+        {
+
+            Vector3 lookPos = target.position - transform.position;
+            lookPos.y = 0; // This removes the vertical difference between the objects
+            Quaternion targetRotation = Quaternion.LookRotation(lookPos);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * rotationSpeedX);
+            var currentAngle = Quaternion.Angle(transform.rotation, targetRotation);
+           
+            
+            if (angleThreshold > currentAngle)
+            {
+                walkBlend += Time.deltaTime * animationBlendSpeed;
+               
+                anim.SetLayerWeight(1, walkBlend);
+                anim.SetBool("isWalking", true);
+                
+                
+                var nextpos = Vector3.Slerp(transform.position, startClimbingTarget, Time.deltaTime * movementSpeedX);
+                nextpos.y = transform.position.y;
+                transform.position = nextpos;
+                var currentDist = Vector3.Distance(transform.position, startClimbingTarget);
+                Debug.Log(currentDist);
+                if (currentDist < distanceThreshold)
+                {
+                    isTesting = false;
+                    isclimbing = true;
+                }
+
+            }
+        }
+        
+    }
+
     // Update is called once per frame
     void Update()
     {
+        if (isTesting)
+        {
+            test();
+            return;
+        }
+
+        else if (!isclimbing) return;
+       
         if(lr && debugSphere)
         {
             lr.SetPosition(0, rayPoint.position);
