@@ -18,7 +18,7 @@ namespace KVRL.HSS08.Testing
 
         private void OnValidate()
         {
-            if (interactor != null)
+            if (interactor == null)
             {
                 TryGetComponent(out interactor);
             }
@@ -29,6 +29,7 @@ namespace KVRL.HSS08.Testing
             if (interactor != null)
             {
                 var hit = interactor.CollisionInfo;
+                Debug.LogWarning("fucking stupid");
 
                 if (hit.HasValue)
                 {
@@ -42,14 +43,16 @@ namespace KVRL.HSS08.Testing
                     return CheckClearance(center);//Physics.OverlapSphereNonAlloc(center, clearanceRadius, overlaps) == 0;
                 }
             }
-
-            return true;
+            Debug.LogWarning($"peepee {gameObject.name}");
+            return false;
         }
 
         bool CheckClearance(Vector3 center)
         {
+            //Debug.LogWarning($"Clearance Check Happening at {center}");
             // lmfao non-alloc version LITERALLY does not work
             overlaps = Physics.OverlapSphere(center, clearanceRadius, layerMask, QueryTriggerInteraction.Ignore);
+            Debug.LogWarning("poopoo");
 
             return overlaps == null || overlaps.Length == 0;
         }

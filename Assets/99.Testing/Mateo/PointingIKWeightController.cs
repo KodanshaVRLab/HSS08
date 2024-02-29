@@ -1,4 +1,5 @@
 using AmplifyShaderEditor;
+using Oculus.Interaction;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,8 +9,11 @@ namespace KVRL.HSS08.Testing
 {
     public class PointingIKWeightController : MonoBehaviour
     {
+        [SerializeField] Rig rig;
+        [SerializeField] Rig[] additionalRigs;
         [SerializeField] Transform characterReference;
         [SerializeField] Transform targetReference;
+        public AnimationCurve forwardFalloffCurve = AnimationCurve.Linear(0f, 0f, 0.5f, 1f);
 
         [SerializeField] MultiAimConstraint[] constraints;
         public Vector2 distanceBlendRange = new Vector2(1f, 3f);
@@ -22,8 +26,16 @@ namespace KVRL.HSS08.Testing
 
         [SerializeField] bool keepGizmosAlways = false;
 
-        bool IsValid => characterReference != null && targetReference != null && handReference != null;
+        bool IsValid => rig != null && characterReference != null && targetReference != null && handReference != null;
 
+
+        private void OnValidate()
+        {
+            if (rig == null)
+            {
+                TryGetComponent(out rig);
+            }
+        }
         // Start is called before the first frame update
         void Start()
         {
@@ -36,7 +48,18 @@ namespace KVRL.HSS08.Testing
 
             if (IsValid && constraints != null)
             {
-                float w = GetWeight(GetDistanceToTarget(characterReference));
+                float rw = GetRigWeight(targetReference.position);
+                rig.weight = rw;
+
+                if (additionalRigs != null)
+                {
+                    foreach (var r in additionalRigs)
+                    {
+                        r.weight = rw;
+                    }
+                }
+
+                float w = GetTorsoTwistWeight(GetDistanceToTarget(characterReference));
 
                 foreach (var c in constraints)
                 {
@@ -50,7 +73,17 @@ namespace KVRL.HSS08.Testing
             }
         }
 
-        float GetWeight(float d)
+        float GetRigWeight(Vector3 point)
+        {
+            Vector3 fwd = characterReference.forward;
+            Vector3 dir = (point - characterReference.position).normalized;
+
+            float t = Vector3.Dot(fwd, dir);
+
+            return forwardFalloffCurve.Evaluate(t);
+        }
+
+        float GetTorsoTwistWeight(float d)
         {
             return Mathf.Lerp(
                     weightMinMaxrange.x,
@@ -100,16 +133,24 @@ namespace KVRL.HSS08.Testing
         {
             if (IsValid)
             {
-                Gizmos.color = Color.yellow;
+                float a = GetRigWeight(targetReference.position);
+
+                Color chara = Color.yellow;
+                chara.a = a;
+                Gizmos.color = chara;
                 Gizmos.DrawSphere(characterReference.position, 0.05f);
 
-                Gizmos.color = Color.black;
+                Color rangeMin = Color.black;
+                rangeMin.a = a;
+                Gizmos.color = rangeMin;
                 Gizmos.DrawWireSphere(characterReference.position, distanceBlendRange.x);
 
-                Gizmos.color = Color.white;
+                Color rangeMax = Color.white;
+                rangeMax.a = a;
+                Gizmos.color = rangeMax;
                 Gizmos.DrawWireSphere(characterReference.position, distanceBlendRange.y);
 
-                Gizmos.color = Color.Lerp(Color.black, Color.white, Mathf.InverseLerp(distanceBlendRange.x, distanceBlendRange.y, GetDistanceToTarget(characterReference)));
+                Gizmos.color = Color.Lerp(rangeMin, rangeMax, Mathf.InverseLerp(distanceBlendRange.x, distanceBlendRange.y, GetDistanceToTarget(characterReference)));
                 Gizmos.DrawSphere(targetReference.position, 0.1f);
             }
         }
