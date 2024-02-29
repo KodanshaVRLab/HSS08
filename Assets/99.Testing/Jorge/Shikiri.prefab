@@ -150,7 +150,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: dd42f4b07a5ea064392be1ab013b8e40, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.008
+      value: 0.69
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: dd42f4b07a5ea064392be1ab013b8e40, type: 3}
       propertyPath: m_LocalPosition.z
@@ -158,7 +158,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: dd42f4b07a5ea064392be1ab013b8e40, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.85527384
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: dd42f4b07a5ea064392be1ab013b8e40, type: 3}
       propertyPath: m_LocalRotation.x
@@ -166,7 +166,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: dd42f4b07a5ea064392be1ab013b8e40, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: 0.5181764
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: dd42f4b07a5ea064392be1ab013b8e40, type: 3}
       propertyPath: m_LocalRotation.z
@@ -178,7 +178,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: dd42f4b07a5ea064392be1ab013b8e40, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
+      value: 62.42
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: dd42f4b07a5ea064392be1ab013b8e40, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
@@ -265,7 +265,7 @@ MonoBehaviour:
   speed: 0.01
   isDancing: 0
   isWalking: 1
-  maxRayDist: 0.25
+  maxRayDist: 0.755
   lm:
     serializedVersion: 2
     m_Bits: 128
@@ -277,6 +277,15 @@ MonoBehaviour:
   rayPoint: {fileID: 2140603401167394186}
   adjustPosition: 1
   debugSphere: {fileID: 8315891791955119723}
+  target: {fileID: 0}
+  offest: 1
+  startClimbingTarget: {x: 0, y: 0, z: 0}
+  rotationSpeedX: 0.75
+  movementSpeedX: 0.15
+  angleThreshold: 14
+  distanceThreshold: 0.65
+  isclimbing: 0
+  animationBlendSpeed: 1
 --- !u!96 &7743980805598954135
 TrailRenderer:
   serializedVersion: 3

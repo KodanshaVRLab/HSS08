@@ -208,6 +208,61 @@ namespace KVRL.HSS08.Testing
             return result;
         }
 
+       
+       public Vector3 CheckCollisionAndGetHitPoint(Vector3 startPos, Transform targetTransform, float raycastDistance = 10f)
+       {
+            RaycastHit hit;
+
+            // Raycast Up
+            if (Physics.Raycast(startPos, transform.up, out hit, raycastDistance))
+            {
+                if (hit.transform == targetTransform)
+                {
+                    return hit.point;
+                }
+            }
+
+            // Raycast Down (-Up)
+            if (Physics.Raycast(startPos, -transform.up, out hit, raycastDistance))
+            {
+                if (hit.transform == targetTransform)
+                {
+                    return hit.point;
+                }
+            }
+
+            // Raycast Right
+            if (Physics.Raycast(startPos, transform.right, out hit, raycastDistance))
+            {
+                if (hit.transform == targetTransform)
+                {
+                    return hit.point;
+                }
+            }
+
+            // Raycast Left (-Right)
+            if (Physics.Raycast(startPos, -transform.right, out hit, raycastDistance))
+            {
+                if (hit.transform == targetTransform)
+                {
+                    return hit.point;
+                }
+            }
+
+            // If no collision found, return null
+            return Vector3.zero;
+        }
+        
+        public Vector3 getSnapPoint()
+        {
+            RaycastHit hit;
+            if (Physics.Raycast(transform.position, transform.forward, out hit, 3f, layerMask))
+            {
+              return hit.point;
+            }
+            return transform.position;
+        }
+
         IEnumerator DelayedSnap(Vector3 point, Vector3 normal, int delay)
         {
             for (int i = 0; i < delay; i++)

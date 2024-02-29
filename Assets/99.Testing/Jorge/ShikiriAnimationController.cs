@@ -1,6 +1,8 @@
+using KVRL.HSS08.Testing;
 using Sirenix.OdinInspector;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class ShikiriAnimationController : MonoBehaviour
@@ -29,6 +31,8 @@ public class ShikiriAnimationController : MonoBehaviour
     LineRenderer lr;
 
     public Transform target;
+
+    int currentMarkerIndex = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -59,42 +63,74 @@ public class ShikiriAnimationController : MonoBehaviour
     public float angleThreshold,distanceThreshold;
     public bool isclimbing;
     public float animationBlendSpeed = 1f;
+
+    public bool isinCorrectWall;
+
+    public List<MarkerSnapToSurface> markers;
+    MarkerSnapToSurface currentMarker;
+
+
+    public LayerMask wallsLayer;
+
+    public Transform currentWall;
+
+    [Button]
+    public Transform getcurrentWall()
+    {
+        RaycastHit hit;
+        if (Physics.Raycast(transform.position+transform.up*0.5f, -transform.up, out hit, 3f, wallsLayer))
+        {
+            return hit.transform;
+        }
+        return null;
+    }
     private void OnEnable()
     {
-        
+        var sceneMarkers = FindObjectsOfType<MarkerSnapToSurface>();
+        markers = sceneMarkers.OrderBy(obj => Vector3.Distance(obj.transform.position, transform.position)).ToList();
+        if (currentMarkerIndex < markers.Count)
+            currentMarker = markers[currentMarkerIndex];
     }
     [Button]
-    public void test()
+    public void GoToStartPosition()
     {
+        Debug.Log("Going to start point");
         if (!isTesting)
-        {
-            isTesting = true;
-            startClimbingTarget = target.position -target.forward* offest;
-            startClimbingTarget.y = transform.position.y;
-            anim.SetBool("isDancing", true);
-            walkBlend = 0f;
+        {          
+            if (currentMarker)
+            {
+                target = currentMarker.transform;
+                isTesting = true;
+                startClimbingTarget =  currentMarker.CheckCollisionAndGetHitPoint(target.position - target.forward * offest,getcurrentWall(),100);
+
+               
+                anim.SetBool("isDancing", true);
+                walkBlend = 0f;
+            }
         }
 
         if (target)
         {
-
             Vector3 lookPos = target.position - transform.position;
-            lookPos.y = 0; // This removes the vertical difference between the objects
-            Quaternion targetRotation = Quaternion.LookRotation(lookPos);
+            if (transform.up == Vector3.up )
+                lookPos.y = 0; // This removes the vertical difference between the objects
+            else
+             lookPos.z = 0;
+            Quaternion targetRotation = Quaternion.LookRotation(lookPos,transform.up);
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * rotationSpeedX);
             var currentAngle = Quaternion.Angle(transform.rotation, targetRotation);
            
             
             if (angleThreshold > currentAngle)
             {
-                walkBlend += Time.deltaTime * animationBlendSpeed;
+                walkBlend = Mathf.Clamp01(walkBlend+ Time.deltaTime * animationBlendSpeed);
                
                 anim.SetLayerWeight(1, walkBlend);
                 anim.SetBool("isWalking", true);
                 
                 
                 var nextpos = Vector3.Slerp(transform.position, startClimbingTarget, Time.deltaTime * movementSpeedX);
-                nextpos.y = transform.position.y;
+              
                 transform.position = nextpos;
                 var currentDist = Vector3.Distance(transform.position, startClimbingTarget);
                 Debug.Log(currentDist);
@@ -108,24 +144,65 @@ public class ShikiriAnimationController : MonoBehaviour
         }
         
     }
+    public void goToTargetPoint()
+    {
+        Debug.Log("Going to start Marker");
+        var targetPos = markers.Count > 0 ? currentMarker.getSnapPoint() : target.position;
+        
+        var nextpos = Vector3.Slerp(transform.position, targetPos, Time.deltaTime * movementSpeedX);
+        
+        transform.position = nextpos;
+        var currentDist = Vector3.Distance(transform.position, currentMarker.getSnapPoint());
+        Debug.Log(currentDist);
+        if (currentDist < distanceThreshold/2f)
+        {
+            walkBlend = 0f;
+            anim.SetLayerWeight(1, walkBlend);
+            anim.SetBool("isWalking", false);
+            StartCoroutine(waitAndDance());
+            isinCorrectWall = false;
+        }
+    }
+    public IEnumerator waitAndDance()
+    {
+        anim.SetBool("isDancing", true);
+        yield return new WaitForSeconds(5f);
+        currentMarkerIndex++;
+        if (currentMarkerIndex < markers.Count)
+            currentMarker = markers[currentMarkerIndex];
+        GoToStartPosition();
+
+    }
 
     // Update is called once per frame
     void Update()
     {
+        currentWall= getcurrentWall();
         if (isTesting)
         {
-            test();
+            GoToStartPosition();
             return;
         }
+        else if (isinCorrectWall)
+        {
+            goToTargetPoint();
+        }
+        else if (isclimbing)
+        {
+            tryClimbWall();
+        }
+        
+    }
 
-        else if (!isclimbing) return;
-       
-        if(lr && debugSphere)
+    private void tryClimbWall()
+    {
+        Debug.Log("Climbing Wall");
+        if (lr && debugSphere)
         {
             lr.SetPosition(0, rayPoint.position);
             lr.SetPosition(1, debugSphere.position);
         }
-        if(anim)
+        if (anim)
         {
             anim.SetBool("isDancing", isDancing);
             anim.SetBool("isWalking", isWalking);
@@ -136,25 +213,25 @@ public class ShikiriAnimationController : MonoBehaviour
         }
         Ray r = new Ray(rayPoint.position, rayPoint.forward);
         RaycastHit hito;
-        
-        if(!wallIsDetected && Physics.Raycast(r,out hito,maxRayDist,lm))
+
+        if (!wallIsDetected && Physics.Raycast(r, out hito, maxRayDist, lm))
         {
-            
+
             wallIsDetected = true;
             hitPoint = hito.point;
             startpos = transform.position;
             debugSphere.position = hitPoint;
-            Vector3 forward = transform.up - hito.normal* Vector3.Dot(transform.up, hito.normal);
-            targetRotation= Quaternion.LookRotation(forward, hito.normal);
+            Vector3 forward = transform.up - hito.normal * Vector3.Dot(transform.up, hito.normal);
+            targetRotation = Quaternion.LookRotation(forward, hito.normal);
             startRotation = transform.rotation;
-             
+
         }
-        else if(wallIsDetected)
+        else if (wallIsDetected)
         {
-            speed = maxSpeed/speedMultiplier;
+            speed = maxSpeed / speedMultiplier;
             transform.rotation = Quaternion.Slerp(startRotation, targetRotation, roationDelta);
-          
-            roationDelta += Time.deltaTime*rotationSpeed;
+
+            roationDelta += Time.deltaTime * rotationSpeed;
             if (adjustPosition)
             {
 
@@ -165,22 +242,25 @@ public class ShikiriAnimationController : MonoBehaviour
                     adjustPosition = false;
 
             }
-            if (roationDelta>1)
+            if (roationDelta > 1)
             {
-                
+
                 positionDelta = 0;
-                
+
                 hitPoint.x = startpos.x;
                 hitPoint.z = startpos.z;
-                
+
                 roationDelta = 0;
                 wallIsDetected = false;
-                speed =maxSpeed;
+                speed = maxSpeed;
+
+                isclimbing = false;
+                isinCorrectWall = true;
             }
 
         }
-        
+
         else
-            debugSphere.position = rayPoint.position+rayPoint.forward*maxRayDist;
+            debugSphere.position = rayPoint.position + rayPoint.forward * maxRayDist;
     }
 }
