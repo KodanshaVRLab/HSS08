@@ -12,7 +12,7 @@ public class ShikiriAnimationController : MonoBehaviour
     public float speedMultiplier = 0.5f;
     [Range(0f, 1f)]
     public float walkBlend;
-    public float speed=0.1f;
+    public float speed = 0.1f;
     public bool isDancing, isWalking;
     public float maxRayDist = 1000;
     public LayerMask lm;
@@ -25,7 +25,7 @@ public class ShikiriAnimationController : MonoBehaviour
     public float positionDelta = 0f;
     public Transform rayPoint;
     Quaternion startRotation;
-    Vector3 hitPoint,startpos, hitPointOffset;
+    Vector3 hitPoint, startpos, hitPointOffset;
     public bool adjustPosition;
     public Transform debugSphere;
     LineRenderer lr;
@@ -46,7 +46,7 @@ public class ShikiriAnimationController : MonoBehaviour
     {
         Gizmos.color = new Color(1, 0, 0, 0.24f);
         Gizmos.DrawSphere(rayPoint.position, 0.25f);
-        Gizmos.color = wallIsDetected ? new Color(1, 0, 0, 0.24f): new Color(0, 1, 0, 0.24f);
+        Gizmos.color = wallIsDetected ? new Color(1, 0, 0, 0.24f) : new Color(0, 1, 0, 0.24f);
         Gizmos.DrawLine(rayPoint.position, rayPoint.position + rayPoint.forward * maxRayDist);
 
         Gizmos.DrawCube(startClimbingTarget, 0.25f * Vector3.one);
@@ -59,8 +59,8 @@ public class ShikiriAnimationController : MonoBehaviour
     bool isTesting;
     public float offest;
     public Vector3 startClimbingTarget;
-    public float rotationSpeedX ,movementSpeedX;
-    public float angleThreshold,distanceThreshold;
+    public float rotationSpeedX, movementSpeedX;
+    public float angleThreshold, distanceThreshold;
     public bool isclimbing;
     public float animationBlendSpeed = 1f;
 
@@ -74,6 +74,29 @@ public class ShikiriAnimationController : MonoBehaviour
 
     public Transform currentWall;
 
+    public float getCurrentFeetPosition()
+    {       
+            RaycastHit hit;
+            if (Physics.Raycast(transform.position + transform.up * 0.5f, -transform.up, out hit, 3f, wallsLayer))
+            {
+                return hit.point.y;
+            }
+
+        return transform.position.y;
+            
+        
+    }
+
+    public Vector3 getCurrentSurfaceNormal()
+    {
+        RaycastHit hit;
+        if (Physics.Raycast(transform.position + transform.up * 0.5f, -transform.up, out hit, 3f, wallsLayer))
+        {
+            Debug.Log("current normal " + hit.normal);
+            return hit.normal;
+        }
+        return transform.up;
+    }
     [Button]
     public Transform getcurrentWall()
     {
@@ -116,7 +139,7 @@ public class ShikiriAnimationController : MonoBehaviour
                 lookPos.y = 0; // This removes the vertical difference between the objects
             else
              lookPos.z = 0;
-            Quaternion targetRotation = Quaternion.LookRotation(lookPos,transform.up);
+            Quaternion targetRotation = Quaternion.LookRotation(lookPos,getCurrentSurfaceNormal());
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * rotationSpeedX);
             var currentAngle = Quaternion.Angle(transform.rotation, targetRotation);
            
@@ -130,8 +153,13 @@ public class ShikiriAnimationController : MonoBehaviour
                 
                 
                 var nextpos = Vector3.Slerp(transform.position, startClimbingTarget, Time.deltaTime * movementSpeedX);
-              
+               
                 transform.position = nextpos;
+                var c = transform.localPosition;
+                c.y = getCurrentFeetPosition();
+
+                transform.localPosition = c;
+                
                 var currentDist = Vector3.Distance(transform.position, startClimbingTarget);
                 Debug.Log(currentDist);
                 if (currentDist < distanceThreshold)
