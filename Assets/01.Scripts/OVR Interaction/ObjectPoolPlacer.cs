@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
+using UnityEngine.Events;
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -28,6 +29,8 @@ namespace KVRL.HSS08.Testing
             OneAtATime
         }
         [SerializeField] PoolMode mode = PoolMode.AutoRecycle;
+
+        public PositioningEvent onPositionObject = new PositioningEvent();
 
 
         private int poolIndex = 0;
@@ -124,6 +127,11 @@ namespace KVRL.HSS08.Testing
             Quaternion rot = Quaternion.AngleAxis(angle, t.forward);
             t.rotation = rot * t.rotation;
             t.localScale = Vector3.one * size;
+
+            if (onPositionObject != null)
+            {
+                onPositionObject.Invoke((pos, norm));
+            }
         }
 
         // Start is called before the first frame update
@@ -161,6 +169,17 @@ namespace KVRL.HSS08.Testing
                 
                 g.name = $"Pool Instance [{templatePrefab.name}]";
                 g.SetActive(false);
+
+                Repositionable r;
+                if (!g.TryGetComponent(out r))
+                {
+                    r = g.GetComponentInChildren<Repositionable>();
+                }
+
+                if (r != null)
+                {
+                    onPositionObject.AddListener(r.Reposition);
+                }
 
                 PopulatePoolAdditional(g);
 
@@ -222,5 +241,16 @@ namespace KVRL.HSS08.Testing
         }
 
         #endregion
+    }
+
+    [SerializeField]
+    public class PositioningEvent : UnityEvent<(Vector3, Vector3)>
+    {
+
+    }
+
+    public abstract class Repositionable : MonoBehaviour
+    {
+        public abstract void Reposition((Vector3, Vector3) posNorm);
     }
 }

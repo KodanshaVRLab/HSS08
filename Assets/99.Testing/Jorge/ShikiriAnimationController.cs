@@ -175,12 +175,12 @@ public class ShikiriAnimationController : MonoBehaviour
     public void goToTargetPoint()
     {
         Debug.Log("Going to start Marker");
-        var targetPos = markers.Count > 0 ? currentMarker.getSnapPoint() : target.position;
+        var targetPos = markers.Count > 0 ? currentMarker.GetSnapPoint() : target.position;
         
         var nextpos = Vector3.Slerp(transform.position, targetPos, Time.deltaTime * movementSpeedX);
         
         transform.position = nextpos;
-        var currentDist = Vector3.Distance(transform.position, currentMarker.getSnapPoint());
+        var currentDist = Vector3.Distance(transform.position, currentMarker.GetSnapPoint());
         Debug.Log(currentDist);
         if (currentDist < distanceThreshold/2f)
         {
