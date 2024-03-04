@@ -1,9 +1,12 @@
+using Microsoft.SqlServer.Server;
 using Oculus.Interaction;
 using Oculus.Interaction.HandGrab;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UIElements;
+using UnityEngine.XR.Interaction.Toolkit.AffordanceSystem.Receiver.Primitives;
 
 namespace KVRL.HSS08.Testing
 {
@@ -32,7 +35,8 @@ namespace KVRL.HSS08.Testing
         private bool snapping = false;
         private Vector3 snapPoint = Vector3.zero;
         private Vector3 snapNormal = Vector3.zero;
-        private Collider[] snapColliders;
+
+        private List<Plane> collisionPlanes = new List<Plane>();
 
         /// <summary>
         /// Returns the last surface point the marker snapped to. Note that this is NOT the marker's own position.
@@ -168,14 +172,14 @@ namespace KVRL.HSS08.Testing
 
         public void InteractionStarted()
         {
-            Debug.LogWarning("SNAPPLE");
+            //Debug.LogWarning("SNAPPLE");
             CacheSurfaceMarkerTransform();
             snapping = true;
         }
 
         public void InteractionEnded()
         {
-            Debug.LogWarning($"SNAPPN'T : {snapPoint}");
+            //Debug.LogWarning($"SNAPPN'T : {snapPoint}");
             //SnapToPoint(snapPoint);
             StartCoroutine(DelayedSnap(snapPoint, snapNormal, 2));
             RestoreSurfaceMarkerTransform();
@@ -219,7 +223,8 @@ namespace KVRL.HSS08.Testing
             if (args.NewState == InteractableState.Select)
             {
                 InteractionStarted();
-            } else if (args.PreviousState == InteractableState.Select)
+            }
+            else if (args.PreviousState == InteractableState.Select)
             {
                 InteractionEnded();
             }
@@ -239,40 +244,6 @@ namespace KVRL.HSS08.Testing
         {
             (Vector3, Vector3) result = (lastPoint, lastNormal);
 
-            // This trash refuses to work
-            //int hits = Physics.OverlapSphereNonAlloc(transform.position, 15f, snapColliders);//, layerMask, QueryTriggerInteraction.Ignore);
-            //Debug.LogWarning(hits);
-
-            //// Check for nearby walls
-            //if (hits > 0)
-            //{
-            //    Vector3 closest = Vector3.zero;
-            //    Vector3 reference = transform.position;
-            //    float distance = float.MaxValue;
-            //    for (int i = 0; i < snapColliders.Length; i++)
-            //    {
-            //        Collider test = snapColliders[i];
-            //        Vector3 testPos = test.transform.position;
-            //        Quaternion testRot = test.transform.rotation;
-
-            //        Vector3 candidate = Physics.ClosestPoint(reference, snapColliders[0], testPos, testRot);
-            //        float d = Vector3.Distance(candidate, reference);
-                    
-            //        if (d < distance)
-            //        {
-            //            closest = candidate;
-            //            distance = d;
-            //        }
-            //    }
-
-            //    if (distance < float.MaxValue)
-            //    {
-            //        result = closest;
-            //    }
-
-            //    Debug.LogWarning(distance);
-            //}
-
             // check but using Raycasts cause those should actually not be broken unity code
             RaycastHit hit;
             if (Physics.Raycast(transform.position, transform.forward, out hit, 3f, layerMask))
@@ -283,7 +254,7 @@ namespace KVRL.HSS08.Testing
                         result.Item1 = hit.point;
                         result.Item2 = hit.normal;
                         break;
-                        case SnapMode.RaycastClosest: 
+                    case SnapMode.RaycastClosest:
                         result.Item1 = Physics.ClosestPoint(transform.position,
                             hit.collider,
                             hit.transform.position,
@@ -322,124 +293,183 @@ namespace KVRL.HSS08.Testing
             SnapToPoint(p, n);
         }
 
+        List<Plane> FilterOverlaps(Collider[] raw, Vector3 pos, Vector3 norm, List<Plane> filtered)
+        {
+            filtered.Clear();
+
+            foreach (Plane p in OverlapPlanes(pos, norm, raw))
+            {
+                filtered.Add(p); // Should only add planes that match a non-Mesh Collider, and not be the snap surface itself
+            }
+
+            return filtered;
+        }
+
         bool ApplyMargins(ref Vector3 position, Vector3 normal)
         {
             var overlaps = Physics.OverlapSphere(position, collisionMargin, collisionLayerMask);
 
-            if (overlaps != null)
+            // Prefilter initial collision planes to weed out the surface plane and any incompatible colliders
+            FilterOverlaps(overlaps, position, normal, collisionPlanes);
+
+            if (collisionPlanes != null)
             {
                 Vector3 delta = Vector3.zero;
                 Vector3 corrected = position;
 
-                int order = Mathf.Clamp(overlaps.Length, 0, 4);
+                int order = Mathf.Clamp(collisionPlanes.Count, 0, 4);
                 switch (order)
                 {
-                    // Case 0 should never really happen, but in either case this should mean we are only touching the plane we are snapping to (or aren't snapping to anything)
+                    // Case 0 should never really happen, but in either case this should mean we are only touching the plane we are snapping to
                     case 0:
-                    case 1:
                         return true;
-                    // Case 2 indicates that there is a single extra collision. so this is as simple as pushing away from it
+                    // Case 1 indicates that there is a single extra collision. In this case, a simple push may fix the intersection.
+                    // However, some border cases might push the target into a different wall, so we must do a second pass
+                    case 1:
+                        corrected = SolveSingle(position, normal, collisionPlanes);
+                        break;
+
+                    // Case 2 indicates that we are dealing with a wedge (snapping plane + two obstacles).
+                    // Both obstacle planes should have an intersection we can solve for
                     case 2:
-                        foreach (var overlap in overlaps)
-                        {
-                            Vector3 p = overlap.ClosestPoint(position);
-                            Vector3 dn = position - p;
-
-                            // Skip if distance is basically zero because that is the surface we are trying to snap to
-                            if (dn.sqrMagnitude < 0.0001f)
-                            {
-                                continue;
-                            }
-
-                            float dist = dn.magnitude; // Should be less than the margin distance by definition
-                            Vector3 tangent = Vector3.Cross(Vector3.Cross(normal, dn.normalized), normal).normalized; // Tangent to the snap plane and away from the collision point
-
-                            float angleCorrect = 1f / Vector3.Dot(dn.normalized, tangent); // Enlarge offset based on angle difference. Otherwise, the push would only work on 90deg corners, undershooting acute corners and obtuse ones.
-                            delta += tangent * (collisionMargin - dist) * angleCorrect; // Offset target point based by a distance such that collisionMargin is reached
-
-                            // We should be able to end early since only one obstacle needs to be adjusted
-                            break;
-                        }
-
-                        corrected = position + delta;
+                        corrected = SolveDouble(position, normal, collisionPlanes);
                         break;
-                    // Case 3 indicates that we are dealing with a wedge (snapping plane + two obstacles)
+
+                    // Case 3 indicates 3 or more overlaps, which would most likely indicate there won't be any valid solution
                     case 3:
-                        int offsetCount = 0;
-                        Vector3[] offsets = new Vector3[2];
-
-                        // Same idea as Case 2 except we gather two offsets
-                        foreach (var overlap in overlaps)
-                        {
-                            Vector3 p = overlap.ClosestPoint(position);
-                            Vector3 dn = position - p;
-
-                            // Skip if distance is basically zero because that is the surface we are trying to snap to
-                            if (dn.sqrMagnitude < 0.0001f)
-                            {
-                                continue;
-                            }
-
-                            float dist = dn.magnitude; // Should be less than the margin distance by definition
-                            Vector3 tangent = Vector3.Cross(Vector3.Cross(normal, dn.normalized), normal).normalized; // Tangent to the snap plane and away from the collision point
-
-                            float angleCorrect = 1f; // / Vector3.Dot(dn.normalized, tangent); // Enlarge offset based on angle difference. Otherwise, the push would only work on 90deg corners, undershooting acute corners and obtuse ones.
-                            offsets[offsetCount] = tangent * (collisionMargin - dist) * angleCorrect; // Offset target point based by a distance such that collisionMargin is reached
-
-                            ++offsetCount;
-                        }
-
-                        // Offsets in hand, we compute the proper delta
-                        // First, the "unit" delta produced from adding both offsets. This should be correct if the wedge angle is 90 deg
-                        Vector3 unitDelta = offsets[0] + offsets[1];
-
-                        // Second, the correction factor. This needs to be 1 at right angles, steer towards infinity at acute angles, and towards 0 at obtuse angles
-                        // TODO
-                        // Finally, output the correct offset
-                        corrected = position + unitDelta;
-                        break;
-                    // Case 4 indicates 3 or more overlaps, which would most likely indicate there won't be any valid solution
-                    case 4:
                         return false;
                 }
-
-                // Repeat for all overlapping colliders to accumulate offsets
-                // Should work in everyday corners but might be wonky in super tight spots where the overall available space is smaller than the margin
-                //foreach (var overlap in overlaps)
-                //{
-                //    Vector3 p = overlap.ClosestPoint(position);
-                //    Vector3 dn = position - p;
-
-                //    // Skip if distance is basically zero because that is the surface we are trying to snap to
-                //    if (dn.sqrMagnitude < 0.0001f)
-                //    {
-                //        continue;
-                //    }
-
-                //    float dist = dn.magnitude; // Should be less than the margin distance by definition
-                //    Vector3 tangent = Vector3.Cross(Vector3.Cross(normal, dn.normalized), normal).normalized; // Tangent to the snap plane and away from the collision point
-                    
-
-                //    if (delta.sqrMagnitude > 0)
-                //    {
-
-                //    }
-
-                //    float angleCorrect = 1f; // / Vector3.Dot(dn.normalized, tangent); // Enlarge offset based on angle difference. Otherwise, the push would only work on 90deg corners, undershooting acute corners and obtuse ones.
-                //    corrected += tangent * (collisionMargin - dist) * angleCorrect; // Offset target point based by a distance such that collisionMargin is reached
-                //}
-
-                // Apply offsets
-                //position += delta;
                 position = corrected;
             }
 
             return true;
         }
 
-       
-       public Vector3 CheckCollisionAndGetHitPoint(Vector3 startPos, Transform targetTransform, float raycastDistance = 10f)
-       {
+        Vector3 SolveSingle(Vector3 center, Vector3 normal, List<Plane> overlaps)
+        {
+            Plane surface = new Plane(normal, center);
+
+            // Solve for single plane first
+            Plane solution = overlaps[0]; // OverlapPlanes(center, normal, overlaps).First<Plane>();
+
+            // Naive Closest Point on Plane solution won't stay on surface plane of the wall isn't perpendicular
+            // Instead, we want to first project the solution plane normal onto the surface plane
+            // And then use that to intersect a ray
+            Vector3 deltaDir = Vector3.ProjectOnPlane(solution.normal, surface.normal).normalized;
+
+            Vector3 candidate;
+            // Intersection exists: use raycast data
+            if (solution.Raycast(new Ray(center, deltaDir), out float dist))
+            {
+                //Debug.Log(dist);
+                candidate = center + deltaDir * dist;
+            } else // No intersection, default to closest point (perpendicular)
+            {
+                candidate = solution.ClosestPointOnPlane(center);
+            }
+
+            // Do a secondary test to ensure we didn't wedge oursleves into a corner
+            var secondary = Physics.OverlapSphere(candidate, collisionMargin, collisionLayerMask);
+            // Filter again
+            FilterOverlaps(secondary, candidate, normal, collisionPlanes);
+
+            // An overlap now means the real solution rerquires both the inital wall, and the new collision to find the wedge solution
+            if (collisionPlanes != null && collisionPlanes.Count > 0) // "First" overlap should be our surface plane
+            {
+                Plane nextSolution = collisionPlanes[0];
+                candidate = SolveWedge(candidate, surface, solution, nextSolution);
+            }
+
+            return candidate;
+        }
+
+        Vector3 SolveDouble(Vector3 center, Vector3 normal, List<Plane> filtered)
+        {
+            Plane surface = new Plane(normal, center);
+            //var filtered = OverlapPlanes(center, normal, overlaps).GetEnumerator();
+            //filtered.MoveNext();
+            Plane plane0 = filtered[0]; //.Current;
+            //filtered.MoveNext();
+            Plane plane1 = filtered[1]; //.Current;
+
+            return SolveWedge(center, surface, plane0, plane1);
+        }
+
+        Vector3 SolveWedge(Vector3 center, Plane surface, Plane plane0, Plane plane1)
+        {
+            //Debug.Log($"surf {surface}\np0 {plane0}\np1 {plane1}");
+
+            // Find point on each plane
+            Vector3 p0 = plane0.ClosestPointOnPlane(center);
+            Vector3 p1 = plane1.ClosestPointOnPlane(center);
+
+            // Raw delta between points. This should give us a general "correction" direction to work with
+            Vector3 delta = p1 - p0;
+            // Project delta on plane0. This might not lie within plane1 if plane0 and plane1 are not perpendicular, so we need to solve properly
+            delta = Vector3.ProjectOnPlane(delta, plane0.normal).normalized;
+
+            // Intersect p1. This should be our first point on the intersection line
+            Vector3 o = plane1.ClosestPointOnPlane(p0); // default to perpendicular in case the raycast misses
+            if (plane1.Raycast(new Ray(p0, delta), out float dist))
+            {
+                o = p0 + delta * dist;
+            }
+
+            // Line direction is defined by crossing both plane normals
+            Vector3 l = Vector3.Cross(plane0.normal, plane1.normal).normalized;
+
+            // Raycast intersect this line with the surface plane and we are done
+            surface.Raycast(new Ray(o, l), out float lineDist);
+
+            return o + l * lineDist;
+        }
+
+        IEnumerable<Plane> OverlapPlanes(Vector3 position, Vector3 normal, Collider[] overlaps)
+        {
+            //foreach (var overlap in overlaps)
+            //{
+            //    Vector3 wallPoint = overlap.ClosestPoint(position);
+            //    float d = Vector3.Distance(wallPoint, position);
+            //    Debug.Log(d);
+            //}
+
+            int count = 0;
+            foreach (var overlap in overlaps)
+            {
+                // Skip MeshColliders since they error due to them not being compatible with Collider.ClosestPoint. Planes should use box colliders anyways.
+                if (overlap is MeshCollider)
+                {
+                    continue;
+                }
+
+                Vector3 wallPoint = overlap.ClosestPoint(position);
+                float d = Vector3.Distance(wallPoint, position);
+                Vector3 planeNormal = position - wallPoint;
+                planeNormal.Normalize();
+
+                //Debug.Log($"clsest: {wallPoint}");
+
+                // Skip if distance is basically zero because that is the surface we are trying to snap to
+                if (d <= 0.001f || planeNormal == normal)
+                {
+                    //Debug.Log($"Skip at element {count}/{overlaps.Length}");
+                    continue;
+                }
+
+                Vector3 planePoint = wallPoint + planeNormal * (collisionMargin + 0.001f);
+
+                Plane plane = new Plane(planeNormal, planePoint);
+
+                //Debug.LogWarning(plane);
+
+                yield return plane;
+                ++count;
+            }
+        }
+
+
+        public Vector3 CheckCollisionAndGetHitPoint(Vector3 startPos, Transform targetTransform, float raycastDistance = 10f)
+        {
             RaycastHit hit;
 
             // Raycast Up
@@ -481,7 +511,7 @@ namespace KVRL.HSS08.Testing
             // If no collision found, return null
             return Vector3.zero;
         }
-        
+
         /// <summary>
         /// Computes the marker's snap point on a surface by doing a raycast. If you only need the last snap point the marker snapped to, use LastSnapPoint.
         /// </summary>
@@ -491,7 +521,7 @@ namespace KVRL.HSS08.Testing
             RaycastHit hit;
             if (Physics.Raycast(transform.position, transform.forward, out hit, 3f, layerMask))
             {
-              return hit.point;
+                return hit.point;
             }
             return transform.position;
         }
