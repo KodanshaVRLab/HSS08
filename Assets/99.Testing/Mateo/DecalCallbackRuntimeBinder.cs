@@ -156,7 +156,9 @@ namespace KVRL.HSS08.Testing
 
                     if (sys.IsMainSystem)
                     {
-                        callbackWrapper.WhenSelect.AddListener(sys.TriggerInteraction);
+                        //callbackWrapper.WhenHover.AddListener(sys.TriggerHover);
+                        //callbackWrapper.WhenSelect.AddListener(sys.TriggerInteraction);
+                        sys.BindPointableWrapper(callbackWrapper);
                     } else if (verbose)
                     {
                         Debug.LogWarning($"Skipped binding Pointer Interaction System {sys.name} because it's not a Main System");
@@ -212,7 +214,9 @@ namespace KVRL.HSS08.Testing
 
                     if (sys.IsMainSystem)
                     {
-                        callbackWrapper.WhenSelect.RemoveListener(sys.TriggerInteraction);
+                        //callbackWrapper.WhenHover.RemoveListener(sys.TriggerHover);
+                        //callbackWrapper.WhenSelect.RemoveListener(sys.TriggerInteraction);
+                        sys.UnbindPointableWrapper(callbackWrapper);
                     }
                     else if (verbose)
                     {

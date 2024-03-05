@@ -36,6 +36,13 @@ namespace KVRL.HSS08.Testing
         private int poolIndex = 0;
         private bool capReached = false;
 
+        private HidableCursor[] cursors;
+
+
+        private void Awake()
+        {
+            cursors = FindObjectsByType<HidableCursor>(FindObjectsInactive.Include, FindObjectsSortMode.None);
+        }
 
         [Button]
         protected GameObject GetNext()
@@ -67,6 +74,17 @@ namespace KVRL.HSS08.Testing
             return next;
         }
 
+        public override void TriggerHover(PointerEvent evt)
+        {
+            if (cursors != null && cursors.Length > 0)
+            {
+                foreach (var cursor in cursors)
+                {
+                    cursor.SetActive(FilterEvent(evt.Data));
+                }
+            }
+        }
+
         public override void TriggerInteraction(PointerEvent evt)
         {
             PlaceObject(evt);
@@ -74,7 +92,7 @@ namespace KVRL.HSS08.Testing
 
         protected (GameObject, T) GetNextComponent<T>() where T : Component {
             var go = GetNext();
-            T comp = go.GetComponent<T>();
+            T comp = go != null ? go.GetComponent<T>() : null;
 
             return (go, comp);
         }
@@ -114,7 +132,7 @@ namespace KVRL.HSS08.Testing
         {
             if (data is InteractionData iData)
             {
-                return (iData.interactions & interactionFilter) != 0;
+                return ((iData.interactions & interactionFilter) != 0) && iData.allow;
             }
 
             return defaultInteractionFilter;

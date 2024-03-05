@@ -8,6 +8,7 @@ namespace KVRL.HSS08.Testing
     public class InteractionData : ScriptableObject
     {
         public ValidInteractions interactions = ValidInteractions.None;
+        public bool allow = true;
     }
 
     [System.Flags]

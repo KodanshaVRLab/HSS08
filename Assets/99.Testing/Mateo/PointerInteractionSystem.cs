@@ -55,6 +55,20 @@ namespace KVRL.HSS08.Testing
 
         }
 
+        public void BindPointableWrapper(PointableUnityEventWrapper wrap)
+        {
+            wrap.WhenHover.AddListener(TriggerHover);
+            wrap.WhenSelect.AddListener(TriggerInteraction);
+        }
+
+        public void UnbindPointableWrapper(PointableUnityEventWrapper wrap)
+        {
+            wrap.WhenHover.RemoveListener(TriggerHover);
+            wrap.WhenSelect.RemoveListener(TriggerInteraction);
+        }
+
+        public virtual void TriggerHover(PointerEvent evt) { }
+
         public abstract void TriggerInteraction(PointerEvent evt);
 
         protected abstract bool FilterEvent(object data);
