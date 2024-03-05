@@ -13,7 +13,8 @@ namespace KVRL.HSS08.Testing
         {
             if (proxyPrefab != null)
             {
-                Instantiate(proxyPrefab, transform, false);
+              var proxy=  Instantiate(proxyPrefab, transform, false);
+                proxy.name = transform.parent.name;
             }
         }
     }

@@ -146,19 +146,19 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: dd42f4b07a5ea064392be1ab013b8e40, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.714
+      value: -0.54
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: dd42f4b07a5ea064392be1ab013b8e40, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.69
+      value: 0.56
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: dd42f4b07a5ea064392be1ab013b8e40, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0
+      value: -0.33
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: dd42f4b07a5ea064392be1ab013b8e40, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.85527384
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: dd42f4b07a5ea064392be1ab013b8e40, type: 3}
       propertyPath: m_LocalRotation.x
@@ -166,7 +166,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: dd42f4b07a5ea064392be1ab013b8e40, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.5181764
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: dd42f4b07a5ea064392be1ab013b8e40, type: 3}
       propertyPath: m_LocalRotation.z
@@ -178,7 +178,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: dd42f4b07a5ea064392be1ab013b8e40, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 62.42
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: dd42f4b07a5ea064392be1ab013b8e40, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
@@ -278,14 +278,20 @@ MonoBehaviour:
   adjustPosition: 1
   debugSphere: {fileID: 8315891791955119723}
   target: {fileID: 0}
-  offest: 1
+  offest: 0.25
   startClimbingTarget: {x: 0, y: 0, z: 0}
-  rotationSpeedX: 0.75
-  movementSpeedX: 0.15
+  rotationSpeedX: 1.5
+  movementSpeedX: 1
   angleThreshold: 14
-  distanceThreshold: 0.65
+  distanceThreshold: 0.6
   isclimbing: 0
-  animationBlendSpeed: 1
+  animationBlendSpeed: 10
+  isinCorrectWall: 0
+  markers: []
+  wallsLayer:
+    serializedVersion: 2
+    m_Bits: 128
+  currentWall: {fileID: 0}
 --- !u!96 &7743980805598954135
 TrailRenderer:
   serializedVersion: 3

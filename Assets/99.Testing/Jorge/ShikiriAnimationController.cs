@@ -1,11 +1,12 @@
 using KVRL.HSS08.Testing;
+using KVRL.KVRLENGINE.Utilities;
 using Sirenix.OdinInspector;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class ShikiriAnimationController : MonoBehaviour
+public class ShikiriAnimationController : SingletonComponent<ShikiriAnimationController>
 {
     public Animator anim;
     public float maxSpeed = 0.05f;
@@ -34,6 +35,7 @@ public class ShikiriAnimationController : MonoBehaviour
 
     int currentMarkerIndex = 0;
 
+    public TMPro.TextMeshProUGUI debugLabel;
     // Start is called before the first frame update
     void Start()
     {
@@ -75,16 +77,16 @@ public class ShikiriAnimationController : MonoBehaviour
     public Transform currentWall;
 
     public float getCurrentFeetPosition()
-    {       
-            RaycastHit hit;
-            if (Physics.Raycast(transform.position + transform.up * 0.5f, -transform.up, out hit, 3f, wallsLayer))
-            {
-                return hit.point.y;
-            }
+    {
+        RaycastHit hit;
+        if (Physics.Raycast(transform.position + transform.up * 0.5f, -transform.up, out hit, 3f, wallsLayer))
+        {
+            return transform.InverseTransformPoint(hit.point).y;
+        }
 
         return transform.position.y;
-            
-        
+
+
     }
 
     public Vector3 getCurrentSurfaceNormal()
@@ -92,7 +94,7 @@ public class ShikiriAnimationController : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(transform.position + transform.up * 0.5f, -transform.up, out hit, 3f, wallsLayer))
         {
-            Debug.Log("current normal " + hit.normal);
+            
             return hit.normal;
         }
         return transform.up;
@@ -101,21 +103,42 @@ public class ShikiriAnimationController : MonoBehaviour
     public Transform getcurrentWall()
     {
         RaycastHit hit;
-        if (Physics.Raycast(transform.position+transform.up*0.5f, -transform.up, out hit, 3f, wallsLayer))
+        if (Physics.Raycast(transform.position + transform.up * 0.5f, -transform.up, out hit, 3f, wallsLayer))
         {
+            if(debugLabel)
+            debugLabel.text = hit.transform.name;
             return hit.transform;
         }
+        debugLabel.text = "no wall detected";
         return null;
     }
     private void OnEnable()
     {
-        var sceneMarkers = FindObjectsOfType<MarkerSnapToSurface>();
-        markers = sceneMarkers.OrderBy(obj => Vector3.Distance(obj.transform.position, transform.position)).ToList();
-        if (currentMarkerIndex < markers.Count)
+
+
+    }
+    public void addMarker(MarkerSnapToSurface m)
+    {
+        markers.Add(m);
+    }
+
+    [Button]
+    public void goToStartPosition()
+    {
+        if (currentMarkerIndex == 0 && currentMarkerIndex + 1 < markers.Count)
+        {
+            transform.position = markers[0].GetSnapPoint();
+            var dir = markers[1].GetSnapPoint() - transform.position;
+            dir.y = 0;
+            Quaternion targetRotation = Quaternion.LookRotation(dir, markers[0].GetSnapNormal());
+            transform.rotation = targetRotation;
+            currentMarkerIndex++;
             currentMarker = markers[currentMarkerIndex];
+             
+        }
     }
     [Button]
-    public void GoToStartPosition()
+    public void moveToNextMarker()
     {
         Debug.Log("Going to start point");
         if (!isTesting)
@@ -124,7 +147,8 @@ public class ShikiriAnimationController : MonoBehaviour
             {
                 target = currentMarker.transform;
                 isTesting = true;
-                startClimbingTarget =  currentMarker.CheckCollisionAndGetHitPoint(target.position - target.forward * offest,getcurrentWall(),100);
+                bool markerOnSameWall = getcurrentWall() == currentMarker.GetSnapTransform();
+                startClimbingTarget =markerOnSameWall? currentMarker.GetSnapPoint():   currentMarker.CheckCollisionAndGetHitPoint(target.position - target.forward * offest,getcurrentWall(),100);
 
                
                 anim.SetBool("isDancing", true);
@@ -135,12 +159,14 @@ public class ShikiriAnimationController : MonoBehaviour
         if (target)
         {
             Vector3 lookPos = target.position - transform.position;
-            if (transform.up == Vector3.up )
+            if (getcurrentWall()!=null &&
+               ( getcurrentWall().name.Contains("Floor")
+                || getcurrentWall().name.Contains("Ceiling")))
                 lookPos.y = 0; // This removes the vertical difference between the objects
             else
              lookPos.z = 0;
             Quaternion targetRotation = Quaternion.LookRotation(lookPos,getCurrentSurfaceNormal());
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * rotationSpeedX);
+             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * rotationSpeedX);
             var currentAngle = Quaternion.Angle(transform.rotation, targetRotation);
            
             
@@ -152,20 +178,31 @@ public class ShikiriAnimationController : MonoBehaviour
                 anim.SetBool("isWalking", true);
                 
                 
-                var nextpos = Vector3.Slerp(transform.position, startClimbingTarget, Time.deltaTime * movementSpeedX);
+                var nextpos = Vector3.Lerp(transform.position, startClimbingTarget, Time.deltaTime * movementSpeedX);
                
                 transform.position = nextpos;
                 var c = transform.localPosition;
-                c.y = getCurrentFeetPosition();
+                
 
                 transform.localPosition = c;
                 
                 var currentDist = Vector3.Distance(transform.position, startClimbingTarget);
-                Debug.Log(currentDist);
+                Debug.Log("current dist "+currentDist);
                 if (currentDist < distanceThreshold)
                 {
                     isTesting = false;
-                    isclimbing = true;
+                    if (getcurrentWall() == currentMarker.GetSnapTransform())
+                    {
+
+                        StartCoroutine(waitAndDance());
+                    }
+                    else
+                    {
+
+                        isclimbing = true;
+                    }
+
+                    
                 }
 
             }
@@ -184,21 +221,22 @@ public class ShikiriAnimationController : MonoBehaviour
         Debug.Log(currentDist);
         if (currentDist < distanceThreshold/2f)
         {
-            walkBlend = 0f;
-            anim.SetLayerWeight(1, walkBlend);
-            anim.SetBool("isWalking", false);
+            
             StartCoroutine(waitAndDance());
             isinCorrectWall = false;
         }
     }
     public IEnumerator waitAndDance()
     {
+        walkBlend = 0f;
+        anim.SetLayerWeight(1, walkBlend);
+        anim.SetBool("isWalking", false);
         anim.SetBool("isDancing", true);
         yield return new WaitForSeconds(5f);
-        currentMarkerIndex++;
+        currentMarkerIndex= (currentMarkerIndex+1)%markers.Count;
         if (currentMarkerIndex < markers.Count)
             currentMarker = markers[currentMarkerIndex];
-        GoToStartPosition();
+        moveToNextMarker();
 
     }
 
@@ -208,7 +246,7 @@ public class ShikiriAnimationController : MonoBehaviour
         currentWall= getcurrentWall();
         if (isTesting)
         {
-            GoToStartPosition();
+            moveToNextMarker();
             return;
         }
         else if (isinCorrectWall)
