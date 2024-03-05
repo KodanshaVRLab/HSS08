@@ -161,6 +161,10 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _TangentMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _TerminatorColorMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -241,7 +245,7 @@ Material:
     - _MVCOL: 0
     - _MaiColPo: 0.8
     - _MaxFadDistance: 2
-    - _MetaDepthOcclusionBias: 0
+    - _MetaDepthOcclusionBias: 2
     - _Metallic: 0
     - _MetallicStrength: 0
     - _MinFadDistance: 0
@@ -354,6 +358,7 @@ Material:
     - _UVSec: 0
     - _UseSecondaryCutout: 0
     - _UseTLB: 0
+    - _UseTangentMap: 0
     - _VertexColorBlueAffectOutlineWitdh: 0
     - _VertexColorGreenControlSelfShadowThreshold: 0
     - _VertexColorRedControlSmoothObjectNormal: 0
