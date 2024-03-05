@@ -17306,10 +17306,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: PF_MikaMarker
       objectReference: {fileID: 0}
-    - target: {fileID: 6071226767379322112, guid: 28245634d378b7e498fb581d81b9f17e, type: 3}
-      propertyPath: collisionLayerMask.m_Bits
-      value: 128
-      objectReference: {fileID: 0}
     - target: {fileID: 8150580785428098865, guid: 28245634d378b7e498fb581d81b9f17e, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.070201635

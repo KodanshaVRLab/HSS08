@@ -16,7 +16,7 @@ TagManager:
   - ENV
   - Enemy
   - Targets
-  - 
+  - ENV_Obstacle
   - ProjectedUI
   - Markers
   - 

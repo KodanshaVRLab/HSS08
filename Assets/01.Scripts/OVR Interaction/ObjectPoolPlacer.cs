@@ -91,7 +91,7 @@ namespace KVRL.HSS08.Testing
 
         public GameObject PlaceObject(Vector3 positionWR, Vector3 normalWR)
         {
-            var go = GetNext();
+            (GameObject go, Repositionable r) = GetNextComponent<Repositionable>();
 
             // Null GO means either we have a problem, or we simply reached the object cap
             if (go != null)
@@ -100,6 +100,11 @@ namespace KVRL.HSS08.Testing
                 Vector3 pos = positionWR + norm * surfaceBias;
 
                 PositionObject(go, pos, norm);
+
+                if (r != null)
+                {
+                    r.Reposition((pos, norm));
+                }
             }
 
             return go;
@@ -251,6 +256,11 @@ namespace KVRL.HSS08.Testing
 
     public abstract class Repositionable : MonoBehaviour
     {
-        public abstract void Reposition((Vector3, Vector3) posNorm);
+        public void Reposition((Vector3, Vector3) posNorm)
+        {
+            RepositionCheck(posNorm);
+        }
+
+        public abstract bool RepositionCheck((Vector3, Vector3) posNorm);
     }
 }

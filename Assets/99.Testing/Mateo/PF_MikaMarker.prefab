@@ -176,6 +176,10 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 128
+  collisionLayerMask:
+    serializedVersion: 2
+    m_Bits: 128
+  collisionMargin: 0.5
   snapMode: 0
 --- !u!114 &4343714824224453923
 MonoBehaviour:

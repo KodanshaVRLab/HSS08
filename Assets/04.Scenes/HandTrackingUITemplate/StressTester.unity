@@ -8981,103 +8981,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5928643853658687455, guid: eb70078851b5e3c4bb088be1a931404a, type: 3}
   m_PrefabInstance: {fileID: 458640695}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &468941427
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 468941429}
-  - component: {fileID: 468941428}
-  m_Layer: 0
-  m_Name: Stress Object Spawner
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &468941428
+--- !u!114 &468941428 stripped
 MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 8897858271214329730, guid: 7951d6e400b13574bbba733758814914, type: 3}
+  m_PrefabInstance: {fileID: 1906146002950150054}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 468941427}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d897b35edc494eb4985939f901b57d20, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnVolume:
-    m_Center: {x: 0, y: 0, z: 0}
-    m_Extent: {x: 4, y: 2, z: 4}
-  randomizeRotation: 1
-  templates:
-  - {fileID: 3872427120731136203, guid: eb70078851b5e3c4bb088be1a931404a, type: 3}
-  - {fileID: 919132149155446097, guid: 8a29b6a8717504d4597c1dd781a10a6f, type: 3}
-  - {fileID: 4504396985245325750, guid: ae172c0a9f1d6e34a93481a22deb0fd9, type: 3}
-  - {fileID: 919132149155446097, guid: fdece07ef46876a4d8925fe25faf64bf, type: 3}
-  stats:
-  - name: PF_Snowman
-    vertCount: 5022
-    triCount: 7296
-    meshRendererCount: 13
-    skinnedRendererCount: 0
-    sharedMaterials:
-    - {fileID: 2100000, guid: d35ce2a257c094a4c8aa59a1e94c9a78, type: 2}
-    - {fileID: 2100000, guid: 3e338f67dde450a42836389aa25ef9ca, type: 2}
-    - {fileID: 2100000, guid: 5967ae1c5e01a144586e38fda0509cdc, type: 2}
-    - {fileID: 2100000, guid: b37f1debf17af8a479cfcadb0811addd, type: 2}
-    - {fileID: 2100000, guid: f2d364c4e19c097438bff9b4c7449a13, type: 2}
-  - name: Catwalk Walking
-    vertCount: 18451
-    triCount: 29675
-    meshRendererCount: 2
-    skinnedRendererCount: 5
-    sharedMaterials:
-    - {fileID: -4140632024073836107, guid: 8a29b6a8717504d4597c1dd781a10a6f, type: 3}
-    - {fileID: -1438571001286087692, guid: 8a29b6a8717504d4597c1dd781a10a6f, type: 3}
-    - {fileID: -5446245439896332591, guid: 8a29b6a8717504d4597c1dd781a10a6f, type: 3}
-  - name: chMKS_Circus
-    vertCount: 39365
-    triCount: 54946
-    meshRendererCount: 2
-    skinnedRendererCount: 5
-    sharedMaterials:
-    - {fileID: 2100000, guid: e1c747c7f7469c4499511636304c9faa, type: 2}
-    - {fileID: 2100000, guid: 99c52740639c69848942910139f69f23, type: 2}
-    - {fileID: 2100000, guid: 2b4dcbf0d9ac24d47960215f06b8031e, type: 2}
-  - name: HSS08_Monster
-    vertCount: 3606
-    triCount: 3796
-    meshRendererCount: 1
-    skinnedRendererCount: 4
-    sharedMaterials:
-    - {fileID: 2100000, guid: 60029bb90aa90dd4ea7988d78548f89c, type: 2}
-  _totalStats:
-    name: TOTALS
-    vertCount: 0
-    triCount: 0
-    meshRendererCount: 0
-    skinnedRendererCount: 0
-    sharedMaterials: []
---- !u!4 &468941429
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 468941427}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: 6.5}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &469666888 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 11400010, guid: 126d619cf4daa52469682f85c1378b4a, type: 3}
@@ -33760,6 +33674,63 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: eb70078851b5e3c4bb088be1a931404a, type: 3}
+--- !u!1001 &1906146002950150054
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1282319633656062353, guid: 7951d6e400b13574bbba733758814914, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1282319633656062353, guid: 7951d6e400b13574bbba733758814914, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1282319633656062353, guid: 7951d6e400b13574bbba733758814914, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 6.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1282319633656062353, guid: 7951d6e400b13574bbba733758814914, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1282319633656062353, guid: 7951d6e400b13574bbba733758814914, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1282319633656062353, guid: 7951d6e400b13574bbba733758814914, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1282319633656062353, guid: 7951d6e400b13574bbba733758814914, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1282319633656062353, guid: 7951d6e400b13574bbba733758814914, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1282319633656062353, guid: 7951d6e400b13574bbba733758814914, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1282319633656062353, guid: 7951d6e400b13574bbba733758814914, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3156899029897467838, guid: 7951d6e400b13574bbba733758814914, type: 3}
+      propertyPath: m_Name
+      value: PF_Stress Object Spawner
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 7951d6e400b13574bbba733758814914, type: 3}
 --- !u!1001 &3848338025369610488
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -33900,7 +33871,7 @@ SceneRoots:
   - {fileID: 1456370543}
   - {fileID: 3848338025369610488}
   - {fileID: 93119756273266484}
-  - {fileID: 468941429}
+  - {fileID: 1906146002950150054}
   - {fileID: 760568316}
   - {fileID: 1618466104}
   - {fileID: 8281199608444730228}

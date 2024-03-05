@@ -991,6 +991,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6071226767379322112, guid: 28245634d378b7e498fb581d81b9f17e, type: 3}
+      propertyPath: debugVerbose
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8150580785428098865, guid: 28245634d378b7e498fb581d81b9f17e, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -7874,6 +7878,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6071226767379322112, guid: 28245634d378b7e498fb581d81b9f17e, type: 3}
+      propertyPath: debugVerbose
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8150580785428098865, guid: 28245634d378b7e498fb581d81b9f17e, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -8106,6 +8114,14 @@ PrefabInstance:
     - target: {fileID: 37078326373711829, guid: 28245634d378b7e498fb581d81b9f17e, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6071226767379322112, guid: 28245634d378b7e498fb581d81b9f17e, type: 3}
+      propertyPath: debugVerbose
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6071226767379322112, guid: 28245634d378b7e498fb581d81b9f17e, type: 3}
+      propertyPath: collisionLayerMask.m_Bits
+      value: 1152
       objectReference: {fileID: 0}
     - target: {fileID: 8150580785428098865, guid: 28245634d378b7e498fb581d81b9f17e, type: 3}
       propertyPath: m_LocalPosition.x
@@ -9001,6 +9017,10 @@ PrefabInstance:
     - target: {fileID: 37078326373711829, guid: 28245634d378b7e498fb581d81b9f17e, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6071226767379322112, guid: 28245634d378b7e498fb581d81b9f17e, type: 3}
+      propertyPath: debugVerbose
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8150580785428098865, guid: 28245634d378b7e498fb581d81b9f17e, type: 3}
       propertyPath: m_LocalPosition.x
@@ -10067,6 +10087,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6071226767379322112, guid: 28245634d378b7e498fb581d81b9f17e, type: 3}
+      propertyPath: debugVerbose
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8150580785428098865, guid: 28245634d378b7e498fb581d81b9f17e, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -10892,10 +10916,6 @@ PrefabInstance:
     - target: {fileID: 3798455647885596842, guid: 89304a09804203141aabd97e88c3c674, type: 3}
       propertyPath: m_Name
       value: PF_Test_VolumeInteractableProxy
-      objectReference: {fileID: 0}
-    - target: {fileID: 3798455647885596842, guid: 89304a09804203141aabd97e88c3c674, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8750084617428875700, guid: 89304a09804203141aabd97e88c3c674, type: 3}
       propertyPath: m_LocalPosition.x

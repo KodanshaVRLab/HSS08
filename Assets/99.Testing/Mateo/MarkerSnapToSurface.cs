@@ -15,9 +15,9 @@ namespace KVRL.HSS08.Testing
         [SerializeField] Rigidbody rb;
         [SerializeField] float surfaceBias = 0.3f;
         [SerializeField] Transform surfaceMarker = null;
-        [SerializeField] LayerMask layerMask;
+        [SerializeField, Tooltip("Layer mask for the reticle placement raycast.")] LayerMask layerMask;
 
-        public LayerMask collisionLayerMask;
+        [Tooltip("Layer mask for the margin collision detection.")] public LayerMask collisionLayerMask;
         [Min(0f)] public float collisionMargin = 0.5f;
 
         public enum SnapMode
@@ -28,13 +28,18 @@ namespace KVRL.HSS08.Testing
 
         [SerializeField] SnapMode snapMode = SnapMode.RaycastRaw;
 
+        [SerializeField] bool debugVerbose = false;
+
         private Vector3 cachedMarkerPos;
         private Quaternion cachedMarkerRot;
         private float cachedMarkerDistance = 0;
 
         private bool snapping = false;
+        private bool validFound = true;
         private Vector3 snapPoint = Vector3.zero;
         private Vector3 snapNormal = Vector3.zero;
+        private Vector3 lastValidPoint = Vector3.zero;
+        private Vector3 lastValidNormal = Vector3.zero;
 
         private List<Plane> collisionPlanes = new List<Plane>();
 
@@ -159,6 +164,7 @@ namespace KVRL.HSS08.Testing
         private void OnEnable()
         {
             BindCallbacks();
+            CacheSurfaceMarkerTransform();
         }
 
         // Update is called once per frame
@@ -166,14 +172,14 @@ namespace KVRL.HSS08.Testing
         {
             if (snapping)
             {
-                (snapPoint, snapNormal) = AdjustMarkerReticle(snapPoint, snapNormal);
+                (snapPoint, snapNormal) = AdjustMarkerReticle(snapPoint, snapNormal, out bool error);
+                validFound = !error;
             }
         }
 
         public void InteractionStarted()
         {
             //Debug.LogWarning("SNAPPLE");
-            CacheSurfaceMarkerTransform();
             snapping = true;
         }
 
@@ -181,7 +187,13 @@ namespace KVRL.HSS08.Testing
         {
             //Debug.LogWarning($"SNAPPN'T : {snapPoint}");
             //SnapToPoint(snapPoint);
-            StartCoroutine(DelayedSnap(snapPoint, snapNormal, 2));
+            if (validFound)
+            {
+                StartCoroutine(DelayedSnap(snapPoint, snapNormal, 2));
+            } else
+            {
+                StartCoroutine(DelayedSnap(lastValidPoint, lastValidNormal, 2));
+            }
             RestoreSurfaceMarkerTransform();
             snapping = false;
         }
@@ -240,9 +252,10 @@ namespace KVRL.HSS08.Testing
             }
         }
 
-        (Vector3, Vector3) AdjustMarkerReticle(Vector3 lastPoint, Vector3 lastNormal)
+        (Vector3, Vector3) AdjustMarkerReticle(Vector3 lastPoint, Vector3 lastNormal, out bool error)
         {
             (Vector3, Vector3) result = (lastPoint, lastNormal);
+            error = false;
 
             // check but using Raycasts cause those should actually not be broken unity code
             RaycastHit hit;
@@ -270,6 +283,8 @@ namespace KVRL.HSS08.Testing
             {
                 if (!ApplyMargins(ref result.Item1, result.Item2))
                 {
+                    result = (lastValidPoint, lastValidNormal);
+                    error = true;
                     Debug.LogError($"Ran into an issue when applying margins!", gameObject);
                 }
             }
@@ -281,16 +296,23 @@ namespace KVRL.HSS08.Testing
 
                 surfaceMarker.position = result.Item1 + result.Item2 * idealOffset;
                 surfaceMarker.LookAt(result.Item1, Vector3.up);
+                surfaceMarker.gameObject.SetActive(!error);
             }
 
             return result;
         }
 
-        public override void Reposition((Vector3, Vector3) posNorm)
+        public override bool RepositionCheck((Vector3, Vector3) posNorm)
         {
-            (Vector3 p, Vector3 n) = AdjustMarkerReticle(posNorm.Item1, posNorm.Item2);
+            (Vector3 p, Vector3 n) = AdjustMarkerReticle(posNorm.Item1, posNorm.Item2, out bool error);
+            if (error)
+            {
+                return false;
+            }
+
 
             SnapToPoint(p, n);
+            return true;
         }
 
         List<Plane> FilterOverlaps(Collider[] raw, Vector3 pos, Vector3 norm, List<Plane> filtered)
@@ -317,7 +339,12 @@ namespace KVRL.HSS08.Testing
                 Vector3 delta = Vector3.zero;
                 Vector3 corrected = position;
 
-                int order = Mathf.Clamp(collisionPlanes.Count, 0, 4);
+                if (debugVerbose)
+                {
+                    Debug.Log($"Overlap Count: {collisionPlanes.Count}");
+                }
+
+                int order = Mathf.Clamp(collisionPlanes.Count, 0, 3);
                 switch (order)
                 {
                     // Case 0 should never really happen, but in either case this should mean we are only touching the plane we are snapping to
@@ -467,7 +494,13 @@ namespace KVRL.HSS08.Testing
             }
         }
 
-
+        /// <summary>
+        /// Obsolete
+        /// </summary>
+        /// <param name="startPos"></param>
+        /// <param name="targetTransform"></param>
+        /// <param name="raycastDistance"></param>
+        /// <returns></returns>
         public Vector3 CheckCollisionAndGetHitPoint(Vector3 startPos, Transform targetTransform, float raycastDistance = 10f)
         {
             RaycastHit hit;
@@ -547,6 +580,14 @@ namespace KVRL.HSS08.Testing
             rb.position = target;
             transform.position = target;
             transform.LookAt(point, Vector3.up);
+
+            if (surfaceMarker != null)
+            {
+                surfaceMarker.gameObject.SetActive(true);
+            }
+
+            lastValidPoint = point;
+            lastValidNormal = normal;
         }
 
         void RestoreSurfaceMarkerTransform()
@@ -557,6 +598,17 @@ namespace KVRL.HSS08.Testing
                 surfaceMarker.localRotation = cachedMarkerRot;
             }
         }
+
+        [Sirenix.OdinInspector.Button]
+        void TryBindPlacementCallback()
+        {
+            var placer = GetComponentInParent<ObjectPoolPlacer>();
+            if (placer != null)
+            {
+                
+            }
+        }
+
 
         private void OnDrawGizmosSelected()
         {
