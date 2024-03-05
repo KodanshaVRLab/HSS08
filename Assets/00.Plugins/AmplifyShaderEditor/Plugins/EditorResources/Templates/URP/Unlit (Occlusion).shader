@@ -822,6 +822,7 @@ Shader /*ase_name*/ "Hidden/Universal/Unlit (Occlusion)" /*end*/
 				float Alpha = /*ase_frag_out:Alpha;Float;3;-1;_Alpha*/1/*end*/;
 				float AlphaClipThreshold = /*ase_frag_out:Alpha Clip Threshold;Float;4;-1;_AlphaClip*/0.5/*end*/;
 				float AlphaClipThresholdShadow = /*ase_frag_out:Alpha Clip Threshold Shadow;Float;7;-1;_AlphaClipShadow*/0.5/*end*/;
+				float occlusionBias = /*ase_frag_out:Occlusion Bias;float;9;-1*/_MetaDepthOcclusionBias/*end*/; 
 
 				#ifdef _ALPHATEST_ON
 					clip( Alpha - AlphaClipThreshold );
@@ -850,7 +851,9 @@ Shader /*ase_name*/ "Hidden/Universal/Unlit (Occlusion)" /*end*/
 				
 				// Meta Quest 3 Depth Occlusion
 				half4 finalFrag = half4(Color, Alpha);
-				META_DEPTH_OCCLUDE_OUTPUT_PREMULTIPLY_WORLDPOS(IN.positionWS, finalFrag, _MetaDepthOcclusionBias);
+
+
+				META_DEPTH_OCCLUDE_OUTPUT_PREMULTIPLY_WORLDPOS(IN.positionWS, finalFrag, occlusionBias);
 				return finalFrag;
 			}
 			ENDHLSL
