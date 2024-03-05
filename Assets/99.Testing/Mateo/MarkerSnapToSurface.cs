@@ -69,6 +69,17 @@ namespace KVRL.HSS08.Testing
 
 
         private static MarkerSnapToSurface[] AllMarkers;
+
+        public bool testShikiri = false;
+        /// <summary>
+        /// TODO Remove
+        /// add to the list of shikiris Markers upon creation
+        /// </summary>
+        private void Start()
+        {
+            if(testShikiri)
+            ShikiriAnimationController.Instance.addMarker(this);
+        }
         /// <summary>
         /// Returns a list of all active marker snappers in the scene
         /// </summary>
@@ -557,6 +568,34 @@ namespace KVRL.HSS08.Testing
                 return hit.point;
             }
             return transform.position;
+        }
+        /// <summary>
+        /// Computes which marker's surface the snap point is by doing a raycast. .
+        /// </summary>
+        /// <returns>The surface snap point, transform.</returns>
+
+        public Transform GetSnapTransform()
+        {
+            RaycastHit hit;
+            if (Physics.Raycast(transform.position, transform.forward, out hit, 3f, layerMask))
+            {
+                return hit.transform;
+            }
+            return null;
+        }
+        /// <summary>
+        /// Computes the marker's snap point surface normal by doing a raycast. If you only need the last snap point the marker snapped to, use LastSnapPoint.
+        /// </summary>
+        /// <returns>The surface hit Normal , or the marker's normal if the raycast fails.</returns>
+
+        public Vector3 GetSnapNormal()
+        {
+            RaycastHit hit;
+            if (Physics.Raycast(transform.position, transform.forward, out hit, 3f, layerMask))
+            {
+                return hit.normal;
+            }
+            return transform.forward;
         }
 
         IEnumerator DelayedSnap(Vector3 point, Vector3 normal, int delay)
