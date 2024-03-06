@@ -45,7 +45,7 @@ Material:
     m_Floats:
     - _Alpha: 1
     - _AlphaCutoff: 0.5
-    - _MetaDepthOcclusionBias: 3.46
+    - _MetaDepthOcclusionBias: 0.85
     - _QueueControl: 0
     - _QueueOffset: 0
     - _ReceiveShadows: 0

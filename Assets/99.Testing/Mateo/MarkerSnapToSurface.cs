@@ -296,7 +296,7 @@ namespace KVRL.HSS08.Testing
                 {
                     result = (lastValidPoint, lastValidNormal);
                     error = true;
-                    Debug.LogError($"Ran into an issue when applying margins!", gameObject);
+                    //Debug.LogError($"Ran into an issue when applying margins!", gameObject);
                 }
             }
 
