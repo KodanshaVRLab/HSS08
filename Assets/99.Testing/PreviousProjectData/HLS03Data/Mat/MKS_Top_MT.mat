@@ -232,7 +232,7 @@ Material:
     - _MVCOL: 0
     - _MaiColPo: 0.8
     - _MaxFadDistance: 2
-    - _MetaDepthOcclusionBias: 2
+    - _MetaDepthOcclusionBias: 0.5
     - _Metallic: 0
     - _MetallicStrength: 0
     - _MinFadDistance: 0
