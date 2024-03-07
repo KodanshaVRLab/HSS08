@@ -45,14 +45,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnVolume:
-    m_Center: {x: 0, y: 0, z: 0}
-    m_Extent: {x: 4, y: 2, z: 4}
-  randomizeRotation: 1
+    m_Center: {x: 0, y: 0, z: -1.5}
+    m_Extent: {x: 1.5, y: 1, z: 1.5}
+  randomizeRotation: 0
   templates:
   - {fileID: 3872427120731136203, guid: eb70078851b5e3c4bb088be1a931404a, type: 3}
   - {fileID: 919132149155446097, guid: 8a29b6a8717504d4597c1dd781a10a6f, type: 3}
   - {fileID: 4504396985245325750, guid: ae172c0a9f1d6e34a93481a22deb0fd9, type: 3}
+  - {fileID: 8378941529364048947, guid: 463e05714f0dafb43b34831e1cd85b66, type: 3}
   - {fileID: 919132149155446097, guid: fdece07ef46876a4d8925fe25faf64bf, type: 3}
+  - {fileID: 6092243499028586779, guid: d8e046c6aeb581746acf01ca43437023, type: 3}
+  - {fileID: 6092243499028586779, guid: 5eb93d94746ca5a4cb9d9aea4f3fc78f, type: 3}
+  - {fileID: 6092243499028586779, guid: 6583fd6e1923dd646b8cc9a49eb52bea, type: 3}
   stats:
   - name: PF_Snowman
     vertCount: 5022
@@ -66,7 +70,7 @@ MonoBehaviour:
     - {fileID: 2100000, guid: b37f1debf17af8a479cfcadb0811addd, type: 2}
     - {fileID: 2100000, guid: f2d364c4e19c097438bff9b4c7449a13, type: 2}
   - name: Catwalk Walking
-    vertCount: 18451
+    vertCount: 18450
     triCount: 29675
     meshRendererCount: 2
     skinnedRendererCount: 5
@@ -83,6 +87,13 @@ MonoBehaviour:
     - {fileID: 2100000, guid: e1c747c7f7469c4499511636304c9faa, type: 2}
     - {fileID: 2100000, guid: 99c52740639c69848942910139f69f23, type: 2}
     - {fileID: 2100000, guid: 2b4dcbf0d9ac24d47960215f06b8031e, type: 2}
+  - name: geo_chMKS_Jersey
+    vertCount: 19536
+    triCount: 30573
+    meshRendererCount: 2
+    skinnedRendererCount: 2
+    sharedMaterials:
+    - {fileID: 2100000, guid: d6e4f2433a5911040bf196c69928e3e5, type: 2}
   - name: HSS08_Monster
     vertCount: 3606
     triCount: 3796
@@ -90,6 +101,27 @@ MonoBehaviour:
     skinnedRendererCount: 4
     sharedMaterials:
     - {fileID: 2100000, guid: 60029bb90aa90dd4ea7988d78548f89c, type: 2}
+  - name: geo_Skybox_Tex1k
+    vertCount: 24
+    triCount: 12
+    meshRendererCount: 1
+    skinnedRendererCount: 0
+    sharedMaterials:
+    - {fileID: 2100000, guid: b23ecd2d83d4381449df4efeab6cdcf8, type: 2}
+  - name: geo_Skybox_Tex2k
+    vertCount: 24
+    triCount: 12
+    meshRendererCount: 1
+    skinnedRendererCount: 0
+    sharedMaterials:
+    - {fileID: 2100000, guid: ef0a3e29ba6a1054683002614c4dc012, type: 2}
+  - name: geo_Skybox_HDRI4k
+    vertCount: 24
+    triCount: 12
+    meshRendererCount: 1
+    skinnedRendererCount: 0
+    sharedMaterials:
+    - {fileID: 2100000, guid: 090848d736537e44292ceb4f84379b97, type: 2}
   _totalStats:
     name: TOTALS
     vertCount: 0
