@@ -13,9 +13,10 @@ Material:
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
   - _RECEIVE_SHADOWS_OFF
-  - _UVMODE_OBJECTPLANAR
+  - _UVMODE_WORLDGRID2
   m_InvalidKeywords:
   - _RECEIVESHADOWS_OFF
+  - _UVMODE_OBJECTPLANAR
   - _UVMODE_PLANAR
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -60,11 +61,12 @@ Material:
     - _FlipFuzz: 0.5
     - _GlobalControl: 0
     - _MetaDepthOcclusionBias: 3
+    - _Passthrough: 0
     - _QueueControl: 0
     - _QueueOffset: 0
     - _ReceiveShadows: 0
     - _Transition: 0
-    - _UVMode: 1
+    - _UVMode: 2
     - _fudge: 1.4
     m_Colors:
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}

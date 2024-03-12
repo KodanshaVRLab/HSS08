@@ -37,7 +37,7 @@ public class WorldGridTileGizmoDebug : MonoBehaviour
         return zTrans;
     }
 
-    Vector3 ProjectOnPlane(Vector3 flipDir, Vector3 scale)
+    Vector3 ProjectOnPlane(Vector3 flipDir, Vector3 scale, out float ratio)
     {
         Vector3 v = flipDir; //.ComponentDivide(scale);
         v.Scale(scale);
@@ -45,7 +45,11 @@ public class WorldGridTileGizmoDebug : MonoBehaviour
         //y = y.ComponentDivide(scale);
         y.Scale(scale);
 
-        Vector3 proj = Vector3.Cross(v, y).ComponentDivide(scale);
+        Vector3 proj = Vector3.Cross(v, y);
+
+        ratio = proj.magnitude / (v.magnitude * y.magnitude); // From ||A x B|| = ||A|| ||B|| sin(T)
+            
+        proj = proj.ComponentDivide(scale);
         //proj.Scale(scale);
         //proj.y = 0; //Standard projection: we just yeet the Y component
         return proj;
@@ -70,11 +74,11 @@ public class WorldGridTileGizmoDebug : MonoBehaviour
         Gizmos.DrawLine(Vector3.zero, Vector3.up);
 
         // Flip Direction Axis
-        Vector3 flipDir = BestAxisOS(matNoScale, Vector3.one);
+        Vector3 flipDir = BestAxisOS(matNoScale, Vector3.one); //.Abs();
         Gizmos.color = Color.blue;
         Gizmos.DrawLine(Vector3.zero, flipDir);
 
-        Vector3 proj = ProjectOnPlane(flipDir, objectScale);
+        Vector3 proj = ProjectOnPlane(flipDir, objectScale, out float r);//.Abs();
         Vector3 ext = ExtendProjection(flipDir, proj);
         // Extended FLip Direction
         Gizmos.color = Color.magenta;
@@ -82,6 +86,14 @@ public class WorldGridTileGizmoDebug : MonoBehaviour
         // Projected Flip Direction
         Gizmos.color = Color.red;
         Gizmos.DrawLine (Vector3.zero, proj);
+
+        // Axis Alignment
+        //Debug.Log(r, gameObject);
+        float t = Mathf.InverseLerp(0.8f, 1f, r);
+        Color color = Color.Lerp(Color.yellow, Color.cyan, t);
+        //color.a = r;
+        Gizmos.color = color;
+        Gizmos.DrawCube(Vector3.zero, Vector3.one * 0.3f);
 
     }
 
@@ -96,5 +108,10 @@ public static class Vector3Extension
     public static Vector3 ComponentDivide(this Vector3 num, Vector3 den)
     {
         return new Vector3(num.x / den.x, num.y / den.y, num.z / den.z);
+    }
+
+    public static Vector3 Abs(this Vector3 v)
+    {
+        return new Vector3(Mathf.Abs(v.x), Mathf.Abs(v.y), Mathf.Abs(v.z));
     }
 }
