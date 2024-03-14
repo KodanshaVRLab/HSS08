@@ -13,15 +13,16 @@ Material:
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
   - _RECEIVE_SHADOWS_OFF
-  - _UVMODE_WORLDGRID2
+  - _UVMODE_OBJECTGRID
   m_InvalidKeywords:
+  - _GLOBALCONTROL_ON
   - _RECEIVESHADOWS_OFF
   - _UVMODE_OBJECTPLANAR
   - _UVMODE_PLANAR
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
+  m_CustomRenderQueue: 1995
   stringTagMap: {}
   disabledShaderPasses: []
   m_LockedProperties: 
@@ -58,17 +59,17 @@ Material:
     - _Cull: 0
     - _DebugOut: 0
     - _FlipCount: 2
-    - _FlipFuzz: 0.5
-    - _GlobalControl: 0
-    - _MetaDepthOcclusionBias: 3
+    - _FlipFuzz: 0.31
+    - _GlobalControl: 1
+    - _MetaDepthOcclusionBias: 45
     - _Passthrough: 0
     - _QueueControl: 0
-    - _QueueOffset: 0
+    - _QueueOffset: -5
     - _ReceiveShadows: 0
-    - _Transition: 0.032
-    - _UVMode: 2
+    - _Transition: 0
+    - _UVMode: 3
     - _fudge: 1.4
     m_Colors:
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
-    - _GridSize: {r: 4, g: 10, b: 0, a: 0}
+    - _GridSize: {r: 10, g: 10, b: 0, a: 0}
   m_BuildTextureStacks: []
