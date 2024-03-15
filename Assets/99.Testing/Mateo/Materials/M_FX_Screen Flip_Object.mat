@@ -1,0 +1,77 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: M_FX_Screen Flip_Object
+  m_Shader: {fileID: 4800000, guid: 2c782c5592941e748a50ce7c1cab8639, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords:
+  - _RECEIVE_SHADOWS_OFF
+  - _WIPEMODE_CENTERVERTICAL
+  m_InvalidKeywords:
+  - _GLOBALCONTROL_ON
+  - _RECEIVESHADOWS_OFF
+  - _UVMODE_OBJECTGRID
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: 1995
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _SideA:
+        m_Texture: {fileID: 2800000, guid: 55aecea51198d4b49a8bc6ffe0400f13, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SideB:
+        m_Texture: {fileID: 2800000, guid: e4ee6d03e2924614a905dc5208c4821f, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _TestTexture:
+        m_Texture: {fileID: 2800000, guid: 55aecea51198d4b49a8bc6ffe0400f13, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_Lightmaps:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_LightmapsInd:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_ShadowMasks:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _AlphaCutoff: 0.5
+    - _Cull: 0
+    - _DebugOut: 0
+    - _FlipCount: 2
+    - _FlipFuzz: 0.31
+    - _GlobalControl: 1
+    - _MetaDepthOcclusionBias: 45
+    - _Passthrough: 0
+    - _QueueControl: 0
+    - _QueueOffset: -5
+    - _ReceiveShadows: 0
+    - _Transition: 0.317
+    - _UVMode: 3
+    - _VerticalWipeNoiseAmplitude: 0.1
+    - _WipeMode: 1
+    - _fudge: 1.4
+    m_Colors:
+    - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
+    - _GridSize: {r: 10, g: 10, b: 0, a: 0}
+    - _VerticalWipeRange: {r: -0.5, g: 1.5, b: 0, a: 0}
+  m_BuildTextureStacks: []

@@ -9,42 +9,11 @@ namespace KVRL.HSS08.Testing
     [ExecuteAlways]
     public class PanelTransitionManager : MonoBehaviour
     {
-        //static readonly string TRANSITION_PROP = "KVRL_PanelTransition";
-        //static int TRANSITION_ID = -1;
-        //static readonly string TRANSITION_SPHERE = "KVRL_TransitionSphere";
-        //static int SPHERE_ID = -1;
-        //static readonly string TRANSITION_FUZZ = "KVRL_TransitionFuzz";
-        //static int FUZZ_ID = -1;
-
         static ShaderPropertyID TRANSITION_PROP = new ShaderPropertyID("KVRL_PanelTransition");
         static ShaderPropertyID TRANSITION_SPHERE = new ShaderPropertyID("KVRL_TransitionSphere");
         static ShaderPropertyID TRANSITION_FUZZ = new ShaderPropertyID("KVRL_TransitionFuzz");
 
         static readonly string KEYWORD_PASSTHROUGH = "_KVRL_PASSTHROUGH_ON";
-
-        //static int TransitionId
-        //{
-        //    get
-        //    {
-        //        if (TRANSITION_ID == -1)
-        //        {
-        //            TRANSITION_ID = Shader.PropertyToID(TRANSITION_PROP);
-        //        }
-        //        return TRANSITION_ID;
-        //    }
-        //}
-
-        //static int SphereId
-        //{
-        //    get
-        //    {
-        //        if (SPHERE_ID == -1)
-        //        {
-        //            SPHERE_ID = Shader.PropertyToID(TRANSITION_SPHERE);
-        //        }
-        //        return SPHERE_ID;
-        //    }
-        //}
 
         public bool applyInEditor = true;
         [Range(0, 1)]
@@ -70,6 +39,9 @@ namespace KVRL.HSS08.Testing
         public float hold = 1f;
         public float period = 5f;
 
+
+        private Coroutine blendCoroutine = null;
+
         // Start is called before the first frame update
         void Start()
         {
@@ -81,9 +53,13 @@ namespace KVRL.HSS08.Testing
             if (Application.isPlaying)
             {
                 Shader.EnableKeyword(KEYWORD_PASSTHROUGH);
-            } else
+            }
+            else
             {
                 Shader.DisableKeyword(KEYWORD_PASSTHROUGH);
+                // Undo play mode changes on global properties
+                SetTransitionBlend(transitionBlend);
+                SetTransitionSphere(transitionCenter, transitionRadius, transitionFuzz);
             }
         }
 
@@ -108,6 +84,39 @@ namespace KVRL.HSS08.Testing
             /// Implement public state change call
             /// Implement event callbacks
             /// Set up demo scene with relevant callbacks (ie toggle passthrough off/on on Reach/LeaveStateOne
+            /// 
+
+            float targetVal = 1 - Mathf.Round(transitionBlend);
+            DoStateSwap(targetVal, duration);
+        }
+
+        public void SwapToPassthrough(float duration = 1f)
+        {
+            DoStateSwap(0f, duration);
+        }
+
+        public void SwapToVirtual(float duration = 1f)
+        {
+            DoStateSwap(1f, duration);
+        }
+
+        void DoStateSwap(float target, float duration = 1f)
+        {
+            if (blendCoroutine != null)
+            {
+                // Block any swaps if a blend is running
+                return;
+            }
+
+            // Fade over duration
+            if (duration > 0f)
+            {
+                blendCoroutine = StartCoroutine(FadeToState(target, duration));
+            }
+            else // Instant change
+            {
+                transitionBlend = target;
+            }
         }
 
         IEnumerator FadeToState(float target, float duration)
@@ -116,22 +125,34 @@ namespace KVRL.HSS08.Testing
             float endTime = startTime + duration;
             float from = transitionBlend;
 
+            if (onTransitionStart != null)
+            {
+                onTransitionStart.Invoke();
+            }
+
             while (Time.time < endTime)
             {
                 float t = Mathf.Clamp01(Mathf.InverseLerp(startTime, endTime, Time.time));
                 float val = Mathf.Lerp(from, target, t);
 
-                transitionBlend = t;
+                transitionBlend = val;
 
                 yield return null;
             }
 
             transitionBlend = target;
+
+            if (onTransitionEnd != null)
+            {
+                onTransitionEnd.Invoke();
+            }
+
+            blendCoroutine = null;
         }
 
         float TestWaveValue()
         {
-            float theta = Mathf.PI * 2f* Time.time / period;
+            float theta = Mathf.PI * 2f * Time.time / period;
             float rawWave = -Mathf.Cos(theta) * (1 + hold);
             float mappedWave = Mathf.InverseLerp(-1f, 1f, rawWave);
 
@@ -142,6 +163,23 @@ namespace KVRL.HSS08.Testing
         {
             if (f != lastBlend)
             {
+                if (lastBlend == 0 && f > lastBlend && onLeaveStateZero != null)
+                {
+                    onLeaveStateZero.Invoke();
+                }
+                else if (lastBlend == 1 && f < lastBlend && onLeaveStateOne != null)
+                {
+                    onLeaveStateOne.Invoke();
+                }
+                else if (f == 0 && onReachStateZero != null)
+                {
+                    onReachStateZero.Invoke();
+                }
+                else if (f == 1 && onReachStateOne != null)
+                {
+                    onReachStateOne.Invoke();
+                }
+
                 Shader.SetGlobalFloat(TRANSITION_PROP.Id, f);
 
                 lastBlend = f;
