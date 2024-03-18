@@ -19,6 +19,7 @@ namespace KVRL.HSS08.Testing
         [SerializeField] Button virtualButton;
 
         [SerializeField] Toggle autoToggle;
+        [SerializeField] Toggle cubemapToggle;
 
         float Duration
         {
@@ -53,6 +54,7 @@ namespace KVRL.HSS08.Testing
             if (autoToggle != null)
             {
                 autoToggle.onValueChanged.AddListener(OnToggleAuto);
+                autoToggle.Trigger();
             }
 
             if (swapButton != null)
@@ -68,6 +70,11 @@ namespace KVRL.HSS08.Testing
             if (virtualButton != null)
             {
                 virtualButton.onClick.AddListener(OnTriggerVirtual);
+            }
+
+            if (cubemapToggle != null)
+            {
+                cubemapToggle.Trigger();
             }
         }
 
