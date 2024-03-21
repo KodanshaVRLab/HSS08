@@ -76,14 +76,14 @@ public class Gun : MonoBehaviour
                     hitEnemy.onShoot();
                     if (Physics.Raycast(r, out hito, envLayerMask))
                     {
-                        CreateHole(hito.point, hito.normal, new Vector2(0.4f, 0.8f),-1f,true);
+                        CreateHole(hito.point, hito.normal, new Vector2(0.23f, 0.25f),-1f,true);
                     }
                 }  
               
             }
             else if(bulletHole)
             {
-                CreateHole(hito.point,hito.normal, new Vector2(0.2f, 0.4f) ,5f);
+                CreateHole(hito.point,hito.normal, new Vector2(0.23f, 0.25f) ,5f);
             }
 
 
